@@ -1,0 +1,30 @@
+        // modelo para ctrl+c ctrl+v, ja que o vcCode não ajuda com o auto complete na hora do extends
+        
+        
+        public function toSelect(){
+
+        }
+
+        public function toInsert(){
+
+        }
+
+        public function toUpdate(){
+
+        }
+
+        public function toDelete(){
+
+        }
+
+        public function where(){
+
+        }
+
+        public function orderBy(){
+
+        }
+
+        public function groupBy(){
+
+        }
