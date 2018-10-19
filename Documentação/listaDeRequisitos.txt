@@ -13,6 +13,6 @@ O sistema deve permitir ao administrador definir um valor limite para compra de 
 O sistema deve permitir que o usuário (administrador) acompanhe a progressão de ganhos da empresa (fluxo de caixa), por gestor e por investidor. [RNF005]
 Para aumentar a veracidade o sistema deve consultar os dados das ações em API de bolsa de valores. [RNF006]
 
-LISTA DE REQUISITOS (RF e RNF) - BRAINSTORMING
+LISTA DE REQUISITOS (RF e RNF) - BRAINSTORMING.
 
 
