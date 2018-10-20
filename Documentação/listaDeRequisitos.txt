@@ -12,6 +12,8 @@ O sistema deve permitir que o usuário (administrador) realize o cadastro de nov
 O sistema deve permitir ao administrador definir um valor limite para compra de investimentos (gestor), sendo sempre menor que o valor de dinheiro em caixa e definir a meta de rendimento mensal para cada gestor. [RF006]
 O sistema deve permitir que o usuário (administrador) acompanhe a progressão de ganhos da empresa (fluxo de caixa), por gestor e por investidor. [RNF005]
 Para aumentar a veracidade o sistema deve consultar os dados das ações em API de bolsa de valores. [RNF006]
+O sistema deve manter gráficos atualizados sobre a bolsa de valores. [RNF007]
+
 
 LISTA DE REQUISITOS (RF e RNF) - BRAINSTORMING.
 

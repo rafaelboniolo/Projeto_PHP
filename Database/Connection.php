@@ -4,7 +4,7 @@
     class Connection{
 
         include('Mysql.php');
-        include("Util.php")
+        include("Util.php");
 
         $mysql = new Mysql();
         $util = new Util();
