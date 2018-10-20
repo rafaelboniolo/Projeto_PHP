@@ -3,8 +3,8 @@
     // classe responsavel pelas operações no banco de forma dinâmica
     class Connection{
 
-        include('Mysql.php');
-        include("Util.php");
+        include('Mysql.php' );
+        include("Util.php" );
 
         $mysql = new Mysql();
         $util = new Util();
