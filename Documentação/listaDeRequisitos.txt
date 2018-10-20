@@ -2,7 +2,7 @@ LISTA DE REQUISITOS (RF e RNF)
 
 O sistema deve permitir ao usuário realizar depósitos e saques. [RF001]
 O sistema deve permitir opções de prazo mínimos para saque. [RF002]
-Caso o usuário saque antes do prazo cobrar uma taxa administrativa de 0,5%. [RNF001]
+gabriel: "Acho que esse é funcional" -> Caso o usuário saque antes do prazo cobrar uma taxa administrativa de 0,5%. [RNF001]
 O sistema deve permitir gerar relatórios de rendimentos para que o usuário (investidor) acompanhe os seus ganhos. [RNF002]
 O sistema deve permitir que o usuários (gestor de investimento) faça investimentos com o dinheiro depositado pelos investidores. [RF003]
 O sistema deve permitir que o usuário (gestor de investimentos) tenha acesso ao dashboard de ações.  [RF004]
@@ -11,7 +11,7 @@ O sistema deve permitir que o usuário (gestor de investimentos) acompanhe a pro
 O sistema deve permitir que o usuário (administrador) realize o cadastro de novos usuários (administrador, gestor e investidor). [RF005]
 O sistema deve permitir ao administrador definir um valor limite para compra de investimentos (gestor), sendo sempre menor que o valor de dinheiro em caixa e definir a meta de rendimento mensal para cada gestor. [RF006]
 O sistema deve permitir que o usuário (administrador) acompanhe a progressão de ganhos da empresa (fluxo de caixa), por gestor e por investidor. [RNF005]
-Para aumentar a veracidade o sistema deve consultar os dados das ações em API de bolsa de valores. [RNF006]
+Para aumentar a veracidade o sistema deve consultar os dados das ações em API de bolsa de valores. [RF007]
 
 LISTA DE REQUISITOS (RF e RNF) - BRAINSTORMING.
 
