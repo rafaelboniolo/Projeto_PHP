@@ -5,6 +5,8 @@
     // toda classe de Value Object deve extender a classe connection e fazer um adapter para o super (parent::)
     // desta forma o objeto ira fazer as operações em si proprio
     // falta popular o objeto com os dados do select e extrair os dados dele para o insert
+
+    //asasas
     class User extends Connection{
         
         private $id;
