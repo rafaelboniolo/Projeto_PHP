@@ -1,5 +1,4 @@
-// Atualização - novo repositório.
-LISTA DE REQUISITOS (RF e RNF) 
+﻿LISTA DE REQUISITOS (RF e RNF) 
 
 Funcionais:
 O sistema deve permitir ao usuário realizar depósitos e saques. [RF001]
@@ -23,7 +22,7 @@ O sistema deve ter desenvolvimento em linguagem de programa web PHP 7. [RNF003]
 O sistema deve rodar em um hardware com no minimo: processador i3, RAM de 4GB e memória de 500GB. [RNF004]
 Os relátorio não podem exceder o prazo de 5s para serem gerados. [RNF005]
 Deve ser possível realizar a atualização do sistema sem precisar pará-lo. [RNF006]
-
+O sistema deve possuir um layout amigável e responsivo. [RNF007]
 
 LISTA DE REQUISITOS (RF e RNF) - BRAINSTORMING.
 
