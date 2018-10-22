@@ -10,6 +10,26 @@ INFO: Toda classe Bean deve extender o Connection, ela não sobrescreve o super,
 INFO: Classes com joins, ou buscas no database nas quais não existem uma tabela propria, é necessario criar uma classe (fake table) e sobrescrever os metodos do Connection
 // qualquer coisa a gente conversa isso pessoalmente
 
+
+
+
+*********************************************
+DISCUTIR: gerar um codigo de rastreio e anexar ao json a ser consumido pelo Angular.
+
+EX:
+    json785489... 
+    na documentação o json785489 é equivalente a uma consulta de usuarios e esta atribuido na URL www.site.com.br/usuarios/find/3
+    seu parametro é o id de um usuario, se o parametro for vazio, ele busca todos
+
+
+
+
+    /// algo desse tipo
+*********************************************
+
+
+
+
 ** 1 finalizar o mecanismo de persistencia,modelar o Result da select para o bean. 
 Ex: $a = new Aluno;
 Ex: $a->setId(10);

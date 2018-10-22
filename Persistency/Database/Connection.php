@@ -1,14 +1,15 @@
 <?php
 
     // classe responsavel pelas operações no banco de forma dinâmica
+    
+    include("Util.php");
+    include("Mysql.php");
+
+    $mysql = new Mysql();
+    $util = new Util();
+
     class Connection{
-
-        include('Mysql.php' );
-        include("Util.php" );
-
-        $mysql = new Mysql();
-        $util = new Util();
-
+           
         private $where;
         private $orderBy;
         private $groupBy;
@@ -55,7 +56,7 @@
             
             $mysql->open();
             $mysql->query(
-                " delete from $table where $tableId = $id"
+                " delete * from $table where $tableId = $id"
             );
             $mysql->close();
         }
