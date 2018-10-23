@@ -9,7 +9,7 @@
     //asasas
 
 
-    require(realpath(dirname(__FILE__) ). "./Persistency/Database/Connection.php");
+    include(realpath(dirname(__FILE__) ). "./Persistency/Database/Connection.php");
 
     class User extends Connection{
         
@@ -85,7 +85,7 @@
 
 
         public function toSelect_(){
-            return parent::toSelect($this->getId(), $this);
+            return parent::toSelect(1, get_class($this));
         }
 
         public function toInsert_(){
@@ -105,5 +105,7 @@
     
     $user = new User;
 
-   $user->toSelect_();
+    $user->toSelect_();
+    
+    
 ?>

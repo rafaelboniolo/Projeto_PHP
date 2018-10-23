@@ -2,28 +2,31 @@
 
     // classe responsavel pelas operações no banco de forma dinâmica
     
-    require_once(realpath(dirname(__FILE__) )."/Util.php");
-    require_once(realpath(dirname(__FILE__) )."/Mysql.php");
+    include(realpath(dirname(__FILE__) )."\\Util.php");
+    include(realpath(dirname(__FILE__) )."\\Mysql.php");
 
-    $mysql = new Mysql;
-    $util = new Util;
-
-    class Connection {
-           
+    class Connection extends Mysql{
+    
+        
         private $where;
         private $orderBy;
         private $groupBy;
+        private $Util;
+
+        public function __construct(){
+            $this->Util = $this->getUtil();
+        }
     
         public function toSelect($id, $class){
             
-            $table = $util->classToTable($class);
-            $idTable = $util->classToIdTable($class);
+            $table = $Util::classToTable($class);
+            $idTable = $Util::classToIdTable($class);
             
-            $mysql->open();
-            $data =  $mysql->query(
+            parent::open();
+            $data =  parent::query(
                 " select * from $table where $idTable = $id $where $groupBy $orderBy "
             );
-            $mysql->close();
+            parent::close();
 
             return $data;
         
@@ -31,13 +34,13 @@
         
         public function toSelectAll($class){
             
-            $table = $util->classToTable($class);
+            $table = $Util::classToTable($class);
                        
-            $mysql->open();
-            $data =  $mysql->query(
+            parent::open();
+            $data =  parent::query(
                 " select * from $table where 1=1 $where $groupBy $orderBy "
             );
-            $mysql->close();
+            parent::close();
 
             return $data;
         }
@@ -45,34 +48,34 @@
 
         public function toInsert($class, $fields, $values){
             
-            $table = $util->classToTable($class);
+            $table = $Util::classToTable($class);
             
-            $mysql->open();
-            $mysql->query(
+            parent::open();
+            parent::query(
                 " insert into $table ($fields) values ($values) "
             );
-            $mysql->close();
+            parent::close();
         }
 
         public function toUpdate(){
-            $mysql->open();
-            $mysql->query(
+            parent::open();
+            parent::query(
                 ""
             );
-            $mysql->close();
+            parent::close();
         }
 
         public function toDelete($class, $id){
             
-            $table = $util->classToTable($class);
-            $idTable = $util->classToIdTable($class);
+            $table = $Util::classToTable($class);
+            $idTable = $Util::classToIdTable($class);
             
             
-            $mysql->open();
-            $mysql->query(
+            parent::open();
+            parent::query(
                 " delete * from $table where $classId = $id"
             );
-            $mysql->close();
+            parent::close();
         }
 
         public function where($where){
@@ -87,6 +90,10 @@
             $this->groupBy = $groupBy;
         }
 
+
+       public function getUtil(){
+            return new Util();
+        }
         
     }
 
