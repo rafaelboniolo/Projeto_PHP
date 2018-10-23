@@ -7,6 +7,10 @@
     // falta popular o objeto com os dados do select e extrair os dados dele para o insert
 
     //asasas
+
+
+    require(realpath(dirname(__FILE__) ). "./Persistency/Database/Connection.php");
+
     class User extends Connection{
         
         private $id;
@@ -80,11 +84,11 @@
         }
 
 
-        public function toSelect(){
+        public function toSelect_(){
             return parent::toSelect($this->getId(), $this);
         }
 
-        public function toInsert(){
+        public function toInsert_(){
             return parent::toInsert($this, "'nome','cpf', ", " 'rafael', 65464654");
         }
 
@@ -92,9 +96,14 @@
 
         }
 
-        public function toDelete(){
+        public function toDelete_(){
             return parent::toDelete($this->getId(), $this);
         }
 
     }
+
+    
+    $user = new User;
+
+   $user->toSelect_();
 ?>

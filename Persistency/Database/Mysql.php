@@ -12,6 +12,7 @@
 
         public function open(){
             $this->mysql = new mysqli($URL, $USER, $PASSWORD, $DATABASE);
+            return $this;
         }
 
         public function query($query){
@@ -20,6 +21,7 @@
 
         public function close(){
             $this->myslq->close();
+            return $this;
         }
 
     }

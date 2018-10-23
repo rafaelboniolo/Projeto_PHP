@@ -2,23 +2,22 @@
 
     // classe responsavel pelas operações no banco de forma dinâmica
     
-    include("Util.php");
-    include("Mysql.php");
+    require_once(realpath(dirname(__FILE__) )."/Util.php");
+    require_once(realpath(dirname(__FILE__) )."/Mysql.php");
 
-    $mysql = new Mysql();
-    $util = new Util();
+    $mysql = new Mysql;
+    $util = new Util;
 
-    class Connection{
+    class Connection {
            
         private $where;
         private $orderBy;
         private $groupBy;
-        
-        public function toSelect($id, $table){
+    
+        public function toSelect($id, $class){
             
-            $table = $util->classToTable($table);
-            $idTable = $util->classToIdTable($table);
-            
+            $table = $util->classToTable($class);
+            $idTable = $util->classToIdTable($class);
             
             $mysql->open();
             $data =  $mysql->query(
@@ -27,11 +26,26 @@
             $mysql->close();
 
             return $data;
+        
         }
-
-        public function toInsert($table, $fields, $values){
+        
+        public function toSelectAll($class){
             
-            $table = $util->classToTable($table);
+            $table = $util->classToTable($class);
+                       
+            $mysql->open();
+            $data =  $mysql->query(
+                " select * from $table where 1=1 $where $groupBy $orderBy "
+            );
+            $mysql->close();
+
+            return $data;
+        }
+        
+
+        public function toInsert($class, $fields, $values){
+            
+            $table = $util->classToTable($class);
             
             $mysql->open();
             $mysql->query(
@@ -48,15 +62,15 @@
             $mysql->close();
         }
 
-        public function toDelete($table, $id){
+        public function toDelete($class, $id){
             
-            $table = $util->classToTable($table);
-            $idTable = $util->classToIdTable($table);
+            $table = $util->classToTable($class);
+            $idTable = $util->classToIdTable($class);
             
             
             $mysql->open();
             $mysql->query(
-                " delete * from $table where $tableId = $id"
+                " delete * from $table where $classId = $id"
             );
             $mysql->close();
         }
