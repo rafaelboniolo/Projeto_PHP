@@ -14,27 +14,28 @@
         private $Util;
 
         public function __construct(){
-            $this->Util = $this->getUtil();
+            $this->Util = $this->returnUtil();
         }
     
-        public function toSelect($id, $class){
+        public function find_($class){
             
+            $id =$this->Util::extractId($class);
             $table = $this->Util::classToTable($class);
             $idTable = $this->Util::classToIdTable($class);
-            
-            
+        
             parent::open();
             $data =  parent::query(
-                " select * from $table where $idTable = $id  "
+                " select * from $table where $idTable = $id  $this->where $this->groupBy $this->orderBy "
             );
            
-            
-            
-            print_r($data);
+            parent::close();
+
+            $this->Util::popula($class ,$data->fetch_array());
         
         }
         
-        public function toSelectAll($class){
+        
+        public function findall_($class){
             
             $table = $this->Util::classToTable($class);
                        
@@ -48,18 +49,24 @@
         }
         
 
-        public function toInsert($class, $fields, $values){
+        public function insert_($class){
             
             $table = $this->Util::classToTable($class);
             
+            $fields = $this->Util::extractFields($class);
+
+            $values = $this->Util::collectValues($class);
+
             parent::open();
+            echo " insert into $table ($fields) values ($values); ";
             parent::query(
-                " insert into $table ($fields) values ($values) "
+                " insert into $table ($fields) values ($values); "
             );
             parent::close();
+
         }
 
-        public function toUpdate(){
+        public function update_(){
             parent::open();
             parent::query(
                 ""
@@ -67,15 +74,15 @@
             parent::close();
         }
 
-        public function toDelete($class, $id){
+        public function delete_($class){
             
+            $id =$this->Util::extractId($class);
             $table = $this->Util::classToTable($class);
             $idTable = $this->Util::classToIdTable($class);
             
-            
             parent::open();
             parent::query(
-                " delete * from $table where $classId = $id"
+                " delete from $table where $idTable = $id"
             );
             parent::close();
         }
@@ -93,7 +100,7 @@
         }
 
 
-       public function getUtil(){
+       public function returnUtil(){
             return new Util();
         }
         

@@ -84,21 +84,20 @@
         // }
 
 
-        public function toSelect_(){
-            $data = parent::toSelect($this->getId(), $this);
-            // $this->Util::popula();
+        public function find(){
+            parent::find_($this);
         }
 
-        public function toInsert_(){
-            return parent::toInsert($this, "'nome','cpf', ", " 'rafael', 65464654");
+        public function insert(){
+            parent::insert_($this);
         }
 
-        public function toUpdate(){
+        public function update(){
 
         }
 
-        public function toDelete_(){
-            return parent::toDelete($this->getId(), $this);
+        public function delete(){
+            return parent::delete_($this);
         }
 
     }
@@ -107,8 +106,15 @@
     $user = new User;
 
     $user->setId(2);
+    //$user->setNome("matheus");
 
-    $user->toSelect_();
-    
+   // $user->insert();
+
+    $user->find();
+    echo $user->getNome();
+
+    $user->delete();
+    echo $user->getNome();
+
    
 ?>
