@@ -15,11 +15,11 @@
         
         private $id;
         private $nome;
-        private $dataNascimento;
-        private $cpf;
-        private $rg;
-        private $login;
-        private $senha;
+        // private $dataNascimento;
+        // private $cpf;
+        // private $rg;
+        // private $login;
+        // private $senha;
 
         public function getId(){
             return $this->id;
@@ -38,54 +38,55 @@
             return $this;
         }
 
-        public function getDataNascimento(){
-            return $this->dataNascimento;
-        }
+        // public function getDataNascimento(){
+        //     return $this->dataNascimento;
+        // }
 
-        public function setDataNascimento($dataNascimento){
-            $this->dataNascimento = $dataNascimento;
-            return $this;
-        }
+        // public function setDataNascimento($dataNascimento){
+        //     $this->dataNascimento = $dataNascimento;
+        //     return $this;
+        // }
 
-        public function getCpf(){
-            return $this->cpf;
-        }
+        // public function getCpf(){
+        //     return $this->cpf;
+        // }
 
-        public function setCpf($cpf){
-            $this->cpf = $cpf;
-            return $this;
-        }
+        // public function setCpf($cpf){
+        //     $this->cpf = $cpf;
+        //     return $this;
+        // }
 
-        public function getRg(){
-            return $this->rg;
-        }
+        // public function getRg(){
+        //     return $this->rg;
+        // }
 
-        public function setRg($rg){
-            $this->rg = $rg;
-            return $this;
-        }
+        // public function setRg($rg){
+        //     $this->rg = $rg;
+        //     return $this;
+        // }
 
-        public function getLogin(){
-            return $this->login;
-        }
+        // public function getLogin(){
+        //     return $this->login;
+        // }
 
-        public function setLogin($login){
-            $this->login = $login;
-            return $this;
-        }
+        // public function setLogin($login){
+        //     $this->login = $login;
+        //     return $this;
+        // }
 
-        public function getSenha(){
-            return $this->senha;
-        }
+        // public function getSenha(){
+        //     return $this->senha;
+        // }
 
-        public function setSenha($senha){
-            $this->senha = $senha;
-            return $this;
-        }
+        // public function setSenha($senha){
+        //     $this->senha = $senha;
+        //     return $this;
+        // }
 
 
         public function toSelect_(){
-            return parent::toSelect(1, get_class($this));
+            $data = parent::toSelect($this->getId(), $this);
+            // $this->Util::popula();
         }
 
         public function toInsert_(){
@@ -105,7 +106,9 @@
     
     $user = new User;
 
+    $user->setId(2);
+
     $user->toSelect_();
     
-    
+   
 ?>

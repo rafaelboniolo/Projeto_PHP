@@ -8,9 +8,9 @@
     class Connection extends Mysql{
     
         
-        private $where;
-        private $orderBy;
-        private $groupBy;
+        private $where=' ';
+        private $orderBy=' ';
+        private $groupBy=' ';
         private $Util;
 
         public function __construct(){
@@ -19,26 +19,28 @@
     
         public function toSelect($id, $class){
             
-            $table = $Util::classToTable($class);
-            $idTable = $Util::classToIdTable($class);
+            $table = $this->Util::classToTable($class);
+            $idTable = $this->Util::classToIdTable($class);
+            
             
             parent::open();
             $data =  parent::query(
-                " select * from $table where $idTable = $id $where $groupBy $orderBy "
+                " select * from $table where $idTable = $id  "
             );
-            parent::close();
-
-            return $data;
+           
+            
+            
+            print_r($data);
         
         }
         
         public function toSelectAll($class){
             
-            $table = $Util::classToTable($class);
+            $table = $this->Util::classToTable($class);
                        
             parent::open();
             $data =  parent::query(
-                " select * from $table where 1=1 $where $groupBy $orderBy "
+                " select * from $table where 1=1 $this->where $this->groupBy $this->orderBy "
             );
             parent::close();
 
@@ -48,7 +50,7 @@
 
         public function toInsert($class, $fields, $values){
             
-            $table = $Util::classToTable($class);
+            $table = $this->Util::classToTable($class);
             
             parent::open();
             parent::query(
@@ -67,8 +69,8 @@
 
         public function toDelete($class, $id){
             
-            $table = $Util::classToTable($class);
-            $idTable = $Util::classToIdTable($class);
+            $table = $this->Util::classToTable($class);
+            $idTable = $this->Util::classToIdTable($class);
             
             
             parent::open();

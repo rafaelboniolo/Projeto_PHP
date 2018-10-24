@@ -26,18 +26,34 @@
             return $fields;
         }
 
-        public function invokeMethod($class){
+        private static function selectMethodsForClass($class){
+            $reflectionClass = new ReflectionClass(get_class($class));
+
             $methods = Array();
-            foreach (get_class_methods($class) as $key => $value) {
+
+            foreach ($reflectionClass->getMethods() as $key => $value) {
                 if (strpos($value, 'set') !== false) 
-                    array_push($methods, $value);
-            }
+                    $methods[$key] = $value;
+            } 
+        
             return $methods;
         }
 
-        public static function teste(){
-            echo "sss";
+        public static function popula($class, $data){
+            
+            $methods = Util::selectMethodsForClass($class);
+         
+            for ($i=0; $i < strlen($data); $i++) { 
+                $methods[$i]->invoke($class, $data[$i]);
+            }
         }
+
+        public function converte($reg){
+
+            return $data;
+        }
+
+        
     }
 
 ?>
