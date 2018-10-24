@@ -2,24 +2,17 @@
 
     // ***** MODELO DE USO DO MECANISMO DE PERSISTÊNCIA *****
 
-    // toda classe de Value Object deve extender a classe connection e fazer um adapter para o super (parent::)
-    // desta forma o objeto ira fazer as operações em si proprio
-    // falta popular o objeto com os dados do select e extrair os dados dele para o insert
-
-    //asasas
-
-
     include(realpath(dirname(__FILE__) ). "./Persistency/Database/Connection.php");
 
     class User extends Connection{
         
         private $id;
         private $nome;
-        // private $dataNascimento;
-        // private $cpf;
-        // private $rg;
-        // private $login;
-        // private $senha;
+        private $dataNascimento;
+        private $cpf;
+        private $rg;
+        private $login;
+        private $senha;
 
         public function getId(){
             return $this->id;
@@ -38,83 +31,82 @@
             return $this;
         }
 
-        // public function getDataNascimento(){
-        //     return $this->dataNascimento;
-        // }
+        public function getDataNascimento(){
+            return $this->dataNascimento;
+        }
 
-        // public function setDataNascimento($dataNascimento){
-        //     $this->dataNascimento = $dataNascimento;
-        //     return $this;
-        // }
+        public function setDataNascimento($dataNascimento){
+            $this->dataNascimento = $dataNascimento;
+            return $this;
+        }
 
-        // public function getCpf(){
-        //     return $this->cpf;
-        // }
+        public function getCpf(){
+            return $this->cpf;
+        }
 
-        // public function setCpf($cpf){
-        //     $this->cpf = $cpf;
-        //     return $this;
-        // }
+        public function setCpf($cpf){
+            $this->cpf = $cpf;
+            return $this;
+        }
 
-        // public function getRg(){
-        //     return $this->rg;
-        // }
+        public function getRg(){
+            return $this->rg;
+        }
 
-        // public function setRg($rg){
-        //     $this->rg = $rg;
-        //     return $this;
-        // }
+        public function setRg($rg){
+            $this->rg = $rg;
+            return $this;
+        }
 
-        // public function getLogin(){
-        //     return $this->login;
-        // }
+        public function getLogin(){
+            return $this->login;
+        }
 
-        // public function setLogin($login){
-        //     $this->login = $login;
-        //     return $this;
-        // }
+        public function setLogin($login){
+            $this->login = $login;
+            return $this;
+        }
 
-        // public function getSenha(){
-        //     return $this->senha;
-        // }
+        public function getSenha(){
+            return $this->senha;
+        }
 
-        // public function setSenha($senha){
-        //     $this->senha = $senha;
-        //     return $this;
-        // }
+        public function setSenha($senha){
+            $this->senha = $senha;
+            return $this;
+        }
 
 
         public function find(){
             parent::find_($this);
+            return $this;
         }
 
         public function insert(){
             parent::insert_($this);
+            return $this;
         }
 
         public function update(){
-
+            parent::update_($this);
+            return $this;
         }
 
         public function delete(){
-            return parent::delete_($this);
+            parent::delete_($this);
+            return $this;
         }
 
     }
 
+
     
     $user = new User;
 
-    $user->setId(2);
-    //$user->setNome("matheus");
+    //$user->setNome("Rafael")->setDataNascimento("21/04/1997")->setCpf("32132132")->setRg("54654654")->setLogin("admin")->setSenha("admin")->insert();
 
-   // $user->insert();
+    //$user->setId(3)->delete();
+    
 
-    $user->find();
-    echo $user->getNome();
 
-    $user->delete();
-    echo $user->getNome();
-
-   
 ?>

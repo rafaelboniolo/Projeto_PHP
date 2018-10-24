@@ -27,7 +27,6 @@
             $data =  parent::query(
                 " select * from $table where $idTable = $id  $this->where $this->groupBy $this->orderBy "
             );
-           
             parent::close();
 
             $this->Util::popula($class ,$data->fetch_array());
@@ -52,13 +51,10 @@
         public function insert_($class){
             
             $table = $this->Util::classToTable($class);
-            
             $fields = $this->Util::extractFields($class);
-
             $values = $this->Util::collectValues($class);
 
             parent::open();
-            echo " insert into $table ($fields) values ($values); ";
             parent::query(
                 " insert into $table ($fields) values ($values); "
             );

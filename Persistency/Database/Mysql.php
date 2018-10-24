@@ -6,7 +6,7 @@
         private $DATABASE='teste01';
         private $URL='localhost';
         private $USER='root';
-        private $PASSWORD='1234';
+        private $PASSWORD='utfprsh';
         
         private $mysql;
          
