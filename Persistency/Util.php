@@ -1,5 +1,12 @@
 <?php
+
+    //require_once(realpath(dirname(__FILE__) )."\\Database\\_config.txt");
+
     class Util{
+
+
+        public static function configMYSQL(){
+        }
 
         public static function classToTable($class){
             $class = get_class($class);

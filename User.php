@@ -2,7 +2,7 @@
 
     // ***** MODELO DE USO DO MECANISMO DE PERSISTÊNCIA *****
 
-    include(realpath(dirname(__FILE__) ). "./Persistency/Database/Connection.php");
+    include(realpath(dirname(__FILE__) ). "./Persistency/Connection.php");
 
     class User extends Connection{
         
