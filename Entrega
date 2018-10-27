@@ -1,0 +1,16 @@
+Tecnologias:
+    PHP 7
+    Banco de dados Mysql
+    Driver MYSQLi
+    Reflexão
+    Angular
+    PrimeNG
+    Bootstrap
+    EcmaScript 6 (ES6)
+
+Arquitetura:
+    Rest (Cliente - Servidor)
+    MVC
+
+A arquitetura MVC será montada no SERVER , porém a VIEW vai estar no CLIENT (Angular),
+ou seja, no SERVER vão estar os models e os controllers.

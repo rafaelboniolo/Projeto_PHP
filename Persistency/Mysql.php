@@ -10,7 +10,7 @@
         private $DATABASE='teste01';
         private $URL='localhost';
         private $USER='root';
-        private $PASSWORD='utfprsh';
+        private $PASSWORD='1234';
         
         /*
         private $URL;

@@ -24,6 +24,7 @@
             $idTable = $this->Util::classToIdTable($class);
         
             parent::open();
+            
             $data =  parent::query(
                 " select * from $table where $idTable = $id  $this->where $this->groupBy $this->orderBy "
             );
@@ -37,22 +38,24 @@
         public function findall_($class){
             
             $table = $this->Util::classToTable($class);
-                       
+            
             parent::open();
+            
             $data =  parent::query(
                 " select * from $table where 1=1 $this->where $this->groupBy $this->orderBy "
             );
             parent::close();
 
-            return $data;
+            return $this->Util::populaAll($class ,$data);
+        
         }
         
 
         public function insert_($class){
             
             $table = $this->Util::classToTable($class);
-            $fields = $this->Util::extractFields($class);
-            $values = $this->Util::collectValues($class);
+            $fields = $this->Util::extractFieldsMountStringInsert($class);
+            $values = $this->Util::collectValuesMountStringInsert($class);
 
             parent::open();
             parent::query(
@@ -62,12 +65,23 @@
 
         }
 
-        public function update_(){
+        public function update_($class){
+
+            $id =$this->Util::extractId($class);
+            $table = $this->Util::classToTable($class);
+            $idTable = $this->Util::classToIdTable($class);
+            
+            $set = Util::mountStringUpdate($class);
+
+
+            echo " update $table set $set where $idTable = $id ";
+
             parent::open();
             parent::query(
-                ""
+                " update $table set $set where $idTable = $id; "
             );
             parent::close();
+
         }
 
         public function delete_($class){
