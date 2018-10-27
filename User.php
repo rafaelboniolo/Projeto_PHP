@@ -77,6 +77,10 @@
         }
 
 
+        public function findall(){
+            return parent::findall_($this);
+        }
+
         public function find(){
             parent::find_($this);
             return $this;
@@ -103,10 +107,6 @@
     
     $user = new User;
 
-    //$user->setNome("Rafael")->setDataNascimento("21/04/1997")->setCpf("32132132")->setRg("54654654")->setLogin("admin")->setSenha("admin")->insert();
+    $user->setNome("sdgggg")->setDataNascimento("21/04/1997")->setCpf("32132132")->setRg("54654654")->setLogin("admisadfn")->setSenha("adminasdf")->insert();
 
-    //$user->setId(3)->delete();
-    
-
-
-?>
+   ?>
