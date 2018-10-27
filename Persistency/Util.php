@@ -6,6 +6,18 @@
 
 
         public static function configMYSQL(){
+            $pointer = fopen(realpath(dirname(__FILE__) )."\\Database\\_config.txt",'r'); // Obtém o ponteiro do arquivo _config.txt com permissão de leitura "r";
+            $configMysql = explode("\n",fread($pointer, 200));  // Faz a leitura do ponteiro obtido e realiza a conversão para array utilizando o limitador "\n";
+            $mysqlData = array();
+
+            foreach($configMysql as $value){
+                if(strchr($value,"DATABASE")){      // if utilizada para selecionar somente informações da configuração do banco, e evitar que "\n" gere alguma excessão no código;
+                    $data = explode("=",$value);    // Utilizado para obter o nome e o valor de cada configuração do banco;
+                    $mysqlData[str_replace("DATABASE.","",$data[0])] = $data[1]; // Utilizado somente para retirar o padrão DATABASE. de cada configuração
+                }
+            }
+
+            return($mysqlData);     // retorno do array associativo com as configurações do BD
         }
 
         public static function classToTable($class){
@@ -125,5 +137,4 @@
 
         
     }
-
 ?>
