@@ -1,6 +1,5 @@
 <?php
 
-    //require_once(realpath(dirname(__FILE__) )."\\Database\\_config.txt");
 
     class Util{
 
@@ -13,7 +12,7 @@
             foreach($configMysql as $value){
                 if(strchr($value,"DATABASE")){      // if utilizada para selecionar somente informações da configuração do banco, e evitar que "\n" gere alguma excessão no código;
                     $data = explode("=",$value);    // Utilizado para obter o nome e o valor de cada configuração do banco;
-                    $mysqlData[str_replace("DATABASE.","",$data[0])] = $data[1]; // Utilizado somente para retirar o padrão DATABASE. de cada configuração
+                    $mysqlData[str_replace("DATABASE.","",$data[0])] = trim($data[1]); // Utilizado somente para retirar o padrão DATABASE. de cada configuração
                 }
             }
 
