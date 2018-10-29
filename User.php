@@ -105,11 +105,12 @@
 
 
     
-    $user = new User;
+    $pessoa = new User;
 
-   // $user->setNome("sdgggg")->setDataNascimento("21/04/1997")->setCpf("32132132")->setRg("54654654")->setLogin("admisadfn")->setSenha("adminasdf")->insert();
+    $pessoa->setNome("sdgggg")->setDataNascimento("21/04/1997")->setCpf("32132132")->setRg("54654654")->setLogin("admisadfn")->setSenha("adminasdf")->insert();
 
-    $user->setId(3)->find()->getNome();
+    $pessoa->setId(3)->find();
 
+    $investidor.setId($pessoa->getIdInvestidor)->find();
 
    ?>
