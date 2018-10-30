@@ -26,7 +26,7 @@
             parent::open();
             
             $data =  parent::query(
-                " select * from $table where $idTable = $id  $this->where $this->groupBy $this->orderBy "
+                " select * from $table where $idTable = $id  $this->where $this->groupBy $this->orderBy ;"
             );
             parent::close();
 
@@ -34,7 +34,8 @@
         
         }
         
-        
+        //["data"] retorna a lista de objetos buscados
+        //["rows"] retorna o numero de linhas afetadas
         public function findall_($class){
             
             $table = $this->Util::classToTable($class);
@@ -42,11 +43,11 @@
             parent::open();
             
             $data =  parent::query(
-                " select * from $table where 1=1 $this->where $this->groupBy $this->orderBy "
+                " select * from $table where 1=1 $this->where $this->groupBy $this->orderBy ;"
             );
             parent::close();
 
-            return $this->Util::populaAll($class ,$data);
+            return Array('rows'=>$data->num_rows, 'data'=>$this->Util::populaAll($class ,$data));
         
         }
         
@@ -74,11 +75,9 @@
             $set = Util::mountStringUpdate($class);
 
 
-            echo " update $table set $set where $idTable = $id ";
-
             parent::open();
             parent::query(
-                " update $table set $set where $idTable = $id; "
+                " update $table set $set where $idTable = $id $this->where ; "
             );
             parent::close();
 
@@ -92,7 +91,7 @@
             
             parent::open();
             parent::query(
-                " delete from $table where $idTable = $id"
+                " delete from $table where $idTable = $id ;"
             );
             parent::close();
         }
