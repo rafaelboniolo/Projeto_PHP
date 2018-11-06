@@ -268,6 +268,35 @@
 
         }
 
+
+
+
+
+
+
+
+
+
+
+        public static function teste($clazz){
+
+            $class = new ReflectionClass(get_class($clazz));
+
+            $variable = $class->getProperties();
+
+
+            foreach ($variable as $key) {
+                
+                if(!$key->isPublic()){
+                    continue;
+                }
+                
+                echo($key->getName()).'-';
+            }
+            
+
+        }
+
         
     }
 ?>
