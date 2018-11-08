@@ -214,7 +214,7 @@ USE `utfundos`;
 -- CREATE DEFINER = CURRENT_USER TRIGGER `utfundos`.`atualiza_saldos` AFTER INSERT ON `tb_operacao` FOR EACH ROW
 -- BEGIN
 -- 	-- atualizar saldo do investidor
---     -- e do fundo de investimentos
+--     
 -- END$$
 
 

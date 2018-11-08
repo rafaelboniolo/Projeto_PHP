@@ -1,6 +1,7 @@
 <?php
 
-   require_once (realpath('../../Persistency/Connection.php' ));
+
+   require_once (realpath('Persistency/Connection.php'));
 
     class Pessoa extends Connection{
 
@@ -15,6 +16,15 @@
         private $login;
         private $senha;
         private $tipo;
+
+        public function getId_pessoa(){
+            return $this->id_pessoa;
+        }
+
+        public function setId_pessoa($id_pessoa){
+            $this->id_pessoa = $id_pessoa;
+            return $this;
+        }
 
         public function getNome(){
             return $this->nome;
@@ -97,10 +107,6 @@
             return $this;
         }
 
-
-
     }
     
-
-
 ?>

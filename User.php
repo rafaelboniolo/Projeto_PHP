@@ -2,118 +2,30 @@
 
     // ***** MODELO DE USO DO MECANISMO DE PERSISTÊNCIA *****
 
-    include(realpath(dirname(__FILE__) ). "./Persistency/Connection.php");
+   require_once (realpath(dirname(__FILE__) ). "\\Model\\vo\Pessoa.php");
+   require_once (realpath(dirname(__FILE__) ). "\\Model\\vo\Investidor.php");
+   
 
-    class User extends Connection{
-        
-        private $id;
-        private $nome;
-        private $dataNascimento;
-        private $cpf;
-        private $rg;
-        private $login;
-        private $senha;
+     $p1 = new Pessoa();
 
-        public function getId(){
-            return $this->id;
-        }
-
-        public function setId($id){
-            $this->id = $id;
-            return $this;
-        }
-        public function getNome(){
-            return $this->nome;
-        }
-
-        public function setNome($nome){
-            $this->nome = $nome;
-            return $this;
-        }
-
-        public function getDataNascimento(){
-            return $this->dataNascimento;
-        }
-
-        public function setDataNascimento($dataNascimento){
-            $this->dataNascimento = $dataNascimento;
-            return $this;
-        }
-
-        public function getCpf(){
-            return $this->cpf;
-        }
-
-        public function setCpf($cpf){
-            $this->cpf = $cpf;
-            return $this;
-        }
-
-        public function getRg(){
-            return $this->rg;
-        }
-
-        public function setRg($rg){
-            $this->rg = $rg;
-            return $this;
-        }
-
-        public function getLogin(){
-            return $this->login;
-        }
-
-        public function setLogin($login){
-            $this->login = $login;
-            return $this;
-        }
-
-        public function getSenha(){
-            return $this->senha;
-        }
-
-        public function setSenha($senha){
-            $this->senha = $senha;
-            return $this;
-        }
+    // $p1
+    //     ->setNome("Rafael Boniolo investidor")
+    //     ->setCpf("10326399976")
+    //     ->setRg("126718047")
+    //     ->setLogin("testeLogin")
+    //     ->setSenha("testeSenha")
+    //     ->setTipo(Pessoa::INV)
+    //     ->insert();
 
 
-        public function findall(){
-            return parent::findall_($this);
-        }
+    // $i1 = new Investidor();
 
-        public function find(){
-            parent::find_($this);
-            return $this;
-        }
+    // $i1->setId_pessoa($p1->getId_pessoa())->setSaldo("9762397.039")->insert();
 
-        public function insert(){
-            parent::insert_($this);
-            return $this;
-        }
+    $a = $p1->findall()["data"];
 
-        public function update(){
-            parent::update_($this);
-            return $this;
-        }
-
-        public function delete(){
-            parent::delete_($this);
-            return $this;
-        }
-
+    foreach ($a as $key) {
+        echo $key->getNome();
     }
-
-
-    
-    $pessoa = new User;
-
-    //$pessoa->setNome("sdgggg")->setDataNascimento("21/04/1997")->setCpf("32132132")->setRg("54654654")->setLogin("admisadfn")->setSenha("adminasdf")->insert();
-
-    $pessoa->setId(3)->find();
-
-
-    echo $pessoa->findall()["rows"];
-
-    //$investidor.setId($pessoa->getIdInvestidor)->find();
 
    ?>

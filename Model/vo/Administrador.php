@@ -1,6 +1,5 @@
 <?php
-
-   require_once (realpath('../../Persistency/Connection.php' ));
+require_once (realpath('Persistency/Connection.php'));
 
     class Investidor extends Connection{
         

@@ -57,13 +57,20 @@
             $table = $this->Util::classToTable($class);
             $fields = $this->Util::extractFieldsMountStringInsert($class);
             $values = $this->Util::collectValuesMountStringInsert($class);
-
+            $idTable = $this->Util::classToIdTable($class);
+            
             parent::open();
             parent::query(
                 " insert into $table ($fields) values ($values); "
             );
+
+            $data = parent::query(
+                " select max($idTable) as max_id from   $table; "
+            );
+
             parent::close();
 
+            $this->Util::setIdAfterInsert($class ,$data->fetch_array());
         }
 
         public function update_($class){

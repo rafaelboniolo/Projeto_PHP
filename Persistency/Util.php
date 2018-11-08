@@ -191,11 +191,9 @@
 
             $methods = Util::selectMethodsForClass($class, 'set');
             
-
-            $i = 0;
+            
             foreach ($methods as $method) {
-               $method->invoke($class, $data[$i]);
-                $i++;
+               $method->invoke($class, $data[strtolower(substr($method->name,3))]);
             }
 
         }
@@ -281,33 +279,32 @@
         }
 
 
-
-
-
-
-
-
-
-
-
-        public static function teste($clazz){
-
-            $class = new ReflectionClass(get_class($clazz));
-
-            $variable = $class->getProperties();
-
-
-            foreach ($variable as $key) {
-                
-                if(!$key->isPublic()){
-                    continue;
-                }
-                
-                echo($key->getName()).'-';
-            }
+        public function setIdAfterInsert($class, $data){
             
+            
+            if(!isset($class))
+                throw new Exception("Classe não informada Util::setIdAfterInsert", 1);
+                
+            if(!isset($data))
+            throw new Exception("Data não informado Util::setIdAfterInsert", 1);
 
+            $nameId = Util::classToIdTable($class, true);
+
+            $nameId =  'set'.$nameId;
+
+            $method = Util::selectMethodsForClass($class, $nameId);
+    
+            $method[1]->invoke($class, $data['max_id']);
+                
+           
         }
+
+
+
+
+
+
+
 
         
     }
