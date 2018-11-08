@@ -17,7 +17,7 @@
             $this->Util = $this->returnUtil();
         }
     
-        public function find_($class){
+        public function findById_($class){
             
             $id =$this->Util::extractId($class);
             $table = $this->Util::classToTable($class);
@@ -33,6 +33,30 @@
             $this->Util::popula($class ,$data->fetch_array());
         
         }
+
+        public function findByAtributes_($class){
+            
+            $table = $this->Util::classToTable($class);
+            $idTable = $this->Util::classToIdTable($class);
+            $stringFind = $this->Util::extractFieldsAndCollectValuesMountStringFind($class);
+
+            parent::open();
+
+            echo " select * from $table where 1=1 $stringFind  $this->where $this->groupBy $this->orderBy ;";
+            
+            $data =  parent::query(
+                " select * from $table where 1=1 $stringFind  $this->where $this->groupBy $this->orderBy ;"
+            );
+            parent::close();
+
+            if($data->num_rows == 1)
+                $this->Util::popula($class ,$data->fetch_array());
+            if($data->num_rows > 1)
+               return Array('rows'=>$data->num_rows, 'data'=>$this->Util::populaAll($class ,$data));
+        
+        }
+
+
         
         //["data"] retorna a lista de objetos buscados
         //["rows"] retorna o numero de linhas afetadas

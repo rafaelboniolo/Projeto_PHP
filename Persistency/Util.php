@@ -97,6 +97,33 @@
             return $values;
         }
 
+        public static function extractFieldsAndCollectValues($class){
+            if(!isset($class))
+                throw new Exception("Classe não informada Util::extractFields", 1);
+
+            $methods = Util::selectMethodsForClass($class, 'get');
+
+            $values = Array();
+            $fieldsAndValues = Array();
+
+            $nameId = Util::classToIdTable($class);
+
+            foreach ($methods as $method) {
+                if ( strpos(strtolower($method), $nameId) !== false)
+                    continue; 
+                
+                $result = $method->invoke($class);
+
+                if($result!=''){
+                    $fieldsAndValues[strtolower(substr($method->name,3))] = $result;
+                } 
+
+            }
+
+            return $fieldsAndValues;
+        }
+
+
         // adapter
         public static function extractFieldsMountStringInsert($class){
             $fields = Util::extractFields($class);
@@ -107,7 +134,13 @@
         public static function collectValuesMountStringInsert($class){
             $values = Util::collectValues($class);
             return Util::mountStringInsert($class, $values, 'value');
-        }        
+        }
+        
+        public static function extractFieldsAndCollectValuesMountStringFind($class){
+            $fieldsAndValues = Util::extractFieldsAndCollectValues($class);
+            return Util::mountStringFind($fieldsAndValues);
+        }
+        
 
         // com base no tipo(field, value), monta o array para insert
         public static function mountStringInsert($class ,$array, $type){
@@ -153,6 +186,23 @@
 
             return $string;
 
+        }
+
+        public function mountStringFind($fieldsAndValues){
+            
+            if(!isset($fieldsAndValues))
+                throw new Exception("fieldsAndValues não informado Util::mountStringFind", 1);
+
+             
+
+            $string="";
+
+            
+            foreach ($fieldsAndValues as $key => $value) {
+                $string.= " and $key = $value ";
+            }
+
+            return  $string;
         }
 
         // pega todos os metodos da $class via reflexão, o type pode ser metodos de get, set, ou ambos

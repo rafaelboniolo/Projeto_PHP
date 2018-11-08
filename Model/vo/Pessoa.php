@@ -87,10 +87,15 @@
             return parent::findall_($this);
         }
 
-        public function find(){
-            parent::find_($this);
+        public function findById(){
+            parent::findById_($this);
             return $this;
         }
+        public function findByAtributes(){
+            parent::findByAtributes_($this);
+            return $this;
+        }
+        
 
         public function insert(){
             parent::insert_($this);
