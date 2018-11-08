@@ -3,15 +3,18 @@
    require_once (realpath('../../Persistency/Connection.php' ));
 
     class Pessoa extends Connection{
-        
+
+        const ADM = 'ADM';
+        const INV = 'INV';
+        const GES = 'GES';
+
+        private $id_pessoa;
         private $nome;
         private $cpf;
         private $rg;
         private $login;
         private $senha;
         private $tipo;
-
-
 
         public function getNome(){
             return $this->nome;

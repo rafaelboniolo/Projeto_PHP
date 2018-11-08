@@ -4,8 +4,19 @@
 
     class Investidor extends Connection{
         
+
+        private $id_administrador;
         private $id_pessoa;
         
+        public function getId_administrador(){
+            return $this->id_administrador;
+        }
+
+        public function setId_administrador($id_administrador){
+            $this->id_administrador = $id_administrador;
+            return $this;
+        }
+
         public function getId_pessoa(){
             return $this->id_pessoa;
         }

@@ -31,18 +31,25 @@
         }
 
         // converte o nome de uma classe para o id da tabela
-        public static function classToIdTable($class){
+        public static function classToIdTable($class, $isUpper = false){
             
             if(!isset($class))
                 throw new Exception("Classe não informada Util::classToIdTable", 1);
                 
             $class = get_class($class);
+
+            if($isUpper)
+                return 'Id_'.strtolower($class);
             return 'id_'.strtolower($class);
+
         }
 
         // extrai os atributos para persistencia da classe
         // atraves da reflexão, encontrar os metodos de get e extrai o nome dos atributos de lá
         public static function extractFields($class){
+
+
+            $nameId = Util::classToIdTable($class);
 
             if(!isset($class))
                 throw new Exception("Classe não informada Util::extractFields", 1);
@@ -50,7 +57,7 @@
 
             $fields = Array();
             foreach (get_class_methods($class) as $key => $value) {
-                if (strpos($value, 'get') !== false && strpos(strtolower($value), 'id') === false) 
+                if (strpos($value, 'get') !== false && strpos(strtolower($value), $nameId) === false) 
                     array_push($fields, strtolower(substr($value,3)));
             } 
 
@@ -72,8 +79,10 @@
 
             $values = Array();
 
+            $nameId = Util::classToIdTable($class);
+
             foreach ($methods as $method) {
-                if ( strpos(strtolower($method), 'id') !== false)
+                if ( strpos(strtolower($method), $nameId) !== false)
                     continue; 
                 $result = $method->invoke($class);
 
@@ -181,6 +190,7 @@
 
 
             $methods = Util::selectMethodsForClass($class, 'set');
+            
 
             $i = 0;
             foreach ($methods as $method) {
@@ -221,9 +231,11 @@
 
 
             $id = '';
+            $nameId = Util::classToIdTable($class);
+
 
             foreach ($reflectionClass->getMethods() as $key => $value) {
-                if (strpos($value, 'get') !== false && strpos(strtolower($value), "id") !== false) 
+                if (strpos($value, 'get') !== false && strpos(strtolower($value), $nameId) !== false) 
                     $method = $value;
             } 
             if(!isset($method))

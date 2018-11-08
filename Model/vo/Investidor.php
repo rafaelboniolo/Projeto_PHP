@@ -4,9 +4,19 @@
 
     class Investidor extends Connection{
         
+        private $id_investidor;
         private $id_pessoa;
         private $saldo;
 
+
+        public function getId_investidor(){
+            return $this->id_investidor;
+        }
+
+        public function setId_investidor($id_investidor){
+            $this->id_investidor = $id_investidor;
+            return $this;
+        }
 
         public function getId_pessoa(){
             return $this->id_pessoa;
@@ -52,7 +62,6 @@
             parent::delete_($this);
             return $this;
         }
-
 
 
     }
