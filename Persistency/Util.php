@@ -163,9 +163,9 @@
                 for ($i=0; $i < count($array); $i++) { 
                     $str = $array[$i];
                     if($i != count($array)-1)
-                        $str = "\"".$str."\",";
+                        $str = "\"$str\",";
                     else
-                        $str = "\"".$str."\"";
+                        $str = "\"$str\"";
                     
                     $string .= $str;
                 
@@ -184,12 +184,12 @@
             }else if($type == "find"){
               
                 foreach ($array as $field => $value) {
-                    $string.= " and $field = $value ";
+                    $string.= " and $field = \"$value\" ";
                 }
 
             }else if($type == "update"){
                 foreach ($array as $field => $value){ 
-                    $string .= $field." = \"".$value."\",  ";
+                    $string .= $field." = \"$value\",  ";
                 }
 
                 $string = substr($string, 0, strlen($string)-3);

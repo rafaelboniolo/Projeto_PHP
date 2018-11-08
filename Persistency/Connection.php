@@ -38,22 +38,24 @@
             
             $table = $this->Util::classToTable($class);
             $idTable = $this->Util::classToIdTable($class);
-            $stringFind = $this->Util::extractFieldsAndCollectValuesMountStringFind($class);
+            $stringFind = $this->Util::collectFieldsAndCollectValuesMountStringFind($class);
 
             parent::open();
 
-            echo " select * from $table where 1=1 $stringFind  $this->where $this->groupBy $this->orderBy ;";
-            
             $data =  parent::query(
                 " select * from $table where 1=1 $stringFind  $this->where $this->groupBy $this->orderBy ;"
             );
             parent::close();
 
-            if($data->num_rows == 1)
+            if($data->num_rows == 1){
                 $this->Util::popula($class ,$data->fetch_array());
+                return Array('rows'=>$data->num_rows, 'data'=>$class);
+            }
             if($data->num_rows > 1)
                return Array('rows'=>$data->num_rows, 'data'=>$this->Util::populaAll($class ,$data));
         
+            return Array('rows'=>$data->num_rows, 'data'=>'empty');
+
         }
 
 

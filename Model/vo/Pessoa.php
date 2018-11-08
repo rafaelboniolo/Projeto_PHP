@@ -92,8 +92,7 @@
             return $this;
         }
         public function findByAtributes(){
-            parent::findByAtributes_($this);
-            return $this;
+            return parent::findByAtributes_($this);
         }
         
 

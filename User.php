@@ -17,9 +17,7 @@
     //     ->setTipo(Pessoa::INV)
     //     ->insert();
 
-    $p1->setId_pessoa(1)->setNome("a")->update();
-
-    //     echo $p1->getId_pessoa();
+    echo $p1->setId_pessoa(1)->setNome("a")->findByAtributes()['data']->getTipo();
 
     // $i1 = new Investidor();
 
