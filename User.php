@@ -8,16 +8,18 @@
 
      $p1 = new Pessoa();
 
-    $p1
-        ->setNome("Rafael Boniolo investidor")
-        ->setCpf("10326399976aa")
-        ->setRg("126718047")
-        ->setLogin("testeLogin")
-        ->setSenha("testeSenha")
-        ->setTipo(Pessoa::INV)
-        ->findByAtributes();
+    // $p1
+    //     ->setNome("Rafael Boniolo investidor")
+    //     ->setCpf("10326399976aa")
+    //     ->setRg("126718047")
+    //     ->setLogin("testeLogin")
+    //     ->setSenha("testeSenha")
+    //     ->setTipo(Pessoa::INV)
+    //     ->insert();
 
-        echo $p1->getId_pessoa();
+    $p1->setId_pessoa(1)->setNome("a")->update();
+
+    //     echo $p1->getId_pessoa();
 
     // $i1 = new Investidor();
 

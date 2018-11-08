@@ -46,13 +46,12 @@
 
         // extrai os atributos para persistencia da classe
         // atraves da reflexão, encontrar os metodos de get e extrai o nome dos atributos de lá
-        public static function extractFields($class){
-
+        public static function collectFields($class){
 
             $nameId = Util::classToIdTable($class);
 
             if(!isset($class))
-                throw new Exception("Classe não informada Util::extractFields", 1);
+                throw new Exception("Classe não informada Util::collectFields", 1);
                 
 
             $fields = Array();
@@ -62,7 +61,7 @@
             } 
 
             if(!isset($fields))
-                throw new Exception("Classe não possui metodos de get ou atributos Util::extractFields", 1);
+                throw new Exception("Classe não possui metodos de get ou atributos Util::collectFields", 1);
                 
 
             return $fields;
@@ -73,7 +72,7 @@
         public static function collectValues($class){
 
             if(!isset($class))
-                throw new Exception("Classe não informada Util::extractFields", 1);
+                throw new Exception("Classe não informada Util::collectFields", 1);
 
             $methods = Util::selectMethodsForClass($class, 'get');
 
@@ -97,9 +96,10 @@
             return $values;
         }
 
-        public static function extractFieldsAndCollectValues($class){
+        
+        public static function collectFieldsAndCollectValues($class){
             if(!isset($class))
-                throw new Exception("Classe não informada Util::extractFields", 1);
+                throw new Exception("Classe não informada Util::collectFields", 1);
 
             $methods = Util::selectMethodsForClass($class, 'get');
 
@@ -125,42 +125,41 @@
 
 
         // adapter
-        public static function extractFieldsMountStringInsert($class){
-            $fields = Util::extractFields($class);
-            return Util::mountStringInsert($class, $fields, 'field');
+        public static function collectFieldsMountStringInsert($class){
+            $fields = Util::collectFields($class);
+            return Util::mountStringSQL($fields, 'insertField');
         }
 
         //adapter
         public static function collectValuesMountStringInsert($class){
             $values = Util::collectValues($class);
-            return Util::mountStringInsert($class, $values, 'value');
+            return Util::mountStringSQL($values, 'insertValue');
         }
         
-        public static function extractFieldsAndCollectValuesMountStringFind($class){
-            $fieldsAndValues = Util::extractFieldsAndCollectValues($class);
-            return Util::mountStringFind($fieldsAndValues);
+        public static function collectFieldsAndCollectValuesMountStringFind($class){
+            $fieldsAndValues = Util::collectFieldsAndCollectValues($class);
+            return Util::mountStringSQL($fieldsAndValues,"find");
+        }
+        public static function collectFieldsAndCollectValuesMountStringUpdate($class){
+            $fieldsAndValues = Util::collectFieldsAndCollectValues($class);
+            return Util::mountStringSQL($fieldsAndValues,"update");
         }
         
+        
 
-        // com base no tipo(field, value), monta o array para insert
-        public static function mountStringInsert($class ,$array, $type){
-
-            
-            if(!isset($class))
-                throw new Exception("Classe não informada Util::mountStringInsert", 1);
-
-                
+        public static function mountStringSQL($array, $type){
+           
             if(!isset($array))
-                throw new Exception("O array não foi informado Util::mountStringInsert", 1);
+                throw new Exception("O array não foi informado Util::mountStringSQL", 1);
 
             if(!isset($type))
-                throw new Exception("O type não foi informado Util::mountStringInsert", 1);
+                throw new Exception("O type não foi informado Util::mountStringSQL", 1);
 
             
 
             $string="";
 
-            if($type == "value"){
+            if($type == "insertValue"){
                 for ($i=0; $i < count($array); $i++) { 
                     $str = $array[$i];
                     if($i != count($array)-1)
@@ -171,7 +170,7 @@
                     $string .= $str;
                 
                 }
-            }else if($type == "field"){
+            }else if($type == "insertField"){
                 for ($i=0; $i < count($array); $i++) { 
                     $str = $array[$i];
                     if($i == count($array)-1){
@@ -182,28 +181,28 @@
                     }
                 }
 
+            }else if($type == "find"){
+              
+                foreach ($array as $field => $value) {
+                    $string.= " and $field = $value ";
+                }
+
+            }else if($type == "update"){
+                foreach ($array as $field => $value){ 
+                    $string .= $field." = \"".$value."\",  ";
+                }
+
+                $string = substr($string, 0, strlen($string)-3);
+
+                echo $string;
             }
+            
 
             return $string;
 
         }
 
-        public function mountStringFind($fieldsAndValues){
-            
-            if(!isset($fieldsAndValues))
-                throw new Exception("fieldsAndValues não informado Util::mountStringFind", 1);
-
-             
-
-            $string="";
-
-            
-            foreach ($fieldsAndValues as $key => $value) {
-                $string.= " and $key = $value ";
-            }
-
-            return  $string;
-        }
+       
 
         // pega todos os metodos da $class via reflexão, o type pode ser metodos de get, set, ou ambos
         public static function selectMethodsForClass($class, $type){
@@ -298,35 +297,7 @@
             return $id;
         }
 
-        // formata a string de update
-        public static function mountStringUpdate($class){
-
-
-            if(!isset($class))
-                throw new Exception("Classe não informada Util::mountStringUpdate ", 1);
-            
-
-            $values = Util::collectValues($class);
-            $fields = Util::extractFields($class);
-            
-
-            if(count($values) != count($fields))
-                throw new Exception("Quantidade diferente de fields e values mountStringUpdate", 1);
-            
-            $string = "";
-            
-            for ($i=0; $i < count($values) ; $i++) { 
-               
-                if($i+1 == count($values))
-                    $string .= $fields[$i]." =  \"".$values[$i]."\"";
-                else
-                $string .= $fields[$i]." = \"".$values[$i]."\",  ";
-
-            }
-
-            return $string;
-
-        }
+        
 
 
         public function setIdAfterInsert($class, $data){

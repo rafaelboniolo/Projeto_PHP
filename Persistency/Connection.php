@@ -79,7 +79,7 @@
         public function insert_($class){
             
             $table = $this->Util::classToTable($class);
-            $fields = $this->Util::extractFieldsMountStringInsert($class);
+            $fields = $this->Util::collectFieldsMountStringInsert($class);
             $values = $this->Util::collectValuesMountStringInsert($class);
             $idTable = $this->Util::classToIdTable($class);
             
@@ -103,7 +103,7 @@
             $table = $this->Util::classToTable($class);
             $idTable = $this->Util::classToIdTable($class);
             
-            $set = Util::mountStringUpdate($class);
+            $set = Util::collectFieldsAndCollectValuesMountStringUpdate($class);
 
 
             parent::open();
