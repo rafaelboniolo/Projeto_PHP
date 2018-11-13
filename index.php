@@ -1,17 +1,26 @@
 <?php
     require_once (realpath('Controller/routes/Router.php'));
+    require_once (realpath('Controller/JsonController.php'));
     
     $app = new Router();
 
 
     $app->route('/insert', function(){
+        
         $json = file_get_contents('php://input'); // json de entrada
-        print_r($json);
+    
+        $class = JsonController::json_class($json);
 
-        $resultado = json_decode($json,true); // conversão do json para array associativo
-        print_r($resultado);
+        $class->insert();
 
-        http_response_code(404); // status de retorno da requisição
+        $json = JsonController::class_json($class);
+
+        print_r($class);
+
+        // $resultado = json_decode($json,true); // conversão do json para array associativo
+        // print_r($resultado);
+
+        // http_response_code(404); // status de retorno da requisição
 
     });
 
