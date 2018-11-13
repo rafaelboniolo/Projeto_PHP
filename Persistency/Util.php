@@ -1,8 +1,6 @@
 <?php
 
-
     class Util{
-
 
         public static function configMYSQL(){
             $pointer = fopen(realpath(dirname(__FILE__) )."\\Database\\_config.txt",'r'); // Obtém o ponteiro do arquivo _config.txt com permissão de leitura "r";
@@ -46,7 +44,7 @@
 
         // extrai os atributos para persistencia da classe
         // atraves da reflexão, encontrar os metodos de get e extrai o nome dos atributos de lá
-        public static function collectFields($class){
+        private static function collectFields($class){
 
             $nameId = Util::classToIdTable($class);
 
@@ -69,7 +67,7 @@
 
         // atraves da reflexão, invoca os metodos da $class para pegar os valores do get
         // utilizado para pegar os valores do objeto e persistir
-        public static function collectValues($class){
+        private static function collectValues($class){
 
             if(!isset($class))
                 throw new Exception("Classe não informada Util::collectFields", 1);
@@ -97,7 +95,7 @@
         }
 
         
-        public static function collectFieldsAndCollectValues($class){
+        private static function collectFieldsAndCollectValues($class){
             if(!isset($class))
                 throw new Exception("Classe não informada Util::collectFields", 1);
 
@@ -147,7 +145,7 @@
         
         
 
-        public static function mountStringSQL($array, $type){
+        private static function mountStringSQL($array, $type){
            
             if(!isset($array))
                 throw new Exception("O array não foi informado Util::mountStringSQL", 1);
@@ -205,7 +203,7 @@
        
 
         // pega todos os metodos da $class via reflexão, o type pode ser metodos de get, set, ou ambos
-        public static function selectMethodsForClass($class, $type){
+        private static function selectMethodsForClass($class, $type){
             
             if(!isset($class))
                 throw new Exception("Classe não informada Util::selectMethodsForClass", 1);
@@ -318,15 +316,6 @@
             $method[1]->invoke($class, $data['max_id']);
                 
            
-        }
-
-
-
-
-
-
-
-
-        
+        }       
     }
 ?>

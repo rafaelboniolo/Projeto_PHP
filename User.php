@@ -2,22 +2,30 @@
 
     // ***** MODELO DE USO DO MECANISMO DE PERSISTÊNCIA *****
 
-   require_once (realpath(dirname(__FILE__) ). "\\Model\\vo\Pessoa.php");
-   require_once (realpath(dirname(__FILE__) ). "\\Model\\vo\Investidor.php");
+   require_once (realpath(dirname(__FILE__) ). "\\Model\\vo\\Pessoa.php");
+   require_once (realpath(dirname(__FILE__) ). "\\Model\\vo\\Investidor.php");
    
 
      $p1 = new Pessoa();
 
-    // $p1
-    //     ->setNome("Rafael Boniolo investidor")
-    //     ->setCpf("10326399976aa")
-    //     ->setRg("126718047")
-    //     ->setLogin("testeLogin")
-    //     ->setSenha("testeSenha")
-    //     ->setTipo(Pessoa::INV)
-    //     ->insert();
+    $p1
+        ->setNome("teste")
+        ->setCpf("teste")
+        ->setRg("teste")
+        ->setLogin("teste")
+        ->setSenha("teste")
+        ->setTipo(Pessoa::INV)
+        ->insert();
 
-    echo $p1->setId_pessoa(1)->setNome("a")->findByAtributes()['data']->getTipo();
+        $p1 = new Pessoa();
+
+    echo $p1->setNome("teste")->findByAtributes()['data'][1]->getNome();
+
+    $p1 = new Pessoa();
+
+    echo $p1->setId_pessoa(2)->findById()->getNome();
+
+    
 
     // $i1 = new Investidor();
 
