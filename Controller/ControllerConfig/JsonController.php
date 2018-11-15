@@ -18,8 +18,7 @@
         }
 
         public static function extractToken($json){
-            //buscar no controle de autenticacao
-            return 'a1';
+            return json_decode($json,true)['token'];
         }
 
         

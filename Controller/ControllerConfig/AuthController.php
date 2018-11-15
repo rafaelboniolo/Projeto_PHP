@@ -16,14 +16,14 @@
                 return false;
 
                 $token = AuthController::tokenGenerate($user->getCpf());
-
+            
                 return Array('token' => $token, 'user' => $user);
         }
 
         private static function tokenGenerate($componentToken){
             
             //formula matematica para gerar o token
-            return $componentToken;
+            return $componentToken."token";
 
         }
 

@@ -7,7 +7,7 @@
     $app = new Router();
 
      
-    $auth = AuthController::monitorAcess(file_get_contents('php://input'));
+    $noRedirect = AuthController::monitorAcess(file_get_contents('php://input'));
 
     
     // $app->route('/insert', function(){
@@ -55,12 +55,15 @@
         $json = file_get_contents('php://input'); 
         // extrair dados do json
 
-        if(!isset($json)){
-            print_r(Array('error'=>'no token provider'));
+        if(!isset($json)||$json==""){
+            print_r(Array('error'=>'no json provider'));
             http_response_code(400);
+            return;
         }
 
-        $sessionData = AuthController::authenticate($login, $password);
+        $user = json_decode($json,true)["user"];
+
+        $sessionData = AuthController::authenticate($user['login'], $user['senha']);
 
         if(!isset($sessionData)){
             print_r(json_encode(Array('error'=>'login ou senha invalida')));
@@ -89,6 +92,6 @@
     });
 
     
-    $app->run($auth);
+    $app->run($noRedirect);
 
     ?>

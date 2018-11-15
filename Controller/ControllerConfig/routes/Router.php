@@ -16,15 +16,22 @@ class Router
         $this->config[] = ['/Projeto_PHP/index.php'.$route => $callback];
     }
 
-    public function run($redirect = false){
+    public function run($noRedirect){
         
-        if(!isset($redirect))
-            return $this->config['/Projeto_PHP/index.php/login']();
+        $path = explode('/',$this->uri);
+        foreach ($path as $key => $value) {
+            if($value == 'login')
+                $noRedirect = true;
+        }
+        if(!isset($noRedirect)||$noRedirect==""){
+            print_r(Array('error'=>'no token provider'));
+            return;
+        }
+            
 
         foreach ($this->config as $routes) {
            if (array_key_exists($this->uri, $routes)) {
                 if ( is_callable($routes[$this->uri]) ) {
-                    print_r($routes);   
                     return $routes[$this->uri]();        
                 }             
             }
