@@ -1,25 +1,37 @@
 <?php
 
-    require_once (realpath(dirname(__FILE__) ). "\\Model\\vo\\Pessoa.php");
-    
+    require_once (realpath("Controller\\PessoaController.php"));
+    require_once (realpath('Model\\vo\\Pessoa.php'));
+        
+
     class AuthController{
 
-        private $token;
+        // retorna false ou o token de autenticação
+        public static function authenticate($login, $password){
 
-        private static function authenticate($pessoa){
+            // retorna um componente utilizado no token ou false
+            $user = PessoaController::authenticate($login, $password);
+
+            if(!isset($user) || $user->getId_pessoa()=="")
+                return false;
+
+                $token = AuthController::tokenGenerate($user->getCpf());
+
+                return Array('token' => $token, 'user' => $user);
+        }
+
+        private static function tokenGenerate($componentToken){
+            
+            //formula matematica para gerar o token
+            return $componentToken;
 
         }
 
-        private function tokenGenerate(){
-            // gerar token com base na senha do usuario
-            // o token vai na sessao e nos jsons vindos do cliente para o servidor
-            $this->token = $token;
-        }
+        public static function monitorAcess($json){
+            $token = JsonController::extractToken($json);
+            return SessionController::validateSession($token);
 
-        public static function startSession(){
-            // levanta a sessao com o token do usuario
         }
-
     }
 
 ?>

@@ -17,8 +17,9 @@
             // da pra gerar um calculo com base no ASCII do nome da classe
         }
 
-        private static function includeToken($json){
+        public static function extractToken($json){
             //buscar no controle de autenticacao
+            return 'a1';
         }
 
         

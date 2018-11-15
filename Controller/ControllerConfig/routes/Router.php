@@ -13,14 +13,18 @@ class Router
     }
 
     public function route($route, $callback){
-        $this->config[] = ['/projeto_php/index.php'.$route => $callback];
+        $this->config[] = ['/Projeto_PHP/index.php'.$route => $callback];
     }
 
-    public function run(){
+    public function run($redirect = false){
+        
+        if(!isset($redirect))
+            return $this->config['/Projeto_PHP/index.php/login']();
 
         foreach ($this->config as $routes) {
            if (array_key_exists($this->uri, $routes)) {
-                if ( is_callable($routes[$this->uri]) ) {                    
+                if ( is_callable($routes[$this->uri]) ) {
+                    print_r($routes);   
                     return $routes[$this->uri]();        
                 }             
             }
