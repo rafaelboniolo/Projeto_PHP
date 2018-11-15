@@ -1,6 +1,6 @@
 <?php
 
-    class Util{
+    class DatabaseUtil{
 
         public static function configMYSQL(){
             $pointer = fopen(realpath(dirname(__FILE__) )."\\Database\\_config.txt",'r'); // Obtém o ponteiro do arquivo _config.txt com permissão de leitura "r";
@@ -22,7 +22,7 @@
         public static function classToTable($class){
 
             if(!isset($class))
-                throw new Exception("Classe não informada Util::classToTable", 1);
+                throw new Exception("Classe não informada DatabaseUtil::classToTable", 1);
                 
             $class = get_class($class);
             return 'tb_'.strtolower($class);
@@ -32,7 +32,7 @@
         public static function classToIdTable($class, $isUpper = false){
             
             if(!isset($class))
-                throw new Exception("Classe não informada Util::classToIdTable", 1);
+                throw new Exception("Classe não informada DatabaseUtil::classToIdTable", 1);
                 
             $class = get_class($class);
 
@@ -46,10 +46,10 @@
         // atraves da reflexão, encontrar os metodos de get e extrai o nome dos atributos de lá
         private static function collectFields($class){
 
-            $nameId = Util::classToIdTable($class);
+            $nameId = DatabaseUtil::classToIdTable($class);
 
             if(!isset($class))
-                throw new Exception("Classe não informada Util::collectFields", 1);
+                throw new Exception("Classe não informada DatabaseUtil::collectFields", 1);
                 
 
             $fields = Array();
@@ -59,7 +59,7 @@
             } 
 
             if(!isset($fields))
-                throw new Exception("Classe não possui metodos de get ou atributos Util::collectFields", 1);
+                throw new Exception("Classe não possui metodos de get ou atributos DatabaseUtil::collectFields", 1);
                 
 
             return $fields;
@@ -70,13 +70,13 @@
         private static function collectValues($class){
 
             if(!isset($class))
-                throw new Exception("Classe não informada Util::collectFields", 1);
+                throw new Exception("Classe não informada DatabaseUtil::collectFields", 1);
 
-            $methods = Util::selectMethodsForClass($class, 'get');
+            $methods = DatabaseUtil::selectMethodsForClass($class, 'get');
 
             $values = Array();
 
-            $nameId = Util::classToIdTable($class);
+            $nameId = DatabaseUtil::classToIdTable($class);
 
             foreach ($methods as $method) {
                 if ( strpos(strtolower($method), $nameId) !== false)
@@ -89,7 +89,7 @@
 
             
             if(!isset($class))
-                throw new Exception("Classe não existem methodos de get, ou os atributos estão vazios Util::collectValues", 1);
+                throw new Exception("Classe não existem methodos de get, ou os atributos estão vazios DatabaseUtil::collectValues", 1);
 
             return $values;
         }
@@ -97,14 +97,14 @@
         
         private static function collectFieldsAndCollectValues($class){
             if(!isset($class))
-                throw new Exception("Classe não informada Util::collectFields", 1);
+                throw new Exception("Classe não informada DatabaseUtil::collectFields", 1);
 
-            $methods = Util::selectMethodsForClass($class, 'get');
+            $methods = DatabaseUtil::selectMethodsForClass($class, 'get');
 
             $values = Array();
             $fieldsAndValues = Array();
 
-            $nameId = Util::classToIdTable($class);
+            $nameId = DatabaseUtil::classToIdTable($class);
 
             foreach ($methods as $method) {
                 if ( strpos(strtolower($method), $nameId) !== false)
@@ -124,23 +124,23 @@
 
         // adapter
         public static function collectFieldsMountStringInsert($class){
-            $fields = Util::collectFields($class);
-            return Util::mountStringSQL($fields, 'insertField');
+            $fields = DatabaseUtil::collectFields($class);
+            return DatabaseUtil::mountStringSQL($fields, 'insertField');
         }
 
         //adapter
         public static function collectValuesMountStringInsert($class){
-            $values = Util::collectValues($class);
-            return Util::mountStringSQL($values, 'insertValue');
+            $values = DatabaseUtil::collectValues($class);
+            return DatabaseUtil::mountStringSQL($values, 'insertValue');
         }
         
         public static function collectFieldsAndCollectValuesMountStringFind($class){
-            $fieldsAndValues = Util::collectFieldsAndCollectValues($class);
-            return Util::mountStringSQL($fieldsAndValues,"find");
+            $fieldsAndValues = DatabaseUtil::collectFieldsAndCollectValues($class);
+            return DatabaseUtil::mountStringSQL($fieldsAndValues,"find");
         }
         public static function collectFieldsAndCollectValuesMountStringUpdate($class){
-            $fieldsAndValues = Util::collectFieldsAndCollectValues($class);
-            return Util::mountStringSQL($fieldsAndValues,"update");
+            $fieldsAndValues = DatabaseUtil::collectFieldsAndCollectValues($class);
+            return DatabaseUtil::mountStringSQL($fieldsAndValues,"update");
         }
         
         
@@ -148,10 +148,10 @@
         private static function mountStringSQL($array, $type){
            
             if(!isset($array))
-                throw new Exception("O array não foi informado Util::mountStringSQL", 1);
+                throw new Exception("O array não foi informado DatabaseUtil::mountStringSQL", 1);
 
             if(!isset($type))
-                throw new Exception("O type não foi informado Util::mountStringSQL", 1);
+                throw new Exception("O type não foi informado DatabaseUtil::mountStringSQL", 1);
 
             
 
@@ -206,15 +206,15 @@
         private static function selectMethodsForClass($class, $type){
             
             if(!isset($class))
-                throw new Exception("Classe não informada Util::selectMethodsForClass", 1);
+                throw new Exception("Classe não informada DatabaseUtil::selectMethodsForClass", 1);
 
             if(!isset($type))
-                throw new Exception("type não informado Util::selectMethodsForClass", 1);
+                throw new Exception("type não informado DatabaseUtil::selectMethodsForClass", 1);
 
             $reflectionClass = new ReflectionClass(get_class($class));
 
             if(!isset($reflectionClass))
-                throw new Exception("Classe não existe Util::selectMethodsForClass", 1);
+                throw new Exception("Classe não existe DatabaseUtil::selectMethodsForClass", 1);
 
 
             $methods = Array();
@@ -226,17 +226,17 @@
             return $methods;
         }
 
-        // popula o objeto que extende connection
+        // popula o objeto que extende Persistency
         public static function popula($class, $data){
 
             if(!isset($class))
-                throw new Exception("Classe não informada Util::popula", 1);
+                throw new Exception("Classe não informada DatabaseUtil::popula", 1);
                 
             if(!isset($data))
-            throw new Exception("Data não informado Util::popula", 1);
+            throw new Exception("Data não informado DatabaseUtil::popula", 1);
 
 
-            $methods = Util::selectMethodsForClass($class, 'set');
+            $methods = DatabaseUtil::selectMethodsForClass($class, 'set');
             
             
             foreach ($methods as $method) {
@@ -247,17 +247,17 @@
 
         public static function populaAll($class, $data){
             if(!isset($class))
-                throw new Exception("Classe não informada Util::populaAll", 1);
+                throw new Exception("Classe não informada DatabaseUtil::populaAll", 1);
           
             if(!isset($data))
-                throw new Exception("Data não informado Util::populaAll", 1);
+                throw new Exception("Data não informado DatabaseUtil::populaAll", 1);
               
             $all = Array();
 
             for ($i=0; $i < $data->num_rows ; $i++) { 
                 $obj = new $class();
                 
-                Util::popula($obj, $data->fetch_array());
+                DatabaseUtil::popula($obj, $data->fetch_array());
                 
                 array_push($all, $obj);   
             }
@@ -272,11 +272,11 @@
             $reflectionClass = new ReflectionClass(get_class($class));
             
             if(!isset($reflectionClass))
-                throw new Exception("Classe não existe Util::extractId", 1);
+                throw new Exception("Classe não existe DatabaseUtil::extractId", 1);
 
 
             $id = '';
-            $nameId = Util::classToIdTable($class);
+            $nameId = DatabaseUtil::classToIdTable($class);
 
 
             foreach ($reflectionClass->getMethods() as $key => $value) {
@@ -284,12 +284,12 @@
                     $method = $value;
             } 
             if(!isset($method))
-                throw new Exception("Nenhum metodo encontrado Util::extractId", 1);
+                throw new Exception("Nenhum metodo encontrado DatabaseUtil::extractId", 1);
                 
             $id = $method->invoke($class);
 
             if(!isset($id))
-                throw new Exception("Nenhum id encontrado Util::extractId", 1);
+                throw new Exception("Nenhum id encontrado DatabaseUtil::extractId", 1);
             
 
             return $id;
@@ -302,16 +302,16 @@
             
             
             if(!isset($class))
-                throw new Exception("Classe não informada Util::setIdAfterInsert", 1);
+                throw new Exception("Classe não informada DatabaseUtil::setIdAfterInsert", 1);
                 
             if(!isset($data))
-            throw new Exception("Data não informado Util::setIdAfterInsert", 1);
+            throw new Exception("Data não informado DatabaseUtil::setIdAfterInsert", 1);
 
-            $nameId = Util::classToIdTable($class, true);
+            $nameId = DatabaseUtil::classToIdTable($class, true);
 
             $nameId =  'set'.$nameId;
 
-            $method = Util::selectMethodsForClass($class, $nameId);
+            $method = DatabaseUtil::selectMethodsForClass($class, $nameId);
     
             $method[1]->invoke($class, $data['max_id']);
                 

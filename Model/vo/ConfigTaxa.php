@@ -1,7 +1,7 @@
 <?php
-require_once (realpath('Persistency/Connection.php'));
+require_once (realpath('Persistency/Persistency.php'));
 
-    class ConfigTaxa extends Connection{
+    class ConfigTaxa extends Persistency{
         
         private $id_config_taxa;
         private $id_administrador;

@@ -8,22 +8,22 @@
 
      $p1 = new Pessoa();
 
-    $p1
-        ->setNome("teste")
-        ->setCpf("teste")
-        ->setRg("teste")
-        ->setLogin("teste")
-        ->setSenha("teste")
-        ->setTipo(Pessoa::INV)
-        ->insert();
+    // $p1
+    //     ->setNome("teste")
+    //     ->setCpf("teste")
+    //     ->setRg("teste")
+    //     ->setLogin("teste")
+    //     ->setSenha("teste")
+    //     ->setTipo(Pessoa::INV)
+    //     ->insert();
 
-        $p1 = new Pessoa();
+    //     $p1 = new Pessoa();
 
-    echo $p1->setNome("teste")->findByAtributes()['data'][1]->getNome();
+    echo($p1->setNome("teste")->findByAtributes())['data']->getNome();
 
     $p1 = new Pessoa();
 
-    echo $p1->setId_pessoa(2)->findById()->getNome();
+    //echo $p1->setId_pessoa(3)->findById()->getNome();
 
     
 

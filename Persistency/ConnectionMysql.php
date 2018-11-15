@@ -1,7 +1,7 @@
 <?php
     // somente um adapter para facilitar a abertura da transação
     // é feito um encapsulamento das funções do mysqli
-    class Mysql{
+    class ConnectionMysql{
         
         
         private $URL;
@@ -10,7 +10,7 @@
         private $mysql;
         
         private function seetConfigMysql(){
-            $mysqlData = Util::configMYSQL();
+            $mysqlData = DatabaseUtil::configMYSQL();
            
             $this->DATABASE = $mysqlData["NAME"];
             $this->URL = $mysqlData["URL"];

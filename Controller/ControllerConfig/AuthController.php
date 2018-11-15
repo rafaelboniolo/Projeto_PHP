@@ -8,7 +8,6 @@
 
         private static function authenticate($pessoa){
 
-            // return boolean;
         }
 
         private function tokenGenerate(){

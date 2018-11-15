@@ -1,9 +1,9 @@
 <?php
 
 
-   require_once (realpath('Persistency/Connection.php'));
+   require_once (realpath('Persistency/Persistency.php'));
 
-    class Pessoa extends Connection{
+    class Pessoa extends Persistency{
 
         const ADM = 'ADM';
         const INV = 'INV';

@@ -2,26 +2,26 @@
 
     // classe responsavel pelas operações no banco de forma dinâmica
     
-    include(realpath(dirname(__FILE__) )."\\Util.php");
-    include(realpath(dirname(__FILE__) )."\\Mysql.php");
+    include(realpath(dirname(__FILE__) )."\\DatabaseUtil.php");
+    include(realpath(dirname(__FILE__) )."\\ConnectionMysql.php");
 
-    class Connection extends Mysql{
+    class Persistency extends ConnectionMysql{
     
         
         private $where=' ';
         private $orderBy=' ';
         private $groupBy=' ';
-        private $Util;
+        private $DatabaseUtil;
 
         public function __construct(){
-            $this->Util = $this->returnUtil();
+            $this->DatabaseUtil = $this->returnDatabaseUtil();
         }
     
         public function findById_($class){
             
-            $id =$this->Util::extractId($class);
-            $table = $this->Util::classToTable($class);
-            $idTable = $this->Util::classToIdTable($class);
+            $id =$this->DatabaseUtil::extractId($class);
+            $table = $this->DatabaseUtil::classToTable($class);
+            $idTable = $this->DatabaseUtil::classToIdTable($class);
         
             parent::open();
             
@@ -30,15 +30,15 @@
             );
             parent::close();
 
-            $this->Util::popula($class ,$data->fetch_array());
+            $this->DatabaseUtil::popula($class ,$data->fetch_array());
         
         }
 
         public function findByAtributes_($class){
             
-            $table = $this->Util::classToTable($class);
-            $idTable = $this->Util::classToIdTable($class);
-            $stringFind = $this->Util::collectFieldsAndCollectValuesMountStringFind($class);
+            $table = $this->DatabaseUtil::classToTable($class);
+            $idTable = $this->DatabaseUtil::classToIdTable($class);
+            $stringFind = $this->DatabaseUtil::collectFieldsAndCollectValuesMountStringFind($class);
 
             parent::open();
 
@@ -48,11 +48,11 @@
             parent::close();
 
             if($data->num_rows == 1){
-                $this->Util::popula($class ,$data->fetch_array());
+                $this->DatabaseUtil::popula($class ,$data->fetch_array());
                 return Array('rows'=>$data->num_rows, 'data'=>$class);
             }
             if($data->num_rows > 1)
-               return Array('rows'=>$data->num_rows, 'data'=>$this->Util::populaAll($class ,$data));
+               return Array('rows'=>$data->num_rows, 'data'=>$this->DatabaseUtil::populaAll($class ,$data));
         
             return Array('rows'=>$data->num_rows, 'data'=>'empty');
 
@@ -64,7 +64,7 @@
         //["rows"] retorna o numero de linhas afetadas
         public function findall_($class){
             
-            $table = $this->Util::classToTable($class);
+            $table = $this->DatabaseUtil::classToTable($class);
             
             parent::open();
             
@@ -73,17 +73,17 @@
             );
             parent::close();
 
-            return Array('rows'=>$data->num_rows, 'data'=>$this->Util::populaAll($class ,$data));
+            return Array('rows'=>$data->num_rows, 'data'=>$this->DatabaseUtil::populaAll($class ,$data));
         
         }
         
 
         public function insert_($class){
             
-            $table = $this->Util::classToTable($class);
-            $fields = $this->Util::collectFieldsMountStringInsert($class);
-            $values = $this->Util::collectValuesMountStringInsert($class);
-            $idTable = $this->Util::classToIdTable($class);
+            $table = $this->DatabaseUtil::classToTable($class);
+            $fields = $this->DatabaseUtil::collectFieldsMountStringInsert($class);
+            $values = $this->DatabaseUtil::collectValuesMountStringInsert($class);
+            $idTable = $this->DatabaseUtil::classToIdTable($class);
             
             parent::open();
             parent::query(
@@ -96,16 +96,16 @@
 
             parent::close();
 
-            $this->Util::setIdAfterInsert($class ,$data->fetch_array());
+            $this->DatabaseUtil::setIdAfterInsert($class ,$data->fetch_array());
         }
 
         public function update_($class){
 
-            $id =$this->Util::extractId($class);
-            $table = $this->Util::classToTable($class);
-            $idTable = $this->Util::classToIdTable($class);
+            $id =$this->DatabaseUtil::extractId($class);
+            $table = $this->DatabaseUtil::classToTable($class);
+            $idTable = $this->DatabaseUtil::classToIdTable($class);
             
-            $set = Util::collectFieldsAndCollectValuesMountStringUpdate($class);
+            $set = DatabaseUtil::collectFieldsAndCollectValuesMountStringUpdate($class);
 
 
             parent::open();
@@ -118,9 +118,9 @@
 
         public function delete_($class){
             
-            $id =$this->Util::extractId($class);
-            $table = $this->Util::classToTable($class);
-            $idTable = $this->Util::classToIdTable($class);
+            $id =$this->DatabaseUtil::extractId($class);
+            $table = $this->DatabaseUtil::classToTable($class);
+            $idTable = $this->DatabaseUtil::classToIdTable($class);
             
             parent::open();
             parent::query(
@@ -142,8 +142,8 @@
         }
 
 
-       public function returnUtil(){
-            return new Util();
+       public function returnDatabaseUtil(){
+            return new DatabaseUtil();
         }
         
     }

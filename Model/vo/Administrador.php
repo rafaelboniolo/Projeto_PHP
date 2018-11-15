@@ -1,7 +1,7 @@
 <?php
-require_once (realpath('Persistency/Connection.php'));
+require_once (realpath('Persistency/Persistency.php'));
 
-    class Investidor extends Connection{
+    class Investidor extends Persistency{
         
 
         private $id_administrador;
