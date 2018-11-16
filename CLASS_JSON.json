@@ -1,0 +1,26 @@
+{
+    "config":{
+        "token":"s9f8uds9f8jsd98fjs98djf",
+        "class":"Pessoa",
+        "dados":3
+    },
+    "dados":{
+        "1":{
+            "Nome":"dfsdf",
+            "..":".."
+        },
+        "2":{
+            "Nome":"dfsdf",
+            "..":".."
+        },
+        "3":{
+            "Nome":"dfsdf",
+            "..":".."
+        }
+    }
+}
+
+
+
+
+

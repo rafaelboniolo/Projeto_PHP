@@ -1,10 +1,8 @@
 <?php
 
-    //require_once (realpath(dirname(__FILE__) ). "\\Persistency\\DatabaseUtil.php"); não consegui encontrar o diretório por este método
-    include'C:/xampp/htdocs/Projeto_PHP/Persistency/DatabaseUtil.php';
-    //require_once (realpath('Model\\vo\\Pessoa.php'));
-    //include'C:/xampp/htdocs/Projeto_PHP/Model/vo/Pessoa.php';
+require_once(realpath('./../../Persistency\\DatabaseUtil.php'));
 
+       
     class JsonController{
 
         public static function json_class($json){
@@ -12,30 +10,28 @@
             // popula a classe com o json
             // retorna a classe
 
-            //$obj = json_decode($json,true); // recebe Json e converte para array
+            $obj = json_decode($json,true); // recebe Json e converte para array
 
-            //$aux = array_shift($obj); // retira primeiro array
+            $aux = array_shift($obj); // retira primeiro array
 
-            //print_r($aux);
+            print_r($aux);
 
-            //echo "$aux";
-            //$class = get_class($aux);
+            echo "$aux";
+            $class = get_class($aux);
 
-            //$reflectionClass = new ReflectionClass($aux); // encontrar a classe
+            $reflectionClass = new ReflectionClass($aux); // encontrar a classe
 
-            //print_r($reflectionClass);
-            //print_r($obj["classe"]);
-            //echo "<br/>";
+            print_r($reflectionClass);
+            print_r($obj["classe"]);
+            echo "<br/>";
             
-            //foreach($obj as $key => $value){ // percorrer array
-              //  echo $value;
-            //}
+            foreach($obj as $key => $value){ // percorrer array
+               echo $value;
+            }
 
-            //$d = new DatabaseUtil();
+           DatabaseUtil::popula($aux,$obj);
 
-            //$class = $d->popula($aux,$obj);
-
-            //return $class;
+            return $class;
 
         }
         
@@ -58,10 +54,10 @@
     }
 
     // TESTE
-    //$c1 = new JsonController();
-    //$arr = array("classe" => "Pessoa", "nome" => "Rafael", "cpf"=>"645646687");
-    //echo json_encode($arr). "<br>";
-    //$c1->json_class(json_encode($arr));
+    
+    $arr = array("classe" => "Pessoa", "nome" => "Rafael", "cpf"=>"645646687");
+    echo json_encode($arr). "<br>";
+    JsonController::json_class(json_encode($arr));
 
 
     //$cam = "..\\".realpath(dirname(__FILE__));
