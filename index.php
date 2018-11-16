@@ -1,87 +1,65 @@
 <?php
-    require_once (realpath(dirname(__FILE__) ). "\\Controller\\ControllerConfig\\routes\\Router.php");
-    require_once (realpath(dirname(__FILE__) ). "\\Controller\\ControllerConfig\\JsonController.php");
-    require_once (realpath(dirname(__FILE__) ). "\\Controller\\ControllerConfig\\SessionController.php");
-    require_once (realpath(dirname(__FILE__) ). "\\Controller\\ControllerConfig\\AuthController.php");
+
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\ControllerConfig\\routes\\Router.php");
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\Facade\\FacadeRoutes.php");
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\ControllerConfig\\AuthController.php");
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\ControllerConfig\\JsonController.php");
     
     $app = new Router();
 
-     
-    $noRedirect = AuthController::monitorAcess(file_get_contents('php://input'));
+    $hasJson = JsonController::hasJson(file_get_contents('php://input'));
+    if(!$hasJson) return;
+
+    $isLogado = AuthController::monitorAcess(file_get_contents('php://input'));
+    if(!$isLogado) http_response_code(401);
 
     
-    // $app->route('/insert', function(){
+    $app->route('/insert', function(){
         
-    //     $json = file_get_contents('php://input'); // json de entrada
+        $json = file_get_contents('php://input'); // json de entrada
     
-    //     $class = JsonController::json_class($json);
+        $class = JsonController::json_class($json);
 
-    //     $class->insert();
+        $class->insert();
 
-    //     $json = JsonController::class_json($class);
+        $json = JsonController::class_json($class);
 
-    //     print_r($class);
+        print_r($class);
 
-    //     // $resultado = json_decode($json,true); // conversão do json para array associativo
-    //     // print_r($resultado);
+        // $resultado = json_decode($json,true); // conversão do json para array associativo
+        // print_r($resultado);
 
-    //     // http_response_code(404); // status de retorno da requisição
+        // http_response_code(404); // status de retorno da requisição
 
-    // });
+    });
 
-    // $app->route('/update', function(){ // rota para acessar dados
+    $app->route('/update', function(){ // rota para acessar dados
         
-    // });
+    });
 
-    // $app->route('/delete', function(){
+    $app->route('/delete', function(){
 
-    // });
+    });
 
-    // $app->route('/findbyid', function(){
+    $app->route('/findbyid', function(){
 
-    // });
+    });
 
-    // $app->route('/findbyatribute', function(){
+    $app->route('/findbyatribute', function(){
 
-    // });
+    });
 
-    // $app->route('/findall', function(){
+    $app->route('/findall', function(){
 
-    // });
+    });
 
 
     $app->route('/login', function(){
-
-        $json = file_get_contents('php://input'); 
-        // extrair dados do json
-
-        if(!isset($json)||$json==""){
-            print_r(Array('error'=>'no json provider'));
-            http_response_code(400);
-            return;
-        }
-
-        $user = json_decode($json,true)["user"];
-
-        $sessionData = AuthController::authenticate($user['login'], $user['senha']);
-
-        if(!isset($sessionData)){
-            print_r(json_encode(Array('error'=>'login ou senha invalida')));
-            http_response_code(404);
-        }
-
-        SessionController::open($sessionData);
-
-        print_r(json_encode(Array('token'=>$sessionData['token'], 'tipo'=>$sessionData['user']->getTipo())));
+        FacadeRoutes::login(file_get_contents('php://input'));
     });
 
     $app->route('/logout', function(){
-
-        $json = file_get_contents('php://input'); 
-
-        $token = JsonController::extractToken($json);
-
-        SessionController::close($token);
+        FacadeRoutes::logout(file_get_contents('php://input'));
     });
 
     
@@ -92,6 +70,6 @@
     });
 
     
-    $app->run($noRedirect);
+    $app->run($isLogado);
 
     ?>

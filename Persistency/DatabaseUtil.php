@@ -1,5 +1,8 @@
 <?php
 
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\PROTECT_PROJECT.php");
+    if(!PROTECTED_PROJECT::ANALYZE()) return;
+
     class DatabaseUtil{
 
         public static function configMYSQL(){

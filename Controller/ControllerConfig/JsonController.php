@@ -1,8 +1,10 @@
 <?php
 
-require_once(realpath('./../../Persistency\\DatabaseUtil.php'));
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\PROTECT_PROJECT.php");
+    if(!PROTECTED_PROJECT::ANALYZE()) return;
 
-       
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Persistency\\DatabaseUtil.php");  
+         
     class JsonController{
 
         public static function json_class($json){
@@ -29,7 +31,7 @@ require_once(realpath('./../../Persistency\\DatabaseUtil.php'));
                echo $value;
             }
 
-           DatabaseUtil::popula($aux,$obj);
+      //     DatabaseUtil::popula($aux,$obj);
 
             return $class;
 
@@ -44,10 +46,24 @@ require_once(realpath('./../../Persistency\\DatabaseUtil.php'));
             // da pra gerar um calculo com base no ASCII do nome da classe
         }
 
+        //abre todo json vindo do front-end e extrai o token
+        //a forma de extracao vai variar de acordo com a estrutura do json
+        //baseado no json -> CLASS_JSON.json
         public static function extractToken($json){
-            return json_decode($json,true)['token'];
+            return json_decode($json,true)['config']['token'];
         }
 
+        //verifica se tem um json na requisicao
+        public static function hasJson($json){
+            
+            if(!isset($json)||$json==""){
+                print_r(Array('error'=>'no json provider'));
+                http_response_code(400);
+                return false;
+            }
+            return true;
+
+        }
         
         
         
@@ -55,9 +71,9 @@ require_once(realpath('./../../Persistency\\DatabaseUtil.php'));
 
     // TESTE
     
-    $arr = array("classe" => "Pessoa", "nome" => "Rafael", "cpf"=>"645646687");
-    echo json_encode($arr). "<br>";
-    JsonController::json_class(json_encode($arr));
+    //  $arr = array("classe" => "Pessoa", "nome" => "Rafael", "cpf"=>"645646687");
+    // // echo json_encode($arr). "<br>";
+    //  JsonController::json_class(json_encode($arr));
 
 
     //$cam = "..\\".realpath(dirname(__FILE__));

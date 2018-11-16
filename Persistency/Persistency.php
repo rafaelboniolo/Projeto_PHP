@@ -1,9 +1,11 @@
 <?php
 
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\PROTECT_PROJECT.php");
+    if(!PROTECTED_PROJECT::ANALYZE()) return;
+
     // classe responsavel pelas operações no banco de forma dinâmica
-    
-    include(realpath(dirname(__FILE__) )."\\DatabaseUtil.php");
-    include(realpath(dirname(__FILE__) )."\\ConnectionMysql.php");
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Persistency\\DatabaseUtil.php");
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Persistency\\ConnectionMysql.php");
 
     class Persistency extends ConnectionMysql{
     

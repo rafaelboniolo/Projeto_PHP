@@ -1,4 +1,8 @@
 <?php
+
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\PROTECT_PROJECT.php");
+    if(!PROTECTED_PROJECT::ANALYZE()) return;
+
     // somente um adapter para facilitar a abertura da transação
     // é feito um encapsulamento das funções do mysqli
     class ConnectionMysql{

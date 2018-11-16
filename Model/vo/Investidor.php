@@ -1,6 +1,9 @@
 <?php
 
-require_once (realpath('Persistency/Persistency.php'));
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\PROTECT_PROJECT.php");
+    if(!PROTECTED_PROJECT::ANALYZE()) return;
+
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Persistency\\Persistency.php");
 
     class Investidor extends Persistency{
         
