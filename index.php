@@ -7,11 +7,11 @@
     
     $app = new Router();
 
-    $hasJson = JsonController::hasJson(file_get_contents('php://input'));
-    if(!$hasJson) return;
+    //$hasJson = JsonController::hasJson(file_get_contents('php://input'));
+    //if(!$hasJson) return;
 
-    $isLogado = AuthController::monitorAcess(file_get_contents('php://input'));
-    if(!$isLogado) http_response_code(401);
+    //$isLogado = AuthController::monitorAcess(file_get_contents('php://input'));
+    //if(!$isLogado) http_response_code(401);
 
     
     $app->route('/insert', function(){
@@ -53,6 +53,10 @@
 
     });
 
+    $app->route('/test', function(){
+        JsonController::json_class("");
+    });
+
 
     $app->route('/login', function(){
         FacadeRoutes::login(file_get_contents('php://input'));
@@ -70,6 +74,6 @@
     });
 
     
-    $app->run($isLogado);
+    $app->run(true);
 
     ?>

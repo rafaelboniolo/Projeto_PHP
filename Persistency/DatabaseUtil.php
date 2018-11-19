@@ -1,7 +1,7 @@
 <?php
 
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\PROTECT_PROJECT.php");
-    if(!PROTECTED_PROJECT::ANALYZE()) return;
+    //if(!PROTECTED_PROJECT::ANALYZE()) return;
 
     class DatabaseUtil{
 
