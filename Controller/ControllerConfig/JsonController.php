@@ -28,7 +28,11 @@
         
         public static function class_json($class){
             // extrai os valores da classe e atribui ao json
+            //$json = DatabaseUtil::collectValues($class); // busca os metodos get da classe e devolve array
 
+            //echo json_encode($json);
+
+            //return json_encode($json);
 
         }
 
