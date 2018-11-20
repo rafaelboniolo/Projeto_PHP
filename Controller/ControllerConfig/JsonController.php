@@ -3,7 +3,9 @@
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\PROTECT_PROJECT.php");
     //if(!PROTECTED_PROJECT::ANALYZE()) return;
 
-    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Persistency\\DatabaseUtil.php");  
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Persistency\\DatabaseUtil.php");
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Model\\vo\\Pessoa.php");
+      
          
     class JsonController{
 
@@ -16,13 +18,15 @@
 
             $aux = json_decode($json,true)["dados"]["1"]; // extraindo dados Json, sempre pegando a primeira pessoa
 
-            $class= json_decode($json,true)["config"]["class"]; // extraindo o nome da classe do array
+            $className = json_decode($json,true)["config"]["class"]; // extraindo o nome da classe do array
 
-            $reflectionClass = new ReflectionClass($class); // encontrar a classe via Reflection
+            $reflectionClass = new ReflectionClass($className); // encontrar a classe via Reflection
+                        
+            $class = $reflectionClass->newInstance(new stdClass());
 
-            DatabaseUtil::popula($aux,$reflectionClass); // set valores do array na classe 
+            DatabaseUtil::popula($class, $aux); // set valores do array na classe 
 
-            return $reflectionClass;
+            return $class;
 
         }
         
@@ -68,15 +72,5 @@
         
     }
 
-    // TESTE
-    
-     // $arr = array("classe" => "Pessoa", "nome" => "Rafael", "cpf"=>"645646687");
-         //echo json_encode($arr). "<br>";
-    //  JsonController::json_class(json_encode($arr));
-
-
-    //$cam = "..\\".realpath(dirname(__FILE__));
-    //print_r($cam);
-    //echo "\n\n\n\n aiim";
-
+   
 ?>

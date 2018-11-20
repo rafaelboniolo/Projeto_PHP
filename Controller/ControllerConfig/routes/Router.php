@@ -20,12 +20,7 @@ class Router{
     }
 
     public function run($isLogado){
-        
-        
-        //essa parte verifica se o usuario esta logado
-        // se ele nao estiver, ele so pode acessar o login
-        $path = explode('/',$this->uri);
-    
+     
         if(!isset($isLogado)||$isLogado==""||!$isLogado){
             print_r(Array('error'=>'no token provider','redirect'=>'login'));
             return;
@@ -33,9 +28,7 @@ class Router{
             
 
         foreach ($this->config as $routes) {
-            // print_r($routes);
            if (array_key_exists($this->uri, $routes)) {
-               
                 if ( is_callable($routes[$this->uri]) ) {
                     return $routes[$this->uri]();        
                 }             

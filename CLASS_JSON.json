@@ -6,21 +6,12 @@
     },
     "dados":{
         "1":{
-            "Nome":"dfsdf",
-            "..":".."
-        },
-        "2":{
-            "Nome":"dfsdf",
-            "..":".."
-        },
-        "3":{
-            "Nome":"dfsdf",
-            "..":".."
+            "nome":"TESTENOME",
+            "cpf":"TESTECPF",
+            "rg":"TESTERG",
+            "login":"TESTELOGIN",
+            "senha":"TESTESENHA",
+            "tipo":"TESTEINV"
         }
     }
 }
-
-
-
-
-

@@ -86,14 +86,15 @@
             $fields = $this->DatabaseUtil::collectFieldsMountStringInsert($class);
             $values = $this->DatabaseUtil::collectValuesMountStringInsert($class);
             $idTable = $this->DatabaseUtil::classToIdTable($class);
-            
+
+
             parent::open();
             parent::query(
                 " insert into $table ($fields) values ($values); "
             );
-
+           
             $data = parent::query(
-                " select max($idTable) as max_id from   $table; "
+                " select coalesce(max($idTable),1) as max_id from $table; "
             );
 
             parent::close();

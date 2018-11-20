@@ -206,7 +206,7 @@
        
 
         // pega todos os metodos da $class via reflexão, o type pode ser metodos de get, set, ou ambos
-        private static function selectMethodsForClass($class, $type){
+        private static function selectMethodsForClass($class, $type, $validateId=false){
             
             if(!isset($class))
                 throw new Exception("Classe não informada DatabaseUtil::selectMethodsForClass", 1);
@@ -222,10 +222,18 @@
 
             $methods = Array();
 
-            foreach ($reflectionClass->getMethods() as $key => $value) {
-                if (strpos($value, $type) !== false) 
-                    $methods[$key] = $value;
-            } 
+            if($validateId){
+                foreach ($reflectionClass->getMethods() as $key => $value) {
+                    if (strpos($value, $type) !== false)  
+                        $methods[$key] = $value;
+                }
+            }else{
+                foreach ($reflectionClass->getMethods() as $key => $value) {
+                    if (strpos($value, $type) !== false && strpos($value, "setId_") === false )  
+                        $methods[$key] = $value;
+                }
+            }
+             
             return $methods;
         }
 
@@ -238,9 +246,7 @@
             if(!isset($data))
             throw new Exception("Data não informado DatabaseUtil::popula", 1);
 
-
             $methods = DatabaseUtil::selectMethodsForClass($class, 'set');
-            
             
             foreach ($methods as $method) {
                $method->invoke($class, $data[strtolower(substr($method->name,3))]);
@@ -314,7 +320,7 @@
 
             $nameId =  'set'.$nameId;
 
-            $method = DatabaseUtil::selectMethodsForClass($class, $nameId);
+            $method = DatabaseUtil::selectMethodsForClass($class, $nameId, true);
     
             $method[1]->invoke($class, $data['max_id']);
                 

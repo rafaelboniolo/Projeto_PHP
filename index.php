@@ -22,9 +22,9 @@
 
         $class->insert();
 
-        $json = JsonController::class_json($class);
+        //$json = JsonController::class_json($class);
 
-        print_r($class);
+        echo ($class->getId_pessoa());
 
         // $resultado = json_decode($json,true); // conversão do json para array associativo
         // print_r($resultado);
