@@ -14,8 +14,7 @@
         private $data;
 
 
-
-        
+      
         public function getId_config_taxa(){
             return $this->id_config_taxa;
         }
@@ -69,6 +68,11 @@
             $this->data = $data;
             return $this;
         }
+        public function myId(){
+            return $this->getId_config_taxa();
+        }
+        
+        
 
         public function findall(){
             return parent::findall_($this);

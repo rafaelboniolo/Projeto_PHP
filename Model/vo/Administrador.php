@@ -12,6 +12,7 @@
         private $id_administrador;
         private $id_pessoa;
         
+        
         public function getId_administrador(){
             return $this->id_administrador;
         }
@@ -29,7 +30,10 @@
             $this->id_pessoa = $id_pessoa;
             return $this;
         }
-
+        public function myId(){
+            return $this->getId_administrador();
+        }
+        
         public function findall(){
             return parent::findall_($this);
         }

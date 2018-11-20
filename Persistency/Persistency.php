@@ -87,7 +87,7 @@
             $values = $this->DatabaseUtil::collectValuesMountStringInsert($class);
             $idTable = $this->DatabaseUtil::classToIdTable($class);
 
-
+            
             parent::open();
             parent::query(
                 " insert into $table ($fields) values ($values); "

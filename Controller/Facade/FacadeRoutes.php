@@ -32,5 +32,31 @@
             SessionController::close($token);
         } 
 
+        public static function insert($json){
+            $class = JsonController::json_class($json,false);
+            $class->insert();
+
+            if($class->myId()!=""){
+                http_response_code(200);
+                //print_r(JsonController::class_json($class));
+            }else{
+                http_response_code(400);
+                print_r(json_encode(Array("error"=>"insert error")));
+            }
+        }
+
+        public static function update($json){
+            $class = JsonController::json_class($json,true);
+            $class->update();
+
+            http_response_code(200);
+            //print_r(JsonController::class_json($class));
+        }
+        
+        public static function delete($json){
+            $class = JsonController::json_class($json, true);
+            $class->delete();
+        }
+
     }
 ?>

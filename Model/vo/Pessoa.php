@@ -19,6 +19,7 @@
         private $senha;
         private $tipo;
 
+       
         public function getId_pessoa(){
             return $this->id_pessoa;
         }
@@ -84,6 +85,10 @@
             return $this;
         }
 
+        public function myId(){
+            return $this->getId_pessoa();
+        }
+        
 
         public function findall(){
             return parent::findall_($this);

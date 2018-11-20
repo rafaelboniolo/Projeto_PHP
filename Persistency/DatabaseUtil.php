@@ -195,7 +195,6 @@
 
                 $string = substr($string, 0, strlen($string)-3);
 
-                echo $string;
             }
             
 
@@ -238,7 +237,7 @@
         }
 
         // popula o objeto que extende Persistency
-        public static function popula($class, $data){
+        public static function popula($class, $data, $validateId=false){
 
             if(!isset($class))
                 throw new Exception("Classe não informada DatabaseUtil::popula", 1);
@@ -246,7 +245,7 @@
             if(!isset($data))
             throw new Exception("Data não informado DatabaseUtil::popula", 1);
 
-            $methods = DatabaseUtil::selectMethodsForClass($class, 'set');
+            $methods = DatabaseUtil::selectMethodsForClass($class, 'set', $validateId);
             
             foreach ($methods as $method) {
                $method->invoke($class, $data[strtolower(substr($method->name,3))]);
@@ -322,6 +321,7 @@
 
             $method = DatabaseUtil::selectMethodsForClass($class, $nameId, true);
     
+
             $method[1]->invoke($class, $data['max_id']);
                 
            

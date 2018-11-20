@@ -15,30 +15,15 @@
 
     
     $app->route('/insert', function(){
-        
-        $json = file_get_contents('php://input'); // json de entrada
-    
-        $class = JsonController::json_class($json);
-
-        $class->insert();
-
-        //$json = JsonController::class_json($class);
-
-        echo ($class->getId_pessoa());
-
-        // $resultado = json_decode($json,true); // conversão do json para array associativo
-        // print_r($resultado);
-
-        // http_response_code(404); // status de retorno da requisição
-
+        FacadeRoutes::insert(file_get_contents('php://input'));
     });
 
-    $app->route('/update', function(){ // rota para acessar dados
-        
+    $app->route('/update', function(){ 
+        FacadeRoutes::update(file_get_contents('php://input'));        
     });
 
     $app->route('/delete', function(){
-
+        FacadeRoutes::delete(file_get_contents('php://input'));
     });
 
     $app->route('/findbyid', function(){
@@ -53,24 +38,12 @@
 
     });
 
-    $app->route('/test', function(){
-        JsonController::json_class("");
-    });
-
-
     $app->route('/login', function(){
         FacadeRoutes::login(file_get_contents('php://input'));
     });
 
     $app->route('/logout', function(){
         FacadeRoutes::logout(file_get_contents('php://input'));
-    });
-
-    
-    $app->route('/update', function(){ // rota para acessar dados
-        $json = file_get_contents('php://input'); 
-        print_r($json); 
-        http_response_code(200);
     });
 
     

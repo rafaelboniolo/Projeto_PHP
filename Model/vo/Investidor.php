@@ -11,7 +11,6 @@
         private $id_pessoa;
         private $saldo;
 
-
         public function getId_investidor(){
             return $this->id_investidor;
         }
@@ -41,6 +40,10 @@
         }
 
 
+        public function myId(){
+            return $this->getId_investidor();
+        }
+        
 
         public function findall(){
             return parent::findall_($this);

@@ -9,7 +9,7 @@
          
     class JsonController{
 
-        public static function json_class($json){
+        public static function json_class($json, $validateId=false){
             // extrai a classe do json
             // popula a classe com o json
             // retorna a classe
@@ -24,7 +24,7 @@
                         
             $class = $reflectionClass->newInstance(new stdClass());
 
-            DatabaseUtil::popula($class, $aux); // set valores do array na classe 
+            DatabaseUtil::popula($class, $aux, $validateId); // set valores do array na classe 
 
             return $class;
 
