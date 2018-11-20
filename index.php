@@ -27,15 +27,15 @@
     });
 
     $app->route('/findbyid', function(){
-
+        FacadeRoutes::findById(file_get_contents('php://input'));
     });
 
-    $app->route('/findbyatribute', function(){
-
+    $app->route('/findbyatributes', function(){
+        FacadeRoutes::findByAtributes(file_get_contents('php://input'));
     });
 
     $app->route('/findall', function(){
-
+        FacadeRoutes::findAll(file_get_contents('php://input'));
     });
 
     $app->route('/login', function(){

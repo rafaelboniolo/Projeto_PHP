@@ -33,7 +33,7 @@
         } 
 
         public static function insert($json){
-            $class = JsonController::json_class($json,false);
+            $class = JsonController::json_class($json);
             $class->insert();
 
             if($class->myId()!=""){
@@ -57,6 +57,27 @@
             $class = JsonController::json_class($json, true);
             $class->delete();
         }
+        
+        public static function findById($json){
+            $class = JsonController::json_class($json, true);
+            $class->findById();
+
+            print_r($class);
+        }
+
+        public static function findByAtributes($json){
+            $class = JsonController::json_class($json, true);
+            $class->findByAtributes();
+
+            print_r($class);
+        }
+        
+        public static function findAll($json){
+            $class = JsonController::json_class($json, true);
+            $class=$class->findAll();
+            print_r($class);
+        }
+        
 
     }
 ?>
