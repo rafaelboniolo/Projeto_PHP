@@ -30,7 +30,11 @@
         }
 
         public function query($query){
-            return $this->mysql->query($query);
+            return $this->mysql->query($query) or die ($mysql->error);
+        }
+
+        public function insert_id(){
+            return $this->mysql->insert_id;
         }
 
         public function close(){

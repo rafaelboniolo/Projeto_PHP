@@ -195,6 +195,7 @@
 
                 $string = substr($string, 0, strlen($string)-3);
 
+                echo $string;
             }
             
 
@@ -206,7 +207,7 @@
 
         // pega todos os metodos da $class via reflexão, o type pode ser metodos de get, set, ou ambos
         private static function selectMethodsForClass($class, $type, $validateId=false){
-            
+           
             if(!isset($class))
                 throw new Exception("Classe não informada DatabaseUtil::selectMethodsForClass", 1);
 
@@ -306,23 +307,22 @@
         
 
 
-        public function setIdAfterInsert($class, $data){
+        public function setIdAfterInsert($class, $id){
             
             
             if(!isset($class))
                 throw new Exception("Classe não informada DatabaseUtil::setIdAfterInsert", 1);
                 
-            if(!isset($data))
-            throw new Exception("Data não informado DatabaseUtil::setIdAfterInsert", 1);
+            if(!isset($id))
+            throw new Exception("id não informado DatabaseUtil::setIdAfterInsert", 1);
 
             $nameId = DatabaseUtil::classToIdTable($class, true);
 
             $nameId =  'set'.$nameId;
 
-            $method = DatabaseUtil::selectMethodsForClass($class, $nameId, true);
+            $method = DatabaseUtil::selectMethodsForClass($class, $nameId);
     
-
-            $method[1]->invoke($class, $data['max_id']);
+            $method[1]->invoke($class, $id);
                 
            
         }       
