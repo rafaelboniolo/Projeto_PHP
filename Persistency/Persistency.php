@@ -96,7 +96,7 @@
 
             parent::close();
 
-                    }
+        }
 
         public function update_($class){
 

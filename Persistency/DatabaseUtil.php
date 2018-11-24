@@ -320,7 +320,7 @@
 
             $nameId =  'set'.$nameId;
 
-            $method = DatabaseUtil::selectMethodsForClass($class, $nameId);
+            $method = DatabaseUtil::selectMethodsForClass($class, $nameId, true);
     
             $method[1]->invoke($class, $id);
                 

@@ -4,7 +4,7 @@
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\Facade\\FacadeRoutes.php");
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\ControllerConfig\\AuthController.php");
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\ControllerConfig\\JsonController.php");
-    
+    echo parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);;
     $app = new Router();
 
     //$hasJson = JsonController::hasJson(file_get_contents('php://input'));
