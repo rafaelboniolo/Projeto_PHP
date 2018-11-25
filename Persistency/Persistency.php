@@ -44,6 +44,7 @@
 
             parent::open();
 
+            
             $data =  parent::query(
                 " select * from $table where 1=1 $stringFind  $this->where $this->groupBy $this->orderBy ;"
             );

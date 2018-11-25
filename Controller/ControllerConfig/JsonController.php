@@ -66,7 +66,7 @@
         public static function hasJson($json){
             
             if(!isset($json)||$json==""){
-                print_r(Array('error'=>'no json provider'));
+                print_r(json_encode(Array('error'=>'no json provider')));
                 http_response_code(400);
                 return false;
             }

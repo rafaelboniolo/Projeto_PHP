@@ -1,4 +1,9 @@
 <?php
+header("Access-Control-Allow-Origin:  {$_SERVER['HTTP_ORIGIN']}");
+//header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+header("Access-Control-Allow-Methods: PUT, GET, POST");
+
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\PROTECT_PROJECT.php");
     if(!PROTECTED_PROJECT::ANALYZE()) return;
 
@@ -14,15 +19,18 @@
         public static function login($json){
             
             $user = json_decode($json,true)["dados"]["1"];
-    
-            $sessionData = AuthController::authenticate($user['login'], $user['senha']);
-    
-            if(!isset($sessionData)){
+
+
+            $sessionData = AuthController::authenticate($user['login'], $user['password']);    
+        
+             if($sessionData['token']==''){
                 print_r(json_encode(Array('error'=>'login ou senha invalida')));
-                http_response_code(404);
-            }
+                http_response_code(400);
+             }
     
-            SessionController::open($sessionData);
+            http_response_code(200);
+
+           // SessionController::open($sessionData);
     
             print_r(json_encode(Array('token'=>$sessionData['token'], 'user'=>$sessionData['user'])));
         }

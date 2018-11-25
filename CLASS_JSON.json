@@ -1,4 +1,5 @@
-{
+{    
+"a":{
     "config":{
         "token":"s9f8uds9f8jsd98fjs98djf",
         "class":"Pessoa",
@@ -14,4 +15,11 @@
             "tipo":"TESTEINV"
         }
     }
+}
+,
+"b":{ "config":{"token":"","class":"Pessoa","dados":1},"dados":{"1":{"nome":"as", "senha":"as"}}}
+,
+
+"c":{ "config":{"token":"","class":"Pessoa","dados":1},"dados":{"1":{"nome":"as", "senha":"as"}}}
+
 }

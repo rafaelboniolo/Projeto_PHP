@@ -15,14 +15,16 @@
         // se nao houver usuario com este login e senha, retorna falso
         public static function authenticate($login, $password){
 
+            
             $user = PessoaController::authenticate($login, $password);
 
+            
             if(!isset($user) || !$user)
                 return false;
-
+            
             $token = AuthController::tokenGenerate($user->getCpf());
             
-            return Array('token' => $token, 'user' => $user);
+            return Array('token' => $token, 'user' => $user->getNome());
         }
 
         //recebe um componente para gerar token, neste caso o cpf
