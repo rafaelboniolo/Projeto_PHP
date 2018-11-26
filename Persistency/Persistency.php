@@ -32,7 +32,7 @@
             );
             parent::close();
 
-            $this->DatabaseUtil::popula($class ,$data->fetch_array());
+            $this->DatabaseUtil::popula($class ,$data->fetch_array(),true);
         
         }
 
@@ -51,11 +51,11 @@
             parent::close();
 
             if($data->num_rows == 1){
-                $this->DatabaseUtil::popula($class ,$data->fetch_array());
+                $this->DatabaseUtil::popula($class ,$data->fetch_array(),true);
                 return Array('rows'=>$data->num_rows, 'data'=>$class);
             }
             if($data->num_rows > 1)
-               return Array('rows'=>$data->num_rows, 'data'=>$this->DatabaseUtil::populaAll($class ,$data));
+               return Array('rows'=>$data->num_rows, 'data'=>$this->DatabaseUtil::populaAll($class ,$data, true));
         
             return Array('rows'=>$data->num_rows, 'data'=>'empty');
 
