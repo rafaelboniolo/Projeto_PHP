@@ -23,6 +23,7 @@ USE `utfundos` ;
 CREATE TABLE IF NOT EXISTS `utfundos`.`tb_pessoa` (
   `id_pessoa` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
   `cpf` VARCHAR(45) NOT NULL,
   `rg` VARCHAR(45) NOT NULL,
   `login` VARCHAR(45) NOT NULL,
@@ -40,7 +41,6 @@ CREATE TABLE IF NOT EXISTS `utfundos`.`tb_investidor` (
   `id_pessoa` INT NOT NULL,
   `saldo` DECIMAL(14,4) NULL,
   PRIMARY KEY (`id_investidor`),
-  INDEX `fk_tb_investidor_tb_pessoa1_idx` (`id_pessoa` ASC) VISIBLE,
   CONSTRAINT `fk_tb_investidor_tb_pessoa1`
     FOREIGN KEY (`id_pessoa`)
     REFERENCES `utfundos`.`tb_pessoa` (`id_pessoa`)
@@ -55,7 +55,6 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `utfundos`.`tb_administrador` (
   `id_administrador` INT NOT NULL AUTO_INCREMENT,
   `id_pessoa` INT NOT NULL,
-  INDEX `fk_tb_administrador_tb_pessoa1_idx` (`id_pessoa` ASC) VISIBLE,
   PRIMARY KEY (`id_administrador`),
   CONSTRAINT `fk_tb_administrador_tb_pessoa1`
     FOREIGN KEY (`id_pessoa`)
@@ -75,7 +74,6 @@ CREATE TABLE IF NOT EXISTS `utfundos`.`tb_config_taxa` (
   `taxafundo` DOUBLE(3,3) NULL DEFAULT 0.8,
   `data` DATE NULL,
   PRIMARY KEY (`id_config_taxa`),
-  INDEX `fk_tb_config_taxa_tb_administrador1_idx` (`id_administrador` ASC) VISIBLE,
   CONSTRAINT `fk_tb_config_taxa_tb_administrador1`
     FOREIGN KEY (`id_administrador`)
     REFERENCES `utfundos`.`tb_administrador` (`id_administrador`)
@@ -97,8 +95,6 @@ CREATE TABLE IF NOT EXISTS `utfundos`.`tb_transacao` (
   `status` ENUM('ATIVO', 'INATIVO') NOT NULL,
   `datasaque` DATE NULL,
   PRIMARY KEY (`id_transacao`),
-  INDEX `fk_tb_operacao_tb_investidor1_idx` (`id_investidor` ASC) VISIBLE,
-  INDEX `fk_tb_transacao_tb_config_taxa1_idx` (`id_config_taxa` ASC) VISIBLE,
   CONSTRAINT `fk_tb_operacao_tb_investidor1`
     FOREIGN KEY (`id_investidor`)
     REFERENCES `utfundos`.`tb_investidor` (`id_investidor`)
@@ -121,7 +117,6 @@ CREATE TABLE IF NOT EXISTS `utfundos`.`tb_gestor` (
   `meta` DECIMAL(14,4) NULL,
   `giromaximo` DECIMAL(14,4) NULL,
   PRIMARY KEY (`id_gestor`),
-  INDEX `fk_tb_gestor_tb_pessoa1_idx` (`id_pessoa` ASC) VISIBLE,
   CONSTRAINT `fk_tb_gestor_tb_pessoa1`
     FOREIGN KEY (`id_pessoa`)
     REFERENCES `utfundos`.`tb_pessoa` (`id_pessoa`)
@@ -140,7 +135,6 @@ CREATE TABLE IF NOT EXISTS `utfundos`.`tb_aplicacoes` (
   `datavenda` DATE NULL,
   `status` ENUM('ATIVO', 'INATIVO') NULL,
   PRIMARY KEY (`id_aplicacoes`),
-  INDEX `fk_tb_aplicacoes_tb_gestor1_idx` (`id_gestor` ASC) VISIBLE,
   CONSTRAINT `fk_tb_aplicacoes_tb_gestor1`
     FOREIGN KEY (`id_gestor`)
     REFERENCES `utfundos`.`tb_gestor` (`id_gestor`)
@@ -162,7 +156,6 @@ CREATE TABLE IF NOT EXISTS `utfundos`.`tb_acao` (
   `status` ENUM('ATIVO', 'VENDIDA') NULL,
   `valorcompra` VARCHAR(45) NULL,
   PRIMARY KEY (`id_acao`),
-  INDEX `fk_tb_acao_tb_aplicacoes1_idx` (`id_aplicacoes` ASC) VISIBLE,
   CONSTRAINT `fk_tb_acao_tb_aplicacoes1`
     FOREIGN KEY (`id_aplicacoes`)
     REFERENCES `utfundos`.`tb_aplicacoes` (`id_aplicacoes`)
@@ -180,7 +173,6 @@ CREATE TABLE IF NOT EXISTS `utfundos`.`tb_historico_acao` (
   `data` DATE NULL,
   `valor` DECIMAL(14,4) NULL,
   PRIMARY KEY (`id_historico_acao`),
-  INDEX `fk_tb_historico_acao_tb_acao1_idx` (`id_acao` ASC) VISIBLE,
   CONSTRAINT `fk_tb_historico_acao_tb_acao1`
     FOREIGN KEY (`id_acao`)
     REFERENCES `utfundos`.`tb_acao` (`id_acao`)
@@ -199,7 +191,6 @@ CREATE TABLE IF NOT EXISTS `utfundos`.`tb_solicitacao_saque` (
   `data` DATE NULL,
   `status` ENUM('AGUARDANDO', 'APROVADO') NULL,
   PRIMARY KEY (`id_solicitacao_saque`),
-  INDEX `fk_tb_solicitacao_saque_tb_investidor1_idx` (`id_investidor` ASC) VISIBLE,
   CONSTRAINT `fk_tb_solicitacao_saque_tb_investidor1`
     FOREIGN KEY (`id_investidor`)
     REFERENCES `utfundos`.`tb_investidor` (`id_investidor`)
