@@ -24,7 +24,11 @@
             
             $token = AuthController::tokenGenerate($user->getCpf());
             
-            return Array('token' => $token, 'user' => $user->getNome());
+            return Array('token' => $token, 
+                        'user' => Array(
+                                    "id_pessoa"=>$user->getId_Pessoa(),
+                                    "nome"=>$user->getNome(),
+                                    "cpf"=>$user->getNome()));
         }
 
         //recebe um componente para gerar token, neste caso o cpf

@@ -1,5 +1,8 @@
 <?php
-
+//header("Access-Control-Allow-Origin:  {$_SERVER['HTTP_ORIGIN']}");
+//header("Access-Control-Allow-Origin: *");
+//header("Access-Control-Allow-Headers: *");
+//header("Access-Control-Allow-Methods: PUT, GET, POST");
 
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\PROTECT_PROJECT.php");
     if(!PROTECTED_PROJECT::ANALYZE()) return;
