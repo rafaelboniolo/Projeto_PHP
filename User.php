@@ -4,11 +4,12 @@
 
    require_once (realpath(dirname(__FILE__) ). "\\Model\\vo\\Pessoa.php");
    require_once (realpath(dirname(__FILE__) ). "\\Model\\vo\\Investidor.php");
-   
+   require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\ControllerConfig\\JsonController.php");   
 
      $p1 = new Pessoa();
 
     $p1
+        ->setId_pessoa("57")
         ->setNome("teste")
         ->setEmail("asasas")
         ->setCpf("teste")
@@ -16,8 +17,10 @@
         ->setLogin("teste")
         ->setSenha("teste")
         ->setTipo(Pessoa::INV)
-        ->insert();
+        //->insert()
+        ;
 
+    JsonController::class_json($p1,0);
     // //     $p1 = new Pessoa();
 
     // echo($p1->setNome("teste")->findByAtributes())['data']->getNome();

@@ -15,15 +15,14 @@
             // retorna a classe
 
              // recebe Json e converte para array
-
-            $aux = json_decode($json,true)["dados"]["1"]; // extraindo dados Json, sempre pegando a primeira pessoa
-
-            $className = json_decode($json,true)["config"]["class"]; // extraindo o nome da classe do array
+             $className = json_decode($json,true)["config"]["class"]; // extraindo o nome da classe do array
 
             try{
                 $reflectionClass = new ReflectionClass($className); // encontrar a classe via Reflection
             }catch(Exception $e){
-                return http_response_code(404);    
+                http_response_code(404);
+                throw new Exception("Classe não encontrada! JsonController::jsonClass"+$className, 1);
+                    
             }
             
             $class = $reflectionClass->newInstance(new stdClass());
@@ -36,18 +35,9 @@
         
     
         
-        public static function class_json($class,$index){
-            // extrai os valores da classe e atribui ao json
-            // $aux = DatabaseUtil::collectValues($class); // busca os metodos get da classe e devolve array
-
-            // $dados = array($index=>$aux);
-
-            // $json = array("dados"=>$dados);
-
-            // echo json_encode($json);
-
-            // return json_encode($json);
-
+        public static function class_json($class,$index=1){
+            $fieldsAndValues = DatabaseUtil::collectFieldsAndCollectValues($class, true);
+            return $fieldsAndValues;
         }
 
         private static function codeGenerate($class){
@@ -72,6 +62,10 @@
             }
             return true;
 
+        }
+
+        public static function getConfig($class, $dados){
+            return Array("token"=>"","class"=>get_class($class),"dados"=>$dados);
         }
         
         

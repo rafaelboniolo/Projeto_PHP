@@ -47,7 +47,7 @@
 
         // extrai os atributos para persistencia da classe
         // atraves da reflexão, encontrar os metodos de get e extrai o nome dos atributos de lá
-        private static function collectFields($class){
+        public static function collectFields($class, $validateId=false){
 
             $nameId = DatabaseUtil::classToIdTable($class);
 
@@ -57,8 +57,14 @@
 
             $fields = Array();
             foreach (get_class_methods($class) as $key => $value) {
-                if (strpos($value, 'get') !== false && strpos(strtolower($value), $nameId) === false) 
+                if($validateId){
+                    if (strpos($value, 'get') !== false) 
+                        array_push($fields, strtolower(substr($value,3)));
+                }else{
+                    if (strpos($value, 'get') !== false && strpos(strtolower($value), $nameId) === false) 
                     array_push($fields, strtolower(substr($value,3)));
+                }
+                
             } 
 
             if(!isset($fields))
@@ -98,7 +104,7 @@
         }
 
         
-        private static function collectFieldsAndCollectValues($class){
+        public static function collectFieldsAndCollectValues($class, $validateId=false){
             if(!isset($class))
                 throw new Exception("Classe não informada DatabaseUtil::collectFields", 1);
 
@@ -110,9 +116,11 @@
             $nameId = DatabaseUtil::classToIdTable($class);
 
             foreach ($methods as $method) {
-                if ( strpos(strtolower($method), $nameId) !== false)
-                    continue; 
-                
+                if(!$validateId){
+                    if ( strpos(strtolower($method), $nameId) !== false)
+                        continue; 
+                }
+
                 $result = $method->invoke($class);
 
                 if($result!=''){

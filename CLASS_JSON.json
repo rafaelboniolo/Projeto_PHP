@@ -8,6 +8,7 @@
     "dados":{
         "1":{
             "nome":"TESTENOME",
+            "email":"email",
             "cpf":"TESTECPF",
             "rg":"TESTERG",
             "login":"TESTELOGIN",

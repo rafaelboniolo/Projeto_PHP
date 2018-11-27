@@ -70,20 +70,49 @@
             $class = JsonController::json_class($json, true);
             $class->findById();
 
-            print_r($class);
+            print_r(json_encode(Array("config"=>JsonController::getConfig(),"dados"=>JsonController::class_json($class))));
+            http_response_code(200);
+            
         }
 
         public static function findByAtributes($json){
             $class = JsonController::json_class($json, true);
-            $class->findByAtributes();
+            $res = $class->findByAtributes();
 
-            print_r($class);
+            if($res['rows'] == 0){
+                http_response_code(404);
+                return;
+            }
+
+            $arrayDados = Array();
+
+            $i=1;
+            foreach ($res['data'] as $dados) {
+               $arrayDados[$i] = JsonController::class_json($dados);
+                $i++;
+            }
+
+            print_r(json_encode(Array("config"=>JsonController::getConfig($class, $i),"dados"=>$arrayDados)));
         }
         
         public static function findAll($json){
             $class = JsonController::json_class($json, true);
-            $class=$class->findAll();
-            print_r($class);
+            $res = $class->findAll();
+
+            if($res['rows'] == 0){
+                http_response_code(404);
+                return;
+            }
+
+            $arrayDados = Array();
+
+            $i=1;
+            foreach ($res['data'] as $dados) {
+               $arrayDados[$i] = JsonController::class_json($dados);
+                $i++;
+            }
+
+            print_r(json_encode(Array("config"=>JsonController::getConfig($class, $i),"dados"=>$arrayDados)));
         }
         
 
