@@ -16,7 +16,7 @@ class Router{
     }
 
     public function route($route, $callback){
-        $this->config[] = ['/Projeto_PHP/index.php'.$route => $callback];
+        $this->config[] = ['/projeto_php/index.php'.$route => $callback];
     }
 
     public function run($isLogado){

@@ -15,7 +15,8 @@
             // retorna a classe
 
              // recebe Json e converte para array
-             $className = json_decode($json,true)["config"]["class"]; // extraindo o nome da classe do array
+            $className = json_decode($json,true)["config"]["class"]; // extraindo o nome da classe do array
+            $data = json_decode($json,true)["dados"]["1"];
 
             try{
                 $reflectionClass = new ReflectionClass($className); // encontrar a classe via Reflection
@@ -27,7 +28,7 @@
             
             $class = $reflectionClass->newInstance(new stdClass());
 
-            DatabaseUtil::popula($class, $aux, $validateId); // set valores do array na classe 
+            DatabaseUtil::popula($class, $data, $validateId); // set valores do array na classe 
 
             return $class;
 

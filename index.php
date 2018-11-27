@@ -1,9 +1,9 @@
 <?php
    
-   //  header("Access-Control-Allow-Origin:  {$_SERVER['HTTP_ORIGIN']}");
-   //  //header("Access-Control-Allow-Origin: *");
-   //  header("Access-Control-Allow-Headers: *");
-   //  header("Access-Control-Allow-Methods: PUT, GET, POST");
+    header("Access-Control-Allow-Origin:  {$_SERVER['HTTP_ORIGIN']}");
+    //header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Headers: *");
+    header("Access-Control-Allow-Methods: PUT, GET, POST");
 
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\ControllerConfig\\routes\\Router.php");
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\Facade\\FacadeRoutes.php");
@@ -23,9 +23,10 @@
     // });
 
     
-    // $app->route('/insert', function(){
-    //     FacadeRoutes::insert(file_get_contents('php://input'));
-    // });
+    $app->route('/insert', function(){
+        print_r(file_get_contents('php://input'));
+        FacadeRoutes::insert(file_get_contents('php://input'));
+    });
 
     // $app->route('/update', function(){ 
     //     FacadeRoutes::update(file_get_contents('php://input'));        
