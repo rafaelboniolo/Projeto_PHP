@@ -5,7 +5,7 @@
 
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Persistency\\Persistency.php");
 
-    class Pessoa extends Persistency{
+    class Pessoa extends Persistency {
 
         const ADM = 'ADM';
         const INV = 'INV';

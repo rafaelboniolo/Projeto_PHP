@@ -41,12 +41,14 @@
         } 
 
         public static function insert($json){
+           
+            
             $class = JsonController::json_class($json);
             $class->insert();
 
             if($class->myId()!=""){
                 http_response_code(200);
-                //print_r(JsonController::class_json($class));
+                print_r(JsonController::class_json($class));
             }else{
                 http_response_code(400);
                 print_r(json_encode(Array("error"=>"insert error")));
@@ -113,6 +115,45 @@
             }
 
             print_r(json_encode(Array("config"=>JsonController::getConfig($class, $i),"dados"=>$arrayDados)));
+        }
+
+        public static function selectUser($json){
+            $class = JsonController::json_class($json, true);
+            $res = $class->find();
+
+            if($res['rows'] == 0){
+                http_response_code(404);
+                return;
+            }
+
+
+            $i=1;
+            
+            if($res->getTipo() == 'ADM'){
+                
+                $reflectionClass = new ReflectionClass("Administrador"); // encontrar a classe via Reflection
+                $class = $reflectionClass->newInstance(new stdClass());
+                $class->setId_pessoa($res->getId_pessoa());
+
+            }else if($res->getTipo() == 'INV'){
+                
+                $reflectionClass = new ReflectionClass("Investidor"); // encontrar a classe via Reflection
+                $class = $reflectionClass->newInstance(new stdClass());
+                $class->setId_pessoa($res->getId_pessoa());
+
+            }else if($res->getTipo() == 'GES'){
+
+                $reflectionClass = new ReflectionClass("Gestor"); // encontrar a classe via Reflection
+                $class = $reflectionClass->newInstance(new stdClass());
+                $class->setId_pessoa($res->getId_pessoa());
+
+            }
+
+            $class->findById();
+
+
+
+            print_r(json_encode(Array("config"=>JsonController::getConfig($class, $i),"dados"=>$class)));
         }
         
 

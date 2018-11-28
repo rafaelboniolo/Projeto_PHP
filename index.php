@@ -24,8 +24,11 @@
 
     
     $app->route('/insert', function(){
-        print_r(file_get_contents('php://input'));
         FacadeRoutes::insert(file_get_contents('php://input'));
+    });
+
+    $app->route('/selectuser', function(){
+        FacadeRoutes::selectUser(file_get_contents('php://input'));
     });
 
     // $app->route('/update', function(){ 

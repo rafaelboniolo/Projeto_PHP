@@ -3,7 +3,7 @@
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\PROTECT_PROJECT.php");
     //if(!PROTECTED_PROJECT::ANALYZE()) return;
 
-    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Persistency\\DatabaseUtil.php");
+    require_once ("C:\\xampp\\htdocs\\projeto_php\\Persistency\\DatabaseUtil.php");
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Model\\vo\\Pessoa.php");
       
          
@@ -14,16 +14,19 @@
             // popula a classe com o json
             // retorna a classe
 
-             // recebe Json e converte para array
-            $className = json_decode($json,true)["config"]["class"]; // extraindo o nome da classe do array
-            $data = json_decode($json,true)["dados"]["1"];
+            
+           $className = json_decode($json, true)['config']['class']; // extraindo o nome da classe do array
+           
+           
+            $data = json_decode($json,true)['dados']['1'];
 
             try{
                 $reflectionClass = new ReflectionClass($className); // encontrar a classe via Reflection
-            }catch(Exception $e){
+            }catch(ReflectionException $exception){
+                print_r(Array("error"=>"Classe nao encontrada:".$className));
+                throw new Exception("Classe nao encontrada! JsonController::jsonClass".$className, 1);
                 http_response_code(404);
-                throw new Exception("Classe não encontrada! JsonController::jsonClass"+$className, 1);
-                    
+                return ;    
             }
             
             $class = $reflectionClass->newInstance(new stdClass());
