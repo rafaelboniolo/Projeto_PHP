@@ -41,7 +41,7 @@
         
         public static function class_json($class,$index=1){
             $fieldsAndValues = DatabaseUtil::collectFieldsAndCollectValues($class, true);
-            return $fieldsAndValues;
+            return json_encode($fieldsAndValues);
         }
 
         private static function codeGenerate($class){
