@@ -10,6 +10,7 @@
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Model\\vo\\Investidor.php");
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Model\\vo\\Acao.php");
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Model\\vo\\ConfigTaxa.php");
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Model\\vo\\Transacao.php");
     
     
       

@@ -1,6 +1,10 @@
 <?php
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\PROTECT_PROJECT.php");
+    if(!PROTECTED_PROJECT::ANALYZE()) return;
 
-class Acao extends Persystency{
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Persistency\\Persistency.php");
+
+class Acao extends Persistency{
 
     private $id_acao;
     private $id_aplicacoes;
