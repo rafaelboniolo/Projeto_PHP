@@ -112,7 +112,7 @@ ENGINE = InnoDB;
 -- Table `utfundos`.`tb_gestor`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `utfundos`.`tb_gestor` (
-  `id_gestor` VARCHAR(45) NOT NULL,
+  `id_gestor` INT NOT NULL AUTO_INCREMENT,
   `id_pessoa` INT NOT NULL,
   `meta` DECIMAL(14,4) NULL,
   `giromaximo` DECIMAL(14,4) NULL,

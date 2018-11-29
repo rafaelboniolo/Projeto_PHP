@@ -5,6 +5,12 @@
 
     require_once ("C:\\xampp\\htdocs\\projeto_php\\Persistency\\DatabaseUtil.php");
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Model\\vo\\Pessoa.php");
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Model\\vo\\Administrador.php");
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Model\\vo\\Gestor.php");
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Model\\vo\\Investidor.php");
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Model\\vo\\Acao.php");
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Model\\vo\\ConfigTaxa.php");
+    
       
          
     class JsonController{
@@ -17,13 +23,12 @@
             
            $className = json_decode($json, true)['config']['class']; // extraindo o nome da classe do array
            
-           
             $data = json_decode($json,true)['dados']['1'];
 
             try{
                 $reflectionClass = new ReflectionClass($className); // encontrar a classe via Reflection
             }catch(ReflectionException $exception){
-                print_r(Array("error"=>"Classe nao encontrada:".$className));
+                print_r(json_encode(Array("error"=>"Classe nao encontrada:".$className)));
                 throw new Exception("Classe nao encontrada! JsonController::jsonClass".$className, 1);
                 http_response_code(404);
                 return ;    
@@ -41,7 +46,7 @@
         
         public static function class_json($class,$index=1){
             $fieldsAndValues = DatabaseUtil::collectFieldsAndCollectValues($class, true);
-            return json_encode($fieldsAndValues);
+            return json_encode(JsonController::getConfig($class, Array(1=>$fieldsAndValues)));
         }
 
         private static function codeGenerate($class){

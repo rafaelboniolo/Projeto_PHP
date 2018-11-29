@@ -228,6 +228,8 @@
                 throw new Exception("Classe não existe DatabaseUtil::selectMethodsForClass", 1);
 
 
+            $idName = DatabaseUtil::classToIdTable($class, true);
+
             $methods = Array();
 
             if($validateId){
@@ -237,7 +239,7 @@
                 }
             }else{
                 foreach ($reflectionClass->getMethods() as $key => $value) {
-                    if (strpos($value, $type) !== false && strpos($value, "setId_") === false )  
+                    if (strpos($value, $type) !== false && strpos($value, "set".$idName) === false )  
                         $methods[$key] = $value;
                 }
             }

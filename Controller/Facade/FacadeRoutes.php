@@ -42,8 +42,8 @@
 
         public static function insert($json){
            
-            
             $class = JsonController::json_class($json);
+
             $class->insert();
 
             if($class->myId()!=""){

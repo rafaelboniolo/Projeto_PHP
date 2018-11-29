@@ -6,7 +6,7 @@
 
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Persistency\\Persistency.php");
 
-    class Investidor extends Persistency{
+    class Administrador extends Persistency{
         
 
         private $id_administrador;
