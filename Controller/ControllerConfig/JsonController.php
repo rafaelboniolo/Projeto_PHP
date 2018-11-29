@@ -47,9 +47,13 @@
     
         
         public static function class_json($class,$index=1){
-            $fieldsAndValues = DatabaseUtil::collectFieldsAndCollectValues($class, true);
-            return json_encode(JsonController::getConfig($class, Array(1=>$fieldsAndValues)));
+            $fieldsAndValues = DatabaseUtil::collectFieldsAndCollectValues($class, true);  
+            if($index==0) return $fieldsAndValues;
+            return Array($index=>$fieldsAndValues);
         }
+        
+        
+        
 
         private static function codeGenerate($class){
             // gera um codigo de rastreio para o json, baseado na classe enviada

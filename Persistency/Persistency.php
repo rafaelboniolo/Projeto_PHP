@@ -40,7 +40,8 @@
             
             $table = $this->DatabaseUtil::classToTable($class);
             $idTable = $this->DatabaseUtil::classToIdTable($class);
-            $stringFind = $this->DatabaseUtil::collectFieldsAndCollectValuesMountStringFind($class);
+            $stringFind = $this->DatabaseUtil::collectFieldsAndCollectValuesMountStringFind($class, true);
+
 
             parent::open();
 
@@ -50,6 +51,7 @@
             );
             parent::close();
 
+            
             if($data->num_rows == 1){
                 $this->DatabaseUtil::popula($class ,$data->fetch_array(),true);
                 return Array('rows'=>$data->num_rows, 'data'=>$class);

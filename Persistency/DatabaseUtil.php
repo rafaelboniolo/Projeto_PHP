@@ -117,8 +117,10 @@
 
             foreach ($methods as $method) {
                 if(!$validateId){
-                    if ( strpos(strtolower($method), $nameId) !== false)
+                    if ( strpos(strtolower($method), $nameId) !== false){
                         continue; 
+                    }
+                        
                 }
 
                 $result = $method->invoke($class);
@@ -145,8 +147,8 @@
             return DatabaseUtil::mountStringSQL($values, 'insertValue');
         }
         
-        public static function collectFieldsAndCollectValuesMountStringFind($class){
-            $fieldsAndValues = DatabaseUtil::collectFieldsAndCollectValues($class);
+        public static function collectFieldsAndCollectValuesMountStringFind($class, $validateId=false){
+            $fieldsAndValues = DatabaseUtil::collectFieldsAndCollectValues($class, $validateId);
             return DatabaseUtil::mountStringSQL($fieldsAndValues,"find");
         }
         public static function collectFieldsAndCollectValuesMountStringUpdate($class){
@@ -276,7 +278,7 @@
             for ($i=0; $i < $data->num_rows ; $i++) { 
                 $obj = new $class();
                 
-                DatabaseUtil::popula($obj, $data->fetch_array());
+                DatabaseUtil::popula($obj, $data->fetch_array(), true);
                 
                 array_push($all, $obj);   
             }

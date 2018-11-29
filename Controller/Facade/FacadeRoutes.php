@@ -81,6 +81,8 @@
             $class = JsonController::json_class($json, true);
             $res = $class->findByAtributes();
 
+
+
             if($res['rows'] == 0){
                 http_response_code(404);
                 return;
@@ -90,7 +92,7 @@
 
             $i=1;
             foreach ($res['data'] as $dados) {
-               $arrayDados[$i] = JsonController::class_json($dados);
+               $arrayDados[$i] = JsonController::class_json($dados, 0);
                 $i++;
             }
 

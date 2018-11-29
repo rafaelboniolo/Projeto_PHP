@@ -122,8 +122,11 @@
         }
 
         public function findById(){
-            parent::findById_($this);
-            return $this;
+                parent::findById_($this);
+                return $this;
+        } 
+        public function findByAtributes(){
+         return parent::findByAtributes_($this);
         }
 
         public function insert(){
