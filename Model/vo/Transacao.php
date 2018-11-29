@@ -16,7 +16,101 @@
         private $status;
         private $datasaque;
         
+        public function getId_transacao()
+        {
+                return $this->id_transacao;
+        }
 
+        public function setId_transacao($id_transacao)
+        {
+                $this->id_transacao = $id_transacao;
+
+                return $this;
+        }
+
+        public function getId_investidor()
+        {
+                return $this->id_investidor;
+        }
+
+        public function setId_investidor($id_investidor)
+        {
+                $this->id_investidor = $id_investidor;
+
+                return $this;
+        }
+
+        public function getId_configtaxa()
+        {
+                return $this->id_configtaxa;
+        }
+
+        public function setId_configtaxa($id_configtaxa)
+        {
+                $this->id_configtaxa = $id_configtaxa;
+
+                return $this;
+        }
+
+        public function getTipo()
+        {
+                return $this->tipo;
+        }
+
+        public function setTipo($tipo)
+        {
+                $this->tipo = $tipo;
+
+                return $this;
+        }
+
+        public function getData()
+        {
+                return $this->data;
+        }
+
+        public function setData($data)
+        {
+                $this->data = $data;
+
+                return $this;
+        }
+
+        public function getValor()
+        {
+                return $this->valor;
+        }
+
+        public function setValor($valor)
+        {
+                $this->valor = $valor;
+
+                return $this;
+        }
+
+        public function getStatus()
+        {
+                return $this->status;
+        }
+
+        public function setStatus($status)
+        {
+                $this->status = $status;
+
+                return $this;
+        }
+
+        public function getDatasaque()
+        {
+                return $this->datasaque;
+        }
+
+        public function setDatasaque($datasaque)
+        {
+                $this->datasaque = $datasaque;
+
+                return $this;
+        }
 
         public function myId(){
             return $this->getId_transacao();
