@@ -61,9 +61,9 @@
 
    });
 
-    // $app->route('/logout', function(){
-    //     FacadeRoutes::logout(file_get_contents('php://input'));
-    // });
+    $app->route('/logout', function(){
+        FacadeRoutes::logout(file_get_contents('php://input'));
+    });
 
     
     $app->run(true);

@@ -68,14 +68,14 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `utfundos`.`tb_config_taxa`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `utfundos`.`tb_config_taxa` (
+CREATE TABLE IF NOT EXISTS `utfundos`.`tb_configtaxa` (
   `id_configtaxa` INT NOT NULL AUTO_INCREMENT,
   `id_administrador` INT NOT NULL,
   `taxasaque` DOUBLE(3,3) NULL DEFAULT 0.2,
   `taxafundo` DOUBLE(3,3) NULL DEFAULT 0.8,
   `data` DATE NULL,
   PRIMARY KEY (`id_configtaxa`),
-  CONSTRAINT `fk_tb_config_taxa_tb_administrador1`
+  CONSTRAINT `fk_tb_configtaxa_tb_administrador1`
     FOREIGN KEY (`id_administrador`)
     REFERENCES `utfundos`.`tb_administrador` (`id_administrador`)
     ON DELETE NO ACTION
@@ -101,9 +101,9 @@ CREATE TABLE IF NOT EXISTS `utfundos`.`tb_transacao` (
     REFERENCES `utfundos`.`tb_investidor` (`id_investidor`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tb_transacao_tb_config_taxa1`
+  CONSTRAINT `fk_tb_transacao_tb_configtaxa1`
     FOREIGN KEY (`id_configtaxa`)
-    REFERENCES `utfundos`.`tb_config_taxa` (`id_configtaxa`)
+    REFERENCES `utfundos`.`tb_configtaxa` (`id_configtaxa`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -131,7 +131,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `utfundos`.`tb_aplicacoes` (
   `id_aplicacoes` INT NOT NULL AUTO_INCREMENT,
-  `id_gestor` int NOT NULL,
+  `id_gestor` INT NOT NULL,
   `datacompra` DATE NULL,
   `datavenda` DATE NULL,
   `status` ENUM('ATIVO', 'INATIVO') NULL,
@@ -168,13 +168,13 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `utfundos`.`tb_historico_acao`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `utfundos`.`tb_historico_acao` (
-  `id_historico_acao` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `utfundos`.`tb_historicoacao` (
+  `id_historicoacao` INT NOT NULL AUTO_INCREMENT,
   `id_acao` INT NOT NULL,
   `data` DATE NULL,
   `valor` DECIMAL(14,4) NULL,
-  PRIMARY KEY (`id_historico_acao`),
-  CONSTRAINT `fk_tb_historico_acao_tb_acao1`
+  PRIMARY KEY (`id_historicoacao`),
+  CONSTRAINT `fk_tb_historicoacao_tb_acao1`
     FOREIGN KEY (`id_acao`)
     REFERENCES `utfundos`.`tb_acao` (`id_acao`)
     ON DELETE NO ACTION
@@ -185,14 +185,14 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `utfundos`.`tb_solicitacao_saque`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `utfundos`.`tb_solicitacao_saque` (
-  `id_solicitacao_saque` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `utfundos`.`tb_solicitacaosaque` (
+  `id_solicitacaosaque` INT NOT NULL AUTO_INCREMENT,
   `id_investidor` INT NOT NULL,
   `valor` DECIMAL(14,4) NULL,
   `data` DATE NULL,
   `status` ENUM('AGUARDANDO', 'APROVADO') NULL,
-  PRIMARY KEY (`id_solicitacao_saque`),
-  CONSTRAINT `fk_tb_solicitacao_saque_tb_investidor1`
+  PRIMARY KEY (`id_solicitacaosaque`),
+  CONSTRAINT `fk_tb_solicitacaosaque_tb_investidor1`
     FOREIGN KEY (`id_investidor`)
     REFERENCES `utfundos`.`tb_investidor` (`id_investidor`)
     ON DELETE NO ACTION
