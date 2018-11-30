@@ -90,6 +90,8 @@
             $values = $this->DatabaseUtil::collectValuesMountStringInsert($class);
             $idTable = $this->DatabaseUtil::classToIdTable($class);
             
+            //echo "insert into $table ($fields) values ($values); ";
+
             parent::open();
             parent::query(
                 " insert into $table ($fields) values ($values); "

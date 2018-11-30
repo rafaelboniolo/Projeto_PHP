@@ -72,7 +72,10 @@
             return $this->getId_config_taxa();
         }
         
-        
+        public function where($where){
+            parent::where($where);
+            return $this;
+        }
 
         public function findall(){
             return parent::findall_($this);

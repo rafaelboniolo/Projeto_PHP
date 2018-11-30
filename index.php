@@ -1,7 +1,7 @@
 <?php
    
-    header("Access-Control-Allow-Origin:  {$_SERVER['HTTP_ORIGIN']}");
-    //header("Access-Control-Allow-Origin: *");
+    // header("Access-Control-Allow-Origin:  {$_SERVER['HTTP_ORIGIN']}");
+    header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Headers: *");
     header("Access-Control-Allow-Methods: PUT, GET, POST");
 
@@ -53,13 +53,29 @@
 
     $app->route('/login', function(){
       FacadeRoutes::login(file_get_contents('php://input'));
-   })
-   ;$app->route('/aiiim', function(){
+   });
+   $app->route('/aiiim', function(){
       print_r(json_encode(Array("Nome"=>"Gabriel"))); // DO php para o insomnia
 
       // print_r(file_get_contents('php://input'));   Testar do insomnia para o PHP
 
    });
+
+    $app->route('/sacar', function(){
+        FacadeRoutes::sacar(file_get_contents('php://input'));
+    });
+
+    $app->route('/findsaquesdisponiveis', function(){
+        FacadeRoutes::saquesDisponiveis(file_get_contents('php://input'));
+    });
+    
+    $app->route('/depositar', function(){
+        FacadeRoutes::depositar(file_get_contents('php://input'));
+    });
+    
+
+
+
 
     $app->route('/logout', function(){
         FacadeRoutes::logout(file_get_contents('php://input'));

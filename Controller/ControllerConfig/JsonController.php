@@ -81,7 +81,7 @@
 
         }
 
-        public static function getConfig($class, $dados){
+        public static function getConfig($class, $dados=1){
             return Array("token"=>"","class"=>get_class($class),"dados"=>$dados);
         }
         

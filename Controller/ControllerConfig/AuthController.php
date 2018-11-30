@@ -36,7 +36,7 @@
         // neste caso, por exempol soh retornamos 1032639976token 
         private static function tokenGenerate($componentToken){
             //formula matematica para gerar o token
-            return $componentToken."token";
+            return $componentToken;
         }
 
         // usado para controlar a sessao e monitorar os acessos, 

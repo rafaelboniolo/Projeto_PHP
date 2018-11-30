@@ -11,6 +11,8 @@
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\ControllerConfig\\SessionController.php");
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\ControllerConfig\\AuthController.php");
 
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\TransacaoController.php");
+
 
     // facade é um padrao de projeto que oculta complexidade
     // apenas deixa o index.php limpo e facil de ler
@@ -19,8 +21,6 @@
         public static function login($json){
             
             $user = json_decode($json,true)["dados"]["1"];
-
-
             $sessionData = AuthController::authenticate($user['login'], $user['password']);    
         
              if($sessionData['token']==''){
@@ -30,7 +30,7 @@
     
             http_response_code(200);
 
-           // SessionController::open($sessionData);
+            //SessionController::open($sessionData);
     
             print_r(json_encode(Array('token'=>$sessionData['token'], 'user'=>$sessionData['user'])));
         }
@@ -45,10 +45,10 @@
             $class = JsonController::json_class($json);
 
             $class->insert();
-
+            
             if($class->myId()!=""){
                 http_response_code(200);
-                print_r(JsonController::class_json($class));
+                print_r(json_encode(Array("config"=>JsonController::getConfig($class),"dados"=>JsonController::class_json($class)))); //forma correta
             }else{
                 http_response_code(400);
                 print_r(json_encode(Array("error"=>"insert error")));
@@ -119,44 +119,57 @@
             print_r(json_encode(Array("config"=>JsonController::getConfig($class, $i),"dados"=>$arrayDados)));
         }
 
-        public static function selectUser($json){
-            $class = JsonController::json_class($json, true);
-            $res = $class->find();
+        
+        public static function sacar($json){
+            $transacao = JsonController::json_class($json, true);
+            $transacao->find();
+            TransacaoController::sacar($transacao);
+        }
 
+        public static function saquesDisponiveis($json){
+            $class = JsonController::json_class($json, true);
+            $res = TransacaoController::saquesDisponiveis($json);
+            
             if($res['rows'] == 0){
-                http_response_code(404);
+                http_response_code(200);
                 return;
             }
 
-
-            $i=1;
-            
-            if($res->getTipo() == 'ADM'){
-                
-                $reflectionClass = new ReflectionClass("Administrador"); // encontrar a classe via Reflection
-                $class = $reflectionClass->newInstance(new stdClass());
-                $class->setId_pessoa($res->getId_pessoa());
-
-            }else if($res->getTipo() == 'INV'){
-                
-                $reflectionClass = new ReflectionClass("Investidor"); // encontrar a classe via Reflection
-                $class = $reflectionClass->newInstance(new stdClass());
-                $class->setId_pessoa($res->getId_pessoa());
-
-            }else if($res->getTipo() == 'GES'){
-
-                $reflectionClass = new ReflectionClass("Gestor"); // encontrar a classe via Reflection
-                $class = $reflectionClass->newInstance(new stdClass());
-                $class->setId_pessoa($res->getId_pessoa());
-
+            if($res['rows'] == 1){
+               $dados = JsonController::class_json($res['data']);
+               print_r(json_encode(Array("config"=>JsonController::getConfig($class),"dados"=>$dados)));
+               return;
             }
 
-            $class->findById();
+            
 
+            $arrayDados = Array();
 
+            $i=1;
+            foreach ($res['data'] as $dados) {
+               $arrayDados[$i] = JsonController::class_json($dados, 0);
+                $i++;
+            }
 
-            print_r(json_encode(Array("config"=>JsonController::getConfig($class, $i),"dados"=>$class)));
+            print_r(json_encode(Array("config"=>JsonController::getConfig($class, $i),"dados"=>$arrayDados)));
+
         }
+
+        
+
+        public static function depositar($json){
+            $class = JsonController::json_class($json, true);
+            $res = TransacaoController::depositar($json);
+            
+            $res = JsonController::class_json($res);
+
+
+            print_r(json_encode(Array("config"=>JsonController::getConfig($class),"dados"=>$res)));
+
+        }
+
+        
+
         
 
     }

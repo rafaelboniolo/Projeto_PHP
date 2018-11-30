@@ -5,6 +5,7 @@
    
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Model\\vo\\Pessoa.php");
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\ControllerConfig\\AuthController.php");
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\ControllerConfig\\JsonController.php");
     
     class SessionController{
 
@@ -13,6 +14,8 @@
         public static function open($sessionData){
             session_start();
             $_SESSION[$sessionData['token']] = serialize($sessionData['user']); 
+
+            //print_r($_SESSION[$sessionData['token']]);
         }
 
         //fecha a sessao do usuario com o token informado
@@ -41,6 +44,12 @@
             if(isset($_SESSION[$token]))
                 return true;
             return false;
+        }
+
+        public static function restoreUserByToken($json){
+            $token = JsonController::extractToken($json);
+           
+             return unserialize($_SESSION[$token]);
         }
 
 
