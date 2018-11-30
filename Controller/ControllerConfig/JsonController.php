@@ -11,7 +11,9 @@
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Model\\vo\\Acao.php");
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Model\\vo\\ConfigTaxa.php");
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Model\\vo\\Transacao.php");
-    
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Model\\vo\\HistoricoAcao.php");
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Model\\vo\\Aplicacoes.php");
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Model\\vo\\SolicitacaoSaque.php");
     
       
          
