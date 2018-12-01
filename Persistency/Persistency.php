@@ -49,6 +49,7 @@
             $data =  parent::query(
                 " select * from $table where 1=1 $stringFind  $this->where $this->groupBy $this->orderBy ;"
             );
+            // echo " select * from $table where 1=1 $stringFind  $this->where $this->groupBy $this->orderBy ;";
             parent::close();
 
             
@@ -76,6 +77,7 @@
             $data =  parent::query(
                 " select * from $table where 1=1 $this->where $this->groupBy $this->orderBy ;"
             );
+            
             parent::close();
 
             return Array('rows'=>$data->num_rows, 'data'=>$this->DatabaseUtil::populaAll($class ,$data));
@@ -90,7 +92,7 @@
             $values = $this->DatabaseUtil::collectValuesMountStringInsert($class);
             $idTable = $this->DatabaseUtil::classToIdTable($class);
             
-            //echo "insert into $table ($fields) values ($values); ";
+            // echo "insert into $table ($fields) values ($values); ";
 
             parent::open();
             parent::query(

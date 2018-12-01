@@ -64,15 +64,38 @@
             $investidor->setId_pessoa($pessoa->getId_pessoa()); /// id pessoa
             $investidor->findByAtributes();
 
-            //$confTaxa = new ConfigTaxa();
-            //$confTaxa->findall();
+            $confTaxa = new ConfigTaxa();
+            $res = $confTaxa->findall();
+
+            $ids = Array();
+            
+            // throw new Exception("Error Processing Request", 1);
+            
+            print_r($res);
+
+            if($res['rows']==1){
+                echo $confTaxa->getId_configtaxa();
+                $idTaxa = $confTaxa->getId_configtaxa();
+            }else if ($res['rows']== 0) {
+                return;               
+            }else{
+                foreach ($res['data'] as $key => $value) {
+                    if($key == 'id_configtaxa')
+                        array_push($ids, $value);
+                }
+
+                rsort($ids);
+                $idTaxa = $ids[0];
+            }
+
+            print_r($confTaxa);
 
             $transacao = JsonController::json_class($json, true);
             $transacao->setId_investidor($investidor->getId_investidor());
-            $transacao->setId_configtaxa(3);
+            $transacao->setId_configtaxa($idTaxa);
 
             
-            return $transacao->insert();
+            return JsonController::class_json($transacao->insert());
         }
 
     }

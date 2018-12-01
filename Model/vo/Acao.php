@@ -7,13 +7,15 @@
 class Acao extends Persistency{
 
     private $id_acao;
-    private $id_aplicacoes;
-    private $valor;
+    private $id_gestor;
+    private $valorvenda;
     private $descricao;
     private $tipo;
     private $rendimento;
     private $status;
-    private $valor_compra;
+    private $valorcompra;
+    private $datacompra;
+    private $datavenda;
 
     public function getId_acao()
     {
@@ -27,26 +29,26 @@ class Acao extends Persistency{
         return $this;
     }
 
-    public function getId_aplicacoes()
+    public function getId_gestor()
     {
-        return $this->id_aplicacoes;
+        return $this->id_gestor;
     }
 
-    public function setId_aplicacoes($id_aplicacoes)
+    public function setId_gestor($id_gestor)
     {
-        $this->id_aplicacoes = $id_aplicacoes;
+        $this->id_gestor = $id_gestor;
 
         return $this;
     }
 
-    public function getValor()
+    public function getValorvenda()
     {
-        return $this->valor;
+        return $this->valorvenda;
     }
 
-    public function setValor($valor)
+    public function setValorvenda($valorvenda)
     {
-        $this->valor = $valor;
+        $this->valorvenda = $valorvenda;
 
         return $this;
     }
@@ -99,14 +101,42 @@ class Acao extends Persistency{
         return $this;
     }
 
-    public function getValor_compra()
+    public function getValorcompra()
     {
-        return $this->valor_compra;
+        return $this->valorcompra;
     }
 
-    public function setValor_compra($valor_compra)
+    public function setValorcompra($valorcompra)
     {
-        $this->valor_compra = $valor_compra;
+        $this->valorcompra = $valorcompra;
+
+        return $this;
+    }
+    
+     
+    public function getDatacompra()
+    {
+        return $this->datacompra;
+    }
+
+    
+    public function setDatacompra($datacompra)
+    {
+        $this->datacompra = $datacompra;
+
+        return $this;
+    }
+
+    
+    public function getDatavenda()
+    {
+        return $this->datavenda;
+    }
+
+    
+    public function setDatavenda($datavenda)
+    {
+        $this->datavenda = $datavenda;
 
         return $this;
     }
@@ -139,6 +169,8 @@ class Acao extends Persistency{
         return $this;
     }
 
+
+    
 }
 
 

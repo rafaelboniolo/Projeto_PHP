@@ -73,6 +73,21 @@
         FacadeRoutes::depositar(file_get_contents('php://input'));
     });
     
+    $app->route('/compraracao', function(){
+        FacadeRoutes::compraracao(file_get_contents('php://input'));
+    });
+    
+    $app->route('/listarminhasacoes', function(){
+        FacadeRoutes::listarminhasacoes(file_get_contents('php://input'));
+    });
+
+    $app->route('/teste', function(){
+        FacadeRoutes::teste(file_get_contents('php://input'));
+    });
+
+    
+    
+    
 
 
 

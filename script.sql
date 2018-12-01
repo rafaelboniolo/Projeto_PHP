@@ -127,39 +127,23 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `utfundos`.`tb_aplicacoes`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `utfundos`.`tb_aplicacoes` (
-  `id_aplicacoes` INT NOT NULL AUTO_INCREMENT,
-  `id_gestor` INT NOT NULL,
-  `datacompra` DATE NULL,
-  `datavenda` DATE NULL,
-  `status` ENUM('ATIVO', 'INATIVO') NULL,
-  PRIMARY KEY (`id_aplicacoes`),
-  CONSTRAINT `fk_tb_aplicacoes_tb_gestor1`
-    FOREIGN KEY (`id_gestor`)
-    REFERENCES `utfundos`.`tb_gestor` (`id_gestor`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `utfundos`.`tb_acao`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `utfundos`.`tb_acao` (
-  `id_acao` INT NOT NULL,
-  `id_aplicacoes` INT NOT NULL,
-  `valor` DECIMAL(14,4) NULL,
+  `id_acao` INT NOT NULL AUTO_INCREMENT,
+  `id_gestor` INT NOT NULL,
+  `valorvenda` DECIMAL(14,4) NULL,
   `descricao` VARCHAR(45) NULL,
   `tipo` VARCHAR(45) NULL,
   `rendimento` DECIMAL(14,4) NULL,
   `status` ENUM('ATIVO', 'VENDIDA') NULL,
   `valorcompra` VARCHAR(45) NULL,
+  `datacompra` DATE NULL,
+  `datavenda` DATE NULL,
   PRIMARY KEY (`id_acao`),
-  CONSTRAINT `fk_tb_acao_tb_aplicacoes1`
-    FOREIGN KEY (`id_aplicacoes`)
-    REFERENCES `utfundos`.`tb_aplicacoes` (`id_aplicacoes`)
+  CONSTRAINT `fk_tb_acao_tb_gestor1`
+    FOREIGN KEY (`id_gestor`)
+    REFERENCES `utfundos`.`tb_gestor` (`id_gestor`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

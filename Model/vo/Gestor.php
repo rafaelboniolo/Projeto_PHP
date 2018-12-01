@@ -64,6 +64,10 @@
             return $this;
         }
 
+        public function findByAtributes(){
+            return parent::findByAtributes_($this);
+        }
+
         public function insert(){
             parent::insert_($this);
             return $this;

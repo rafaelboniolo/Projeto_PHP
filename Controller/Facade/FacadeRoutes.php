@@ -12,6 +12,7 @@
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\ControllerConfig\\AuthController.php");
 
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\TransacaoController.php");
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\AcaoController.php");
 
 
     // facade é um padrao de projeto que oculta complexidade
@@ -19,8 +20,8 @@
     class FacadeRoutes{
 
         public static function login($json){
-            
-            $user = json_decode($json,true)["dados"]["1"];
+
+            $user = json_decode($json,true)["dados"][0];
             $sessionData = AuthController::authenticate($user['login'], $user['password']);    
         
              if($sessionData['token']==''){
@@ -44,11 +45,11 @@
            
             $class = JsonController::json_class($json);
 
-            $class->insert();
+            $class[0]->insert();
             
-            if($class->myId()!=""){
+            if($class[0]->myId()!=""){
                 http_response_code(200);
-                print_r(json_encode(Array("config"=>JsonController::getConfig($class),"dados"=>JsonController::class_json($class)))); //forma correta
+                print_r(json_encode(Array("config"=>JsonController::getConfig($class[0]),"dados"=>JsonController::class_json($class)))); //forma correta
             }else{
                 http_response_code(400);
                 print_r(json_encode(Array("error"=>"insert error")));
@@ -110,7 +111,7 @@
 
             $arrayDados = Array();
 
-            $i=1;
+            $i=0;
             foreach ($res['data'] as $dados) {
                $arrayDados[$i] = JsonController::class_json($dados);
                 $i++;
@@ -160,15 +161,33 @@
         public static function depositar($json){
             $class = JsonController::json_class($json, true);
             $res = TransacaoController::depositar($json);
-            
-            $res = JsonController::class_json($res);
-
-
             print_r(json_encode(Array("config"=>JsonController::getConfig($class),"dados"=>$res)));
 
         }
 
-        
+
+        public static function comprarAcao($json){
+            $acao = AcaoController::comprarAcao($json);
+            $class = JsonController::getClassFromJson($json);
+            print_r(json_encode(Array("config"=>JsonController::getConfig($class),"dados"=>$acao)));
+        }
+
+
+
+
+
+        public static function listarMinhasAcoes($json){
+            $class = JsonController::json_class($json, true);
+            $acao = AcaoController::listarMinhasAcoes($json);
+            print_r(json_encode(Array("config"=>JsonController::getConfig($class),"dados"=>$acao)));
+        }
+
+        public static function venderAcao($json){
+            $class = JsonController::json_class($json, true);
+            $acao = AcaoController::venderAcao($json);
+            print_r(json_encode(Array("config"=>JsonController::getConfig($class),"dados"=>$acao)));
+        }
+
 
         
 

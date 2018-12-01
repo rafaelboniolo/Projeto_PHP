@@ -7,7 +7,7 @@
 
     class ConfigTaxa extends Persistency{
         
-        private $id_config_taxa;
+        private $id_configtaxa;
         private $id_administrador;
         private $taxasaque;
         private $taxafundo;
@@ -15,13 +15,13 @@
 
 
       
-        public function getId_config_taxa(){
-            return $this->id_config_taxa;
+        public function getId_configtaxa(){
+            return $this->id_configtaxa;
         }
 
         
-        public function setId_config_taxa($id_config_taxa){
-            $this->id_config_taxa = $id_config_taxa;
+        public function setId_configtaxa($id_configtaxa){
+            $this->id_configtaxa = $id_configtaxa;
             return $this;
         }
 
@@ -69,7 +69,7 @@
             return $this;
         }
         public function myId(){
-            return $this->getId_config_taxa();
+            return $this->getId_configtaxa();
         }
         
         public function where($where){
