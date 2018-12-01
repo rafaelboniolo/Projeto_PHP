@@ -26,8 +26,7 @@
             $gestor->setId_pessoa($pessoa->getId_pessoa()); /// id pessoa
             $gestor->findByAtributes();
             
-            print_r($gestor);
-
+           
             
             $acoes = Array();
 
@@ -36,8 +35,8 @@
                 //print_r($acao);
 
                 $acao->setId_gestor($gestor->getId_gestor())
-                ->setDatacompra('2018-11-30')
-                ->setDatavenda('2018-11-30')
+                ->setDatacompra(date_create()->format('Y-m-d'))
+                ->setDatavenda(date_create()->format('Y-m-d'))
                 ->setStatus('ATIVO');
 
                 $acao->insert();

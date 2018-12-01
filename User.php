@@ -8,16 +8,17 @@
 
      $p1 = new Pessoa();
 
-    $p1
-        ->setNome("teste")
-        ->setEmail("asasas")
-        ->setCpf("teste")
-        ->setRg("teste")
-        ->setLogin("teste")
-        ->setSenha("teste")
-        ->setTipo(Pessoa::INV)
-        ->insert();
+    // $p1
+    //     ->setNome("teste")
+    //     ->setEmail("asasas")
+    //     ->setCpf("teste")
+    //     ->setRg("teste")
+    //     ->setLogin("teste")
+    //     ->setSenha("teste")
+    //     ->setTipo(Pessoa::INV)
+    //     ->insert();
 
+    
     
 
 

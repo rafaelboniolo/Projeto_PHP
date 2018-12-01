@@ -46,14 +46,15 @@
             $investidor->setId_pessoa($pessoa->getId_pessoa()); /// id pessoa
             $investidor->findByAtributes();
 
-            $transacao = JsonController::json_class($json, true);
+            $transacao = JsonController::getClassFromJson($json);
             $transacao->setId_investidor($investidor->getId_investidor());
             
-            
+
             return $transacao->findByAtributes();
         }
 
         public static function depositar($json){
+
             $token = JsonController::extractToken($json);
             
             $pessoa = new Pessoa();
@@ -69,17 +70,12 @@
 
             $ids = Array();
             
-            // throw new Exception("Error Processing Request", 1);
-            
-            print_r($res);
-
             if($res['rows']==1){
-                echo $confTaxa->getId_configtaxa();
-                $idTaxa = $confTaxa->getId_configtaxa();
+                $idTaxa = $res['data'][0]->getId_configtaxa();
             }else if ($res['rows']== 0) {
                 return;               
             }else{
-                foreach ($res['data'] as $key => $value) {
+                foreach ($res['data'] as $key => $value) { // arrumar
                     if($key == 'id_configtaxa')
                         array_push($ids, $value);
                 }
@@ -88,14 +84,15 @@
                 $idTaxa = $ids[0];
             }
 
-            print_r($confTaxa);
+            $transacao = JsonController::json_class($json);
 
-            $transacao = JsonController::json_class($json, true);
-            $transacao->setId_investidor($investidor->getId_investidor());
-            $transacao->setId_configtaxa($idTaxa);
+            $transacao[0]->setId_investidor($investidor->getId_investidor());
+            $transacao[0]->setId_configtaxa($idTaxa);
+            $transacao[0]->setData(date_create()->format('Y-m-d'));
+            
 
             
-            return JsonController::class_json($transacao->insert());
+            return JsonController::class_json(Array($transacao[0]->insert()));
         }
 
     }

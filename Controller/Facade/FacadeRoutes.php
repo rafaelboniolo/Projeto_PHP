@@ -142,24 +142,16 @@
                return;
             }
 
-            
+            $arrayDados= JsonController::class_json($res['data']);
 
-            $arrayDados = Array();
-
-            $i=1;
-            foreach ($res['data'] as $dados) {
-               $arrayDados[$i] = JsonController::class_json($dados, 0);
-                $i++;
-            }
-
-            print_r(json_encode(Array("config"=>JsonController::getConfig($class, $i),"dados"=>$arrayDados)));
+            print_r(json_encode(Array("config"=>JsonController::getConfig($class[0], $res['rows']),"dados"=>$arrayDados)));
 
         }
 
         
 
         public static function depositar($json){
-            $class = JsonController::json_class($json, true);
+            $class = JsonController::getClassFromJson($json);
             $res = TransacaoController::depositar($json);
             print_r(json_encode(Array("config"=>JsonController::getConfig($class),"dados"=>$res)));
 
