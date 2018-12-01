@@ -171,12 +171,14 @@
         public static function listarMinhasAcoes($json){
             $class = JsonController::json_class($json, true);
             $acao = AcaoController::listarMinhasAcoes($json);
-            print_r(json_encode(Array("config"=>JsonController::getConfig($class),"dados"=>$acao)));
+
+
+            print_r(json_encode(Array("config"=>JsonController::getConfig($class[0], $acao['rows']),"dados"=>$acao['data'])));
         }
 
-        public static function venderAcao($json){
+        public static function venderAcoes($json){
             $class = JsonController::json_class($json, true);
-            $acao = AcaoController::venderAcao($json);
+            $acao = AcaoController::venderAcoes($json);
             print_r(json_encode(Array("config"=>JsonController::getConfig($class),"dados"=>$acao)));
         }
 

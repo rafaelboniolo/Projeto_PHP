@@ -61,13 +61,17 @@
 
             $acao = JsonController::json_class($json, true);
 
-            $acao->setId_aplicacoes($gestor->getId_aplicacoes());
-            $res = $acao->findall();
+           // print_r($acao);
+
+            $acao[0]->setId_gestor($gestor->getId_gestor());
+            $res = $acao[0]->findall();
+
+            //print_r($res);
 
             if($res['rows'] > 1)
-                return JsonController::class_json($acao, 0);
+                return Array("rows"=>$res['rows'], "data"=>JsonController::class_json($res['data']));
             else if($res['rows'] == 1)
-                return JsonController::class_json($acao);
+                return Array("rows"=>$res['rows'], JsonController::class_json($res['data'][0]));
             return;
         }
 
@@ -77,8 +81,10 @@
             
             $acao = JsonController::json_class($json, true);
 
+            print_r($acao);
+            
             $acao
-            ->setDatavenda("2018-11-30")
+            ->setDatavenda(date_create()->format('Y-m-d'))
             ->setStatus("VENDIDA")
             ->update();
 

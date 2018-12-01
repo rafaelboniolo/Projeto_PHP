@@ -81,8 +81,8 @@
         FacadeRoutes::listarminhasacoes(file_get_contents('php://input'));
     });
 
-    $app->route('/teste', function(){
-        FacadeRoutes::teste(file_get_contents('php://input'));
+    $app->route('/venderacoes', function(){
+        FacadeRoutes::venderAcoes(file_get_contents('php://input'));
     });
 
     
