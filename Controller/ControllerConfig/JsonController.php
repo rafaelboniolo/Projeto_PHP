@@ -62,16 +62,12 @@
         
         
 
-        private static function codeGenerate($class){
-            // gera um codigo de rastreio para o json, baseado na classe enviada
-            // da pra gerar um calculo com base no ASCII do nome da classe
-        }
-
+       
         //abre todo json vindo do front-end e extrai o token
         //a forma de extracao vai variar de acordo com a estrutura do json
         //baseado no json -> CLASS_JSON.json
         public static function extractToken($json){
-            return json_decode($json,true)['config']['token'];
+            return base64_decode(json_decode($json,true)['config']['token']);
         }
 
         //verifica se tem um json na requisicao

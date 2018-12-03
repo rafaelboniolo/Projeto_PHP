@@ -9,9 +9,7 @@
 
     class PessoaController{
 
-        // busca login e senha no banco de dados e retorna false ou o user
-        // se houver mais de 1 usuario com o msm login e senha retornamos falso pq n tem como identificar o usuario
-        // se nao houver usuario, eh pq o login ou a senha esta errado
+        
         public static function authenticate($login, $password){
         
             $user = new Pessoa();

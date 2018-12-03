@@ -31,12 +31,9 @@
                                     "cpf"=>$user->getNome()));
         }
 
-        //recebe um componente para gerar token, neste caso o cpf
-        // da pra fazer um calculo do cpf com a data atual e a hora, ai geramos um token que expira a cada hora, ou dia, a regra pode ser aplicada depois
-        // neste caso, por exempol soh retornamos 1032639976token 
+        
         private static function tokenGenerate($componentToken){
-            //formula matematica para gerar o token
-            return $componentToken;
+            return base64_encode($componentToken);
         }
 
         // usado para controlar a sessao e monitorar os acessos, 

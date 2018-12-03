@@ -52,7 +52,9 @@
     });
 
     $app->route('/login', function(){
-      FacadeRoutes::login(file_get_contents('php://input'));
+        echo "eu";
+        print_r($_SERVER['HTTP_BEARER']);
+    //   FacadeRoutes::login(file_get_contents('php://input'));
    });
    $app->route('/aiiim', function(){
       print_r(json_encode(Array("Nome"=>"Gabriel"))); // DO php para o insomnia
