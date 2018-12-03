@@ -21,9 +21,9 @@
 
         public static function login($json){
 
-            $user = json_decode($json,true)["dados"][0];
+            $user = json_decode($json,true)[0];
+            
             $sessionData = AuthController::authenticate($user['login'], $user['password']);    
-        
              if($sessionData['token']==''){
                 print_r(json_encode(Array('error'=>'login ou senha invalida')));
                 http_response_code(400);
@@ -37,23 +37,32 @@
         }
 
         public static function logout($json){
-            $token = JsonController::extractToken($json);
-            SessionController::close($token);
+            // $token = JsonController::extractToken($json);
+            // SessionController::close($token);
         } 
 
         public static function insert($json){
            
-            $class = JsonController::json_class($json);
+            $classes = JsonController::json_class($json);
 
-            $class[0]->insert();
+            $jsonClasses = Array();
+
             
-            if($class[0]->myId()!=""){
-                http_response_code(200);
-                print_r(json_encode(Array("config"=>JsonController::getConfig($class[0]),"dados"=>JsonController::class_json($class)))); //forma correta
-            }else{
-                http_response_code(400);
-                print_r(json_encode(Array("error"=>"insert error")));
-            }
+            foreach ($classes as $class) {
+                    $class->insert();
+                    if($class->myId()!=""){
+                        http_response_code(200);
+                        array_push($jsonClasses, $class);
+                    }else{
+                        http_response_code(400);
+                        // print_r($classes);
+                        print_r($json);
+                        print_r(json_encode(Array("error"=>"insert error")));
+                    }
+                }
+                
+            print_r(json_encode(JsonController::class_json($jsonClasses)));
+
         }
 
         public static function update($json){
@@ -128,7 +137,7 @@
         }
 
         public static function saquesDisponiveis($json){
-            $class = JsonController::json_class($json, true);
+            $class = JsonController::instanceClass();
             $res = TransacaoController::saquesDisponiveis($json);
             
             if($res['rows'] == 0){
@@ -151,17 +160,15 @@
         
 
         public static function depositar($json){
-            $class = JsonController::getClassFromJson($json);
-            $res = TransacaoController::depositar($json);
-            print_r(json_encode(Array("config"=>JsonController::getConfig($class),"dados"=>$res)));
+            
+            //$res = 
 
         }
 
 
         public static function comprarAcao($json){
             $acao = AcaoController::comprarAcao($json);
-            $class = JsonController::getClassFromJson($json);
-            print_r(json_encode(Array("config"=>JsonController::getConfig($class),"dados"=>$acao)));
+            print_r(json_encode(Array($acao)));
         }
 
 
@@ -169,11 +176,11 @@
 
 
         public static function listarMinhasAcoes($json){
-            $class = JsonController::json_class($json, true);
+
             $acao = AcaoController::listarMinhasAcoes($json);
 
 
-            print_r(json_encode(Array("config"=>JsonController::getConfig($class[0], $acao['rows']),"dados"=>$acao['data'])));
+            print_r(json_encode(Array($acao)));
         }
 
         public static function venderAcoes($json){

@@ -9,7 +9,7 @@
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\Facade\\FacadeRoutes.php");
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\ControllerConfig\\AuthController.php");
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\ControllerConfig\\JsonController.php");
-
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\TransacaoController.php");
     $app = new Router();
 
     //$hasJson = JsonController::hasJson(file_get_contents('php://input'));
@@ -52,9 +52,7 @@
     });
 
     $app->route('/login', function(){
-        echo "eu";
-        print_r($_SERVER['HTTP_BEARER']);
-    //   FacadeRoutes::login(file_get_contents('php://input'));
+        FacadeRoutes::login(file_get_contents('php://input'));
    });
    $app->route('/aiiim', function(){
       print_r(json_encode(Array("Nome"=>"Gabriel"))); // DO php para o insomnia
@@ -72,7 +70,7 @@
     });
     
     $app->route('/depositar', function(){
-        FacadeRoutes::depositar(file_get_contents('php://input'));
+        TransacaoController::depositar(file_get_contents('php://input'));
     });
     
     $app->route('/compraracao', function(){

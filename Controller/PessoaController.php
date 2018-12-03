@@ -14,12 +14,12 @@
         
             $user = new Pessoa();
 
-            $rows = $user
+            $res = $user
                     ->setLogin($login)
                     ->setSenha($password)
-                    ->findByAtributes()['rows'];
+                    ->findByAtributes();
                     
-            if($rows != 1) return false;
+            if($res['rows'] != 1) return false;
 
             //findByAtributes retorna um array de rows e data
             // porem como soh temos 1 usuario, n precisamos acessar pelo user['data'], pq alem de retornar o array, ele chama o popula

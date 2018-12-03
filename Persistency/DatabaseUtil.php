@@ -274,9 +274,11 @@
                 throw new Exception("Data não informado DatabaseUtil::populaAll", 1);
               
             $all = Array();
+            
+            $reflectionClass = new ReflectionClass(get_class($class));
 
             for ($i=0; $i < $data->num_rows ; $i++) { 
-                $obj = new $class();
+                $obj =  $reflectionClass->newInstance(new stdClass());
                 
                 DatabaseUtil::popula($obj, $data->fetch_array(), true);
                 

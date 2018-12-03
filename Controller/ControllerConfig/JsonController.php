@@ -20,42 +20,49 @@
 
         public static function json_class($json, $validateId=false){
             
-            $qtd = json_decode($json, true)['config']['dados'];
-            $dados = Array();
+            
 
-           for ( $i=0; $i < $qtd; $i++) { 
-                $class = JsonController::getClassFromJson($json);
-                $data = json_decode($json,true)['dados'][$i];
+            $class = JsonController::instanceClass();
+
+            $classes = Array();
+
+            foreach (json_decode($json,true) as $data) {
                 DatabaseUtil::popula($class, $data, $validateId); // set valores do array na classe 
-                array_push($dados, $class);
-           }
-           return $dados;
+                array_push($classes, $class);
+            }
+                
+
+           return $classes;
         }
 
-        public static function getClassFromJson($json){
-            
-            $className = json_decode($json, true)['config']['class']; 
-            
+
+
+
+        public static function instanceClass(){
+            $className = $_SERVER['HTTP_CLASS'];
             try{
                 $reflectionClass = new ReflectionClass($className); // encontrar a classe via Reflection
             }catch(ReflectionException $exception){
                 print_r(json_encode(Array("error"=>"Classe nao encontrada:".$className)));
-                throw new Exception("Classe nao encontrada! JsonController::jsonClass".$className, 1);
+                throw new Exception("Classe nao encontrada! JsonController::instance".$className, 1);
                 http_response_code(404);
                 return ;    
             }
             
-            return $reflectionClass->newInstance(new stdClass());
+            return $reflectionClass->newInstance();
         }
     
         
         public static function class_json($classes){
             $fieldsAndValues=Array();
+            if(!is_array($classes))
+                $classes = Array($classes);
+
+            
             foreach ($classes as $class) {
                 $fav = DatabaseUtil::collectFieldsAndCollectValues($class, true);   
                 array_push($fieldsAndValues, $fav);
-            }
-               
+            }               
             return $fieldsAndValues;
         }
         
@@ -66,25 +73,14 @@
         //abre todo json vindo do front-end e extrai o token
         //a forma de extracao vai variar de acordo com a estrutura do json
         //baseado no json -> CLASS_JSON.json
-        public static function extractToken($json){
-            return base64_decode(json_decode($json,true)['config']['token']);
+        public static function extractToken(){
+            return json_decode(base64_decode($_SERVER['HTTP_BEARER']), true);
         }
 
-        //verifica se tem um json na requisicao
-        public static function hasJson($json){
-            
-            if(!isset($json)||$json==""){
-                print_r(json_encode(Array('error'=>'no json provider')));
-                http_response_code(400);
-                return false;
-            }
-            return true;
 
-        }
-
-        public static function getConfig($class, $dados=1){
-            return Array("token"=>"","class"=>get_class($class),"dados"=>$dados);
-        }
+        // public static function getConfig(){
+        //     return Array("token"=>"","class"=>get_class($class),"dados"=>$dados);
+        // }
         
         
         

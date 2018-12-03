@@ -14,25 +14,22 @@
     class AcaoController{
 
         public static function comprarAcao($json){
-            $token = JsonController::extractToken($json);
+            $token = JsonController::extractToken();
             
-            $pessoa = new Pessoa();
-            $pessoa->setCpf($token);
-            $pessoa->findByAtributes();
-
-
+            $id_pessoa = $token['id_pessoa'];
+            
             
             $gestor = new Gestor();
-            $gestor->setId_pessoa($pessoa->getId_pessoa()); /// id pessoa
+            $gestor->setId_pessoa($id_pessoa); /// id pessoa
             $gestor->findByAtributes();
             
-           
-            
-            $acoes = Array();
+            $acoes = JsonController::json_class($json, true);
 
-            foreach (JsonController::json_class($json, true) as $acao) {
+//            print_r($acoes);
 
-                //print_r($acao);
+            foreach ($acoes as $acao) {
+
+
 
                 $acao->setId_gestor($gestor->getId_gestor())
                 ->setDatacompra(date_create()->format('Y-m-d'))
@@ -49,30 +46,20 @@
 
         public static function listarMinhasAcoes($json){
             
-            $token = JsonController::extractToken($json);
+            $token = JsonController::extractToken();
             
-            $pessoa = new Pessoa();
-            $pessoa->setCpf($token);
-            $pessoa->findByAtributes();
-
+            $id_pessoa = $token['id_pessoa'];
+            
+            
             $gestor = new Gestor();
-            $gestor->setId_pessoa($pessoa->getId_pessoa()); /// id pessoa
+            $gestor->setId_pessoa($id_pessoa); /// id pessoa
             $gestor->findByAtributes();
+            
+            $acoes = JsonController::json_class($json, true);
 
-            $acao = JsonController::json_class($json, true);
+            
+//           
 
-           // print_r($acao);
-
-            $acao[0]->setId_gestor($gestor->getId_gestor());
-            $res = $acao[0]->findall();
-
-            //print_r($res);
-
-            if($res['rows'] > 1)
-                return Array("rows"=>$res['rows'], "data"=>JsonController::class_json($res['data']));
-            else if($res['rows'] == 1)
-                return Array("rows"=>$res['rows'], JsonController::class_json($res['data'][0]));
-            return;
         }
 
         public static function venderAcoes($json){

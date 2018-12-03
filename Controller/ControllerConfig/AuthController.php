@@ -22,8 +22,11 @@
             if(!isset($user) || !$user)
                 return false;
             
-            $token = AuthController::tokenGenerate($user->getCpf());
+                
+           
+            $token = AuthController::tokenGenerate(json_encode(JsonController::class_json($user)[0]));
             
+
             return Array('token' => $token, 
                         'user' => Array(
                                     "id_pessoa"=>$user->getId_Pessoa(),
@@ -36,14 +39,14 @@
             return base64_encode($componentToken);
         }
 
-        // usado para controlar a sessao e monitorar os acessos, 
-        // todo json, passará por este filtro
-        // se existir o token na sessao, retorna true, senao false
-        // valida se existe json na request
-        public static function monitorAcess($json){
-            $token = JsonController::extractToken($json);
-            return SessionController::validateSession($token);
-        }
+        // // usado para controlar a sessao e monitorar os acessos, 
+        // // todo json, passará por este filtro
+        // // se existir o token na sessao, retorna true, senao false
+        // // valida se existe json na request
+        // public static function monitorAcess($json){
+        //     $token = JsonController::extractToken($json);
+        //     return SessionController::validateSession($token);
+        // }
     }
 
 ?>
