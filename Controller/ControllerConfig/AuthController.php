@@ -31,7 +31,7 @@
                         'user' => Array(
                                     "id_pessoa"=>$user->getId_Pessoa(),
                                     "nome"=>$user->getNome(),
-                                    "cpf"=>$user->getNome()));
+                                    "tipo"=>$user->getTipo()));
         }
 
         

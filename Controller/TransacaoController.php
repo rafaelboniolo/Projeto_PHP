@@ -40,23 +40,24 @@
             
             //$pessoa = json_decode(base64_decode($token), true);
             
+
             $investidor = new Investidor();
-            $investidor->setId_pessoa($pessoa['id_pessoa']); /// id pessoa
+            $investidor->setId_pessoa($token['id_pessoa']); /// id pessoa
             $investidor->findByAtributes();
 
-            $transacao = JsonController::getClassFromJson($json);
-            $transacao->setId_investidor($investidor->getId_investidor());
+            $class = JsonController::instanceClass();
+            
+            $class->setId_investidor($investidor->getId_investidor());
             
 
-            return $transacao->findByAtributes();
+            return $class->findByAtributes();
         }
 
         public static function depositar($json){
 
 
             $token = JsonController::extractToken();
-            print_r($token);
-
+            
             $investidor = new Investidor();
             $investidor->setId_pessoa($token['id_pessoa']); /// id pessoa
             $investidor->findByAtributes();
@@ -65,13 +66,18 @@
             $confTaxa->setId_configtaxa(1)->findById();
 
             
-            $transacao = JsonController::json_class($json);
+            $transacao = JsonController::json_class($json, true)[0];
 
+           
+            
+            $mysqlDate = explode('T', $transacao->getDatasaque())[0];
+            
+            $transacao->setDatasaque($mysqlDate);
             $transacao->setId_investidor($investidor->getId_investidor());
-            $transacao->setId_configtaxa($idTaxa);
+            $transacao->setId_configtaxa($confTaxa->getId_configtaxa());
             $transacao->setData(date_create()->format('Y-m-d'));
             
-            return JsonController::class_json($transacao->insert());
+             return JsonController::class_json($transacao->insert());
         }
 
     }

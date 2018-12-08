@@ -70,7 +70,7 @@
     });
     
     $app->route('/depositar', function(){
-        TransacaoController::depositar(file_get_contents('php://input'));
+        FacadeRoutes::depositar(file_get_contents('php://input'));
     });
     
     $app->route('/compraracao', function(){

@@ -45,7 +45,7 @@
             
             if($data['data']->num_rows == 1){
                 DatabaseUtil::popula($class ,$data['data']->fetch_array(),true);
-                return Array('rows'=>$data['data']->num_rows, 'data'=>$class);
+                return Array('rows'=>$data['data']->num_rows, 'data'=>Array($class));
             }
             if($data['data']->num_rows > 1)
                return Array('rows'=>$data['data']->num_rows, 'data'=>DatabaseUtil::populaAll($class ,$data['data'], true));
@@ -82,6 +82,8 @@
             $data = ConnectionMysql::query(
                 " insert into $table ($fields) values ($values); "
             );
+
+            // echo " insert into $table ($fields) values ($values); ";
 
             DatabaseUtil::setIdAfterInsert($class ,$data['id']);
          

@@ -23,25 +23,18 @@
             $gestor->setId_pessoa($id_pessoa); /// id pessoa
             $gestor->findByAtributes();
             
-            $acoes = JsonController::json_class($json, true);
-
-//            print_r($acoes);
-
-            foreach ($acoes as $acao) {
-
-
-
-                $acao->setId_gestor($gestor->getId_gestor())
-                ->setDatacompra(date_create()->format('Y-m-d'))
-                ->setDatavenda(date_create()->format('Y-m-d'))
-                ->setStatus('ATIVO');
-
-                $acao->insert();
-                array_push($acoes, $acao);
-            }
             
 
-            return JsonController::class_json($acoes);
+            $acao = JsonController::json_class($json, true)[0];
+
+            $acao->setId_gestor($gestor->getId_gestor())
+            ->setDatacompra(date_create()->format('Y-m-d'))
+            ->setDatavenda('"+null+"')
+            ->setStatus('ATIVO');
+            
+            $acao->insert();
+
+            return JsonController::class_json($acao);
         }
 
         public static function listarMinhasAcoes($json){
@@ -55,9 +48,13 @@
             $gestor->setId_pessoa($id_pessoa); /// id pessoa
             $gestor->findByAtributes();
             
-            $acoes = JsonController::json_class($json, true);
+            $acao = JsonController::json_class($json, true)[0];
+            $acao->setId_gestor($gestor->getId_gestor());
 
-            
+
+            // print_r($acao->findByAtributes()['data'][0]);
+
+            return $acao->findByAtributes()['data'];
 //           
 
         }
@@ -66,23 +63,40 @@
             
             $token = JsonController::extractToken($json);
             
-            $acao = JsonController::json_class($json, true);
-
-            print_r($acao);
-            
-            $acao
-            ->setDatavenda(date_create()->format('Y-m-d'))
-            ->setStatus("VENDIDA")
-            ->update();
+            $acao = JsonController::json_class($json, true)[0];
 
             $pessoa = new Pessoa();
-            $pessoa->setCpf($token);
+            $pessoa->setId_pessoa($token['id_pessoa']);
             $pessoa->findByAtributes();
 
+            $acao2 = new Acao();
+
+            
             $gestor = new Gestor();
             $gestor->setId_pessoa($pessoa->getId_pessoa()); /// id pessoa
             $gestor->findByAtributes();
-                
+            
+            print_r($acao2
+            ->setId_gestor($gestor->getId_gestor())
+            ->setStatus('ATIVO')
+            ->findByAtributes()['data'][0]);
+            
+            if($acao2->getId_acao() == ""){
+                http_response_code(404);
+                return Array("erro"=>"nao existe acoes para estas configuracoes");
+            }
+
+            $acao2
+            ->setDatavenda($acao->getDatavenda())
+            ->setValorvenda($acao->getValorvenda())
+            ->setRendimento($acao->getValorvenda() - $acao2->getValorcompra())
+            ->setStatus("VENDIDA")
+            ->update();
+            
+            
+            
+            
+            
             return JsonController::class_json($acao);
         }
     }

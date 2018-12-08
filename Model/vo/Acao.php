@@ -153,6 +153,10 @@ class Acao extends Persistency{
         parent::findById_($this);
         return $this;
     }
+    public function findByAtributes(){
+        return parent::findByAtributes_($this);
+        
+    }
 
     public function insert(){
         parent::insert_($this);

@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `utfundos`.`tb_acao` (
   `status` ENUM('ATIVO', 'VENDIDA') NULL,
   `valorcompra` VARCHAR(45) NULL,
   `datacompra` DATE NULL,
-  `datavenda` DATE NULL,
+  `datavenda` DATE NULL default null,
   PRIMARY KEY (`id_acao`),
   CONSTRAINT `fk_tb_acao_tb_gestor1`
     FOREIGN KEY (`id_gestor`)

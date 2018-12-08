@@ -205,7 +205,7 @@
 
                 $string = substr($string, 0, strlen($string)-3);
 
-                echo $string;
+                // echo $string;
             }
             
 
@@ -278,7 +278,7 @@
             $reflectionClass = new ReflectionClass(get_class($class));
 
             for ($i=0; $i < $data->num_rows ; $i++) { 
-                $obj =  $reflectionClass->newInstance(new stdClass());
+                $obj =  $reflectionClass->newInstance();
                 
                 DatabaseUtil::popula($obj, $data->fetch_array(), true);
                 

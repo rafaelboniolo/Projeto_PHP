@@ -140,20 +140,19 @@
             $class = JsonController::instanceClass();
             $res = TransacaoController::saquesDisponiveis($json);
             
-            if($res['rows'] == 0){
-                http_response_code(200);
-                return;
-            }
 
-            if($res['rows'] == 1){
-               $dados = JsonController::class_json($res['data']);
-               print_r(json_encode(Array("config"=>JsonController::getConfig($class),"dados"=>$dados)));
-               return;
-            }
+            
+             if($res['rows'] == 0){
+                 http_response_code(404);
+                 return;
+             }
 
+            
             $arrayDados= JsonController::class_json($res['data']);
 
-            print_r(json_encode(Array("config"=>JsonController::getConfig($class[0], $res['rows']),"dados"=>$arrayDados)));
+            //print_r($arrayDados);
+
+            print_r(json_encode($arrayDados));
 
         }
 
@@ -161,8 +160,9 @@
 
         public static function depositar($json){
             
-            //$res = 
+            $res = TransacaoController::depositar($json);
 
+            print_r(json_encode(Array($res)));
         }
 
 
@@ -177,16 +177,14 @@
 
         public static function listarMinhasAcoes($json){
 
-            $acao = AcaoController::listarMinhasAcoes($json);
-
-
-            print_r(json_encode(Array($acao)));
+            $acoes = AcaoController::listarMinhasAcoes($json);
+            print_r(json_encode(JsonController::class_json($acoes)));
         }
 
         public static function venderAcoes($json){
-            $class = JsonController::json_class($json, true);
+     
             $acao = AcaoController::venderAcoes($json);
-            print_r(json_encode(Array("config"=>JsonController::getConfig($class),"dados"=>$acao)));
+            print_r(json_encode($acao));
         }
 
 

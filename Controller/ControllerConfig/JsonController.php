@@ -20,7 +20,7 @@
 
         public static function json_class($json, $validateId=false){
             
-            
+       // print_r($json);    
 
             $class = JsonController::instanceClass();
 
