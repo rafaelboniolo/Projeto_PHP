@@ -259,7 +259,7 @@
             throw new Exception("Data não informado DatabaseUtil::popula", 1);
 
             $methods = DatabaseUtil::selectMethodsForClass($class, 'set', $validateId);
-            
+           // print_r($methods);
             foreach ($methods as $method) {
                $method->invoke($class, $data[strtolower(substr($method->name,3))]);
             }

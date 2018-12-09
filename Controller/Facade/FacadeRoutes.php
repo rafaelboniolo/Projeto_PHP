@@ -110,23 +110,27 @@
         }
         
         public static function findAll($json){
-            $class = JsonController::json_class($json, true);
-            $res = $class->findAll();
+           
+            $class = JsonController::json_class($json)[0];
+            
+           print_r($class->findall());
+            $res = $class->findall();
 
-            if($res['rows'] == 0){
-                http_response_code(404);
-                return;
-            }
 
-            $arrayDados = Array();
+            // if($res['rows'] == 0){
+            //     http_response_code(404);
+            //     return;
+            // }
 
-            $i=0;
-            foreach ($res['data'] as $dados) {
-               $arrayDados[$i] = JsonController::class_json($dados);
-                $i++;
-            }
+            // $arrayDados = Array();
 
-            print_r(json_encode(Array("config"=>JsonController::getConfig($class, $i),"dados"=>$arrayDados)));
+            // $i=0;
+            // foreach ($res['data'] as $dados) {
+            //    $arrayDados[$i] = JsonController::class_json($dados);
+            //     $i++;
+            // }
+
+            // print_r(json_encode($arrayDados));
         }
 
         

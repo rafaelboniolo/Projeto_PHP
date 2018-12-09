@@ -66,7 +66,8 @@
                 " select * from $table where 1=1  $this->where $this->groupBy $this->orderBy ;"
             );
 
-            return Array('rows'=>$data-['data']>num_rows, 'data'=>DatabaseUtil::populaAll($class ,$data['data']));
+            // print_r($data['data']->num_rows);
+            return Array('rows'=>($data['data']->num_rows), 'data'=>DatabaseUtil::populaAll($class ,$data['data']));
         
         }
         
