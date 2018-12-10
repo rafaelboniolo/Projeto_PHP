@@ -43,9 +43,12 @@
 
             $investidor = new Investidor();
             $investidor->setId_pessoa($token['id_pessoa']); /// id pessoa
+
+          //  print_r($json);
+
             $investidor->findByAtributes();
 
-            $class = JsonController::instanceClass();
+            $class = JsonController::json_class($json)[0];
             
             $class->setId_investidor($investidor->getId_investidor());
             

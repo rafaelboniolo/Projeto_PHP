@@ -143,6 +143,13 @@
             parent::delete_($this);
             return $this;
         }
+
+        public function where($where){
+            parent::where($where);
+        }
+        public function groupBy($groupBy){
+            parent::groupBy($groupBy);
+        }
     }
     
 
