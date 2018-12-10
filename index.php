@@ -93,6 +93,10 @@
         FacadeRoutes::ganhosTotais(file_get_contents('php://input'));
     });
     
+    $app->route('/dadosgestor', function(){
+        FacadeRoutes::dadosGestor(file_get_contents('php://input'));
+    });
+    
     
 
 

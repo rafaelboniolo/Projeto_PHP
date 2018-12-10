@@ -194,6 +194,15 @@
            
             print_r(json_encode($total));
         }
+        
+        public static function dadosGestor($json){
+           
+            $res = PessoaController::dadosGestor($json);
+            print_r(json_encode($res));
+
+        }
+
+        
 
         
 
