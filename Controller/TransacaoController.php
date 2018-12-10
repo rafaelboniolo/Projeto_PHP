@@ -10,26 +10,34 @@
         
         public static function sacar($json){
             
-            $user = SessionController::restoreUserByToken($json);
+            $transacao = JsonController::json_class($json, true)[0];
+            $transacao->findById();
 
-            $transacao = JsonController::json_class($json, true);
-            $transacao->find();
-            
+            $token = JsonController::extractToken();
+
             $investidor = new Investidor();
-            $investidor->findByAtributes($user['id_pessoa']); /// id pessoa
-            $dataSaque = $transacao->getDatasaque();
+            $investidor = $investidor->findByAtributes($token['id_pessoa'])['data'][0]; /// id pessoa
+          
 
-            if($dataSaque < CURRENT_DATE){
-                $saldoAtual = $investidor->getSaldo();
-                $investidor->setSaldo($saldoAtual+($transacao->getValor()*0.0003)); // atualizando 0,5 do lucro para o investidor, falta add 0.5 para o fundo
+            $format = 'Y-m-d';
+            $dataSaque = DateTime::createFromFormat($format, $transacao->getDatasaque());
+            $dataDeposito = DateTime::createFromFormat($format, $transacao->getData());
+            $dataAtual = DateTime::createFromFormat($format, date_create()->format($format));
+            
+            
+            $diasDeLucro   = date_diff($dataDeposito, $dataAtual)->days;
+
+            $saldoAtual = $investidor->getSaldo();
+
+            if($dataAtual <= $dataSaque ){
+                $investidor->setSaldo($saldoAtual+($transacao->getValor()*0.01666667*$diasDeLucro)); // atualizando 0,5 do lucro para o investidor, falta add 0.5 para o fundo
             }else{
-                $dias = date_diff(CURRENT_DATE,  $transacao->getDatasaque());
-                $investidor->setSaldo($saldoAtual+($transacao->getValor()*0.0006));// 1% de lucro para o investidor
+                $investidor->setSaldo($saldoAtual+($transacao->getValor()*0.03333333*$diasDeLucro));// 1% de lucro para o investidor
             }
 
             $investidor->update();
             $transacao->setTipo("-");
-            $transacao->update();
+            return $transacao->update();
 
         }
 

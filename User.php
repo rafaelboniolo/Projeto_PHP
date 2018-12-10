@@ -6,21 +6,26 @@
   //  require_once (realpath(dirname(__FILE__) ). "\\Model\\vo\\Investidor.php");
    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\ControllerConfig\\JsonController.php");   
 
-     $p1 = new Pessoa();
+    //  $p1 = new Pessoa();
 
-    $p1
-        ->setNome("teste")
-        ->setEmail("asasas")
-        ->setCpf("teste")
-        ->setRg("teste")
-        ->setLogin("teste")
-        ->setSenha("teste")
-        ->setTipo(Pessoa::INV)
-        ->insert();
+    // $p1
+    //     ->setNome("teste")
+    //     ->setEmail("asasas")
+    //     ->setCpf("teste")
+    //     ->setRg("teste")
+    //     ->setLogin("teste")
+    //     ->setSenha("teste")
+    //     ->setTipo(Pessoa::INV)
+    //     ->insert();
 
+    $format = 'Y-m-d';
+    // $date = DateTime::createFromFormat($format, '2009-02-15');
+    // $datew = DateTime::createFromFormat($format, '2018-02-15');
     
-    
 
+    // echo(date_diff($date, $datew)->days);
+
+    print_r(date_create()->format($format));
 
   //   //JsonController::class_json($p1,0);
   //   // //     $p1 = new Pessoa();

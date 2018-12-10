@@ -76,10 +76,10 @@
             $gestor->setId_pessoa($pessoa->getId_pessoa()); /// id pessoa
             $gestor->findByAtributes();
             
-            print_r($acao2
+            $acao2 = $acao2
             ->setId_gestor($gestor->getId_gestor())
             ->setStatus('ATIVO')
-            ->findByAtributes()['data'][0]);
+            ->findByAtributes()['data'][0];
             
             if($acao2->getId_acao() == ""){
                 http_response_code(404);
@@ -87,7 +87,7 @@
             }
 
             $acao2
-            ->setDatavenda($acao->getDatavenda())
+            ->setDatavenda(date_create()->format('Y-m-d'))
             ->setValorvenda($acao->getValorvenda())
             ->setRendimento($acao->getValorvenda() - $acao2->getValorcompra())
             ->setStatus("VENDIDA")

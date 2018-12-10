@@ -129,9 +129,8 @@
 
         
         public static function sacar($json){
-            $transacao = JsonController::json_class($json, true);
-            $transacao->find();
-            TransacaoController::sacar($transacao);
+            $res = TransacaoController::sacar($json);
+            //print_r(json_encode($res));
         }
 
         public static function saquesDisponiveis($json){
@@ -145,10 +144,8 @@
                  return;
              }
 
-            
+             
             $arrayDados= JsonController::class_json($res['data']);
-
-            //print_r($arrayDados);
 
             print_r(json_encode($arrayDados));
 
@@ -192,7 +189,9 @@
         }
 
         public static function ganhosTotais($json){
+           
             $total = AdministracaoController::ganhosTotais($json);
+           
             print_r(json_encode($total));
         }
 
