@@ -85,7 +85,13 @@
         FacadeRoutes::venderAcoes(file_get_contents('php://input'));
     });
 
+    $app->route('/fundodisponivel', function(){
+        FacadeRoutes::fundoDisponivel(file_get_contents('php://input'));
+    });
     
+    $app->route('/ganhostotais', function(){
+        FacadeRoutes::ganhosTotais(file_get_contents('php://input'));
+    });
     
     
 

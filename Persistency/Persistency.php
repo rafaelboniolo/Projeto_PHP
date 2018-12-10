@@ -84,7 +84,7 @@
                 " insert into $table ($fields) values ($values); "
             );
 
-            // echo " insert into $table ($fields) values ($values); ";
+            echo " insert into $table ($fields) values ($values); ";
 
             DatabaseUtil::setIdAfterInsert($class ,$data['id']);
          

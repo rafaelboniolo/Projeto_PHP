@@ -13,6 +13,7 @@
 
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\TransacaoController.php");
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\AcaoController.php");
+    require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\AdministracaoController.php");
 
 
     // facade é um padrao de projeto que oculta complexidade
@@ -113,24 +114,17 @@
            
             $class = JsonController::json_class($json)[0];
             
-           print_r($class->findall());
+        //    print_r($class->findall());
             $res = $class->findall();
 
 
-            // if($res['rows'] == 0){
-            //     http_response_code(404);
-            //     return;
-            // }
+            if($res['rows'] == 0){
+                http_response_code(404);
+                return;
+            }
 
-            // $arrayDados = Array();
 
-            // $i=0;
-            // foreach ($res['data'] as $dados) {
-            //    $arrayDados[$i] = JsonController::class_json($dados);
-            //     $i++;
-            // }
-
-            // print_r(json_encode($arrayDados));
+            print_r(json_encode(JsonController::class_json(($res['data']))));
         }
 
         
@@ -191,6 +185,16 @@
             print_r(json_encode($acao));
         }
 
+
+        public static function fundoDisponivel($json){
+            $total = AdministracaoController::fundoDisponivel($json);
+            print_r(json_encode($total));
+        }
+
+        public static function ganhosTotais($json){
+            $total = AdministracaoController::ganhosTotais($json);
+            print_r(json_encode($total));
+        }
 
         
 
