@@ -152,7 +152,7 @@
 
         public static function comprarAcao($json){
             $acao = AcaoController::comprarAcao($json);
-            print_r(json_encode(Array($acao)));
+            print_r(json_encode(($acao)));
         }
 
 
@@ -162,6 +162,7 @@
         public static function listarMinhasAcoes($json){
 
             $acoes = AcaoController::listarMinhasAcoes($json);
+
             print_r(json_encode(JsonController::class_json($acoes)));
         }
 

@@ -48,9 +48,11 @@
             $gestor->setId_pessoa($id_pessoa); /// id pessoa
             $gestor->findByAtributes();
             
+
+            
             $acao = JsonController::json_class($json, true)[0];
             $acao->setId_gestor($gestor->getId_gestor());
-
+            
 
             return $acao->findByAtributes()['data'];
 
@@ -62,6 +64,7 @@
             
             $acao = JsonController::json_class($json, true)[0];
 
+            
             $pessoa = new Pessoa();
             $pessoa->setId_pessoa($token['id_pessoa']);
             $pessoa->findByAtributes();
@@ -76,6 +79,7 @@
             $acao2 = $acao2
             ->setId_gestor($gestor->getId_gestor())
             ->setStatus('ATIVO')
+            ->setDescricao($acao->getDescricao())
             ->findByAtributes()['data'][0];
             
             if($acao2->getId_acao() == ""){
