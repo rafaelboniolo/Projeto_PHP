@@ -15,6 +15,8 @@
         private $valor;
         private $status;
         private $datasaque;
+        private $dataprevistasaque;
+        private $rendimento;
         
         public function getId_transacao()
         {
@@ -111,6 +113,33 @@
 
                 return $this;
         }
+
+        
+        public function getDataprevistasaque()
+        {
+                return $this->dataprevistasaque;
+        }
+
+        public function setDataprevistasaque($dataprevistasaque)
+        {
+                $this->dataprevistasaque = $dataprevistasaque;
+
+                return $this;
+        }
+
+        public function getRendimento()
+        {
+                return $this->rendimento;
+        }
+
+        public function setRendimento($rendimento)
+        {
+                $this->rendimento = $rendimento;
+
+                return $this;
+        }
+
+
 
         public function myId(){
             return $this->getId_transacao();

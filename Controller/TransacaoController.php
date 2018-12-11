@@ -36,7 +36,9 @@
             }
 
             $investidor->update();
+            $transacao->setDatasaque(date_create()->format($format));
             $transacao->setTipo("-");
+            $transacao->setRendimento($investidor->getSaldo() - $saldoAtual);
             return $transacao->update();
 
         }
@@ -81,14 +83,17 @@
 
            
             
-            $mysqlDate = explode('T', $transacao->getDatasaque())[0];
+            $mysqlDate = explode('T', $transacao->getDataprevistasaque())[0];
             
-            $transacao->setDatasaque($mysqlDate);
+            $transacao->setDataprevistasaque($mysqlDate);
+            $transacao->setDatasaque('"+null+"');
+            $transacao->setRendimento(0);
             $transacao->setId_investidor($investidor->getId_investidor());
             $transacao->setId_configtaxa($confTaxa->getId_configtaxa());
             $transacao->setData(date_create()->format('Y-m-d'));
             
-             return JsonController::class_json($transacao->insert());
+            
+            return JsonController::class_json($transacao->insert());
         }
 
     }
