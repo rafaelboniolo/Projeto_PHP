@@ -1,7 +1,7 @@
 <?php
 
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\PROTECT_PROJECT.php");
-    //if(!PROTECTED_PROJECT::ANALYZE()) return;
+    if(!PROTECTED_PROJECT::ANALYZE()) return;
 
     class DatabaseUtil{
 
@@ -17,7 +17,7 @@
                 }
             }
 
-            return($mysqlData);     // retorno do array associativo com as configurações do BD
+            return($mysqlData);// retorno do array associativo com as configurações do BD
         }
 
 
@@ -46,7 +46,7 @@
         }
 
         // extrai os atributos para persistencia da classe
-        // atraves da reflexão, encontrar os metodos de get e extrai o nome dos atributos de lá
+        // atraves da reflexão, encontra os metodos de get e extrai o nome dos atributos de lá
         public static function collectFields($class, $validateId=false){
 
             $nameId = DatabaseUtil::classToIdTable($class);
@@ -205,7 +205,6 @@
 
                 $string = substr($string, 0, strlen($string)-3);
 
-                // echo $string;
             }
             
 
@@ -259,7 +258,7 @@
             throw new Exception("Data não informado DatabaseUtil::popula", 1);
 
             $methods = DatabaseUtil::selectMethodsForClass($class, 'set', $validateId);
-           // print_r($methods);
+            
             foreach ($methods as $method) {
                $method->invoke($class, $data[strtolower(substr($method->name,3))]);
             }

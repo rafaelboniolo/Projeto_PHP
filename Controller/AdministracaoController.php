@@ -36,12 +36,9 @@
             ->setStatus("VENDIDA")
             ->findByAtributes()['data'];
 
-          // print_r($acoes);
             $ganhos = Array();
 
             foreach ($acoes as $acao) {
-                
-
                 $mes = explode("-", $acao->getDatacompra())[1];
 
                 if(!isset($ganhos["$mes"]))
@@ -50,7 +47,6 @@
                 $ganhos["$mes"] += $acao->getRendimento();
                 
             }
-
              return $ganhos;
 
         }

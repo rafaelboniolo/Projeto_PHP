@@ -1,8 +1,4 @@
 <?php
-//header("Access-Control-Allow-Origin:  {$_SERVER['HTTP_ORIGIN']}");
-//header("Access-Control-Allow-Origin: *");
-//header("Access-Control-Allow-Headers: *");
-//header("Access-Control-Allow-Methods: PUT, GET, POST");
 
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\PROTECT_PROJECT.php");
     if(!PROTECTED_PROJECT::ANALYZE()) return;
@@ -16,8 +12,7 @@
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Controller\\AdministracaoController.php");
 
 
-    // facade é um padrao de projeto que oculta complexidade
-    // apenas deixa o index.php limpo e facil de ler
+    
     class FacadeRoutes{
 
         public static function login($json){
@@ -32,7 +27,6 @@
     
             http_response_code(200);
 
-            //SessionController::open($sessionData);
     
             print_r(json_encode(Array('token'=>$sessionData['token'], 'user'=>$sessionData['user'])));
         }
@@ -56,7 +50,6 @@
                         array_push($jsonClasses, $class);
                     }else{
                         http_response_code(400);
-                        // print_r($classes);
                         print_r($json);
                         print_r(json_encode(Array("error"=>"insert error")));
                     }
@@ -71,7 +64,6 @@
             $class->update();
 
             http_response_code(200);
-            //print_r(JsonController::class_json($class));
         }
         
         public static function delete($json){
@@ -114,15 +106,12 @@
            
             $class = JsonController::json_class($json)[0];
             
-        //    print_r($class->findall());
             $res = $class->findall();
-
 
             if($res['rows'] == 0){
                 http_response_code(404);
                 return;
             }
-
 
             print_r(json_encode(JsonController::class_json(($res['data']))));
         }
@@ -130,7 +119,7 @@
         
         public static function sacar($json){
             $res = TransacaoController::sacar($json);
-            //print_r(json_encode($res));
+            print_r(json_encode($res));
         }
 
         public static function saquesDisponiveis($json){

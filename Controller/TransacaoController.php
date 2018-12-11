@@ -30,7 +30,7 @@
             $saldoAtual = $investidor->getSaldo();
 
             if($dataAtual <= $dataSaque ){
-                $investidor->setSaldo($saldoAtual+($transacao->getValor()*0.01666667*$diasDeLucro)); // atualizando 0,5 do lucro para o investidor, falta add 0.5 para o fundo
+                $investidor->setSaldo($saldoAtual+($transacao->getValor()*0.01666667*$diasDeLucro)); // atualizando 0,5 do lucro para o investidor
             }else{
                 $investidor->setSaldo($saldoAtual+($transacao->getValor()*0.03333333*$diasDeLucro));// 1% de lucro para o investidor
             }
@@ -48,21 +48,13 @@
             
             $token = JsonController::extractToken();
             
-            //$pessoa = json_decode(base64_decode($token), true);
-            
-
             $investidor = new Investidor();
             $investidor->setId_pessoa($token['id_pessoa']); /// id pessoa
-
-          //  print_r($json);
-
             $investidor->findByAtributes();
 
             $class = JsonController::json_class($json)[0];
-            
             $class->setId_investidor($investidor->getId_investidor());
             
-
             return $class->findByAtributes();
         }
 

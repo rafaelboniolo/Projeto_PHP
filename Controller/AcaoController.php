@@ -52,10 +52,7 @@
             $acao->setId_gestor($gestor->getId_gestor());
 
 
-            // print_r($acao->findByAtributes()['data'][0]);
-
             return $acao->findByAtributes()['data'];
-//           
 
         }
 
@@ -92,10 +89,6 @@
             ->setRendimento($acao->getValorvenda() - $acao2->getValorcompra())
             ->setStatus("VENDIDA")
             ->update();
-            
-            
-            
-            
             
             return JsonController::class_json($acao);
         }

@@ -3,7 +3,6 @@
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\PROTECT_PROJECT.php");
     if(!PROTECTED_PROJECT::ANALYZE()) return;
 
-    // classe responsavel pelas operações no banco de forma dinâmica
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Persistency\\DatabaseUtil.php");
     require_once ("C:\\xampp\\htdocs\\Projeto_PHP\\Persistency\\ConnectionMysql.php");
 
@@ -66,7 +65,6 @@
                 " select * from $table where 1=1  $this->where $this->groupBy $this->orderBy ;"
             );
 
-            // print_r($data['data']->num_rows);
             return Array('rows'=>($data['data']->num_rows), 'data'=>DatabaseUtil::populaAll($class ,$data['data']));
         
         }

@@ -20,8 +20,6 @@
 
         public static function json_class($json, $validateId=false){
             
-       // print_r($json);    
-
             $class = JsonController::instanceClass();
 
             $classes = Array();
@@ -66,23 +64,9 @@
             return $fieldsAndValues;
         }
         
-        
-        
-
-       
-        //abre todo json vindo do front-end e extrai o token
-        //a forma de extracao vai variar de acordo com a estrutura do json
-        //baseado no json -> CLASS_JSON.json
         public static function extractToken(){
             return json_decode(base64_decode($_SERVER['HTTP_BEARER']), true);
         }
-
-
-        // public static function getConfig(){
-        //     return Array("token"=>"","class"=>get_class($class),"dados"=>$dados);
-        // }
-        
-        
         
     }
 

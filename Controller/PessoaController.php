@@ -23,9 +23,6 @@
                     
             if($res['rows'] != 1) return false;
 
-            //findByAtributes retorna um array de rows e data
-            // porem como soh temos 1 usuario, n precisamos acessar pelo user['data'], pq alem de retornar o array, ele chama o popula
-            // ou seja, $user['rows'] =  1, $user['data'] = $user, podemos omitir o 'data' neste caso
             return $user;
         }
 
